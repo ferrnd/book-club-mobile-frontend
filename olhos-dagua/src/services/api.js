@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
 export default function conto() {
-    const [nome_pt, setNomeconto] = useState('');
+    const [nome, setNomeconto] = useState('');
     const [conto, setconto] = useState(null);
     const [loading, setLoading] = useState(false);
 
     async function buscarconto() {
-        if (!nome_pt.trim()) {
+        if (!nome.trim()) {
             Alert.alert('Aviso', 'Digite o nome do conto');
             return;
         }
 
         setLoading(true);
         try {
-            const resposta = await fetch(`https://olhosdagua.onrender.com/api/${conto}`);
+            const resposta = await fetch(`https://olhosdagua.onrender.com/api/${nome}`);
 
             if (!resposta.ok) {
                 Alert.alert('Erro');
@@ -37,8 +37,8 @@ export default function conto() {
 
             <TextInput
                 style={styles.input}
-                placeholder="Digite o Nome do Pokemon"
-                value={nome_pt}
+                placeholder="Digite o Nome do conto"
+                value={nome}
                 onChangeText={setNomeconto}
                 keyboardType="text"></TextInput>
 
@@ -48,9 +48,9 @@ export default function conto() {
 
             {loading && <ActivityIndicator size="large" color="#1565C0" style={styles.loader} />}
 
-            {pokemon && (
+            {conto && (
                 <View style={styles.resultado}>
-                    <Text style={styles.item}>🔹 Nome: {conto.nome_pt}</Text>
+                    <Text style={styles.item}>🔹 Nome: {conto.nome}</Text>
                     <Text style={styles.item}>🔹 Nome em ingles: {conto.titulo_en}</Text>
                     <Text style={styles.item}>🔹 resulmo : {conto.resumo_pt}</Text>
                     <Text style={styles.item}>🔹 resulmo em ingles: {conto.resumo_en}</Text>
