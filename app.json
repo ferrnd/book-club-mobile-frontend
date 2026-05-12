@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "olhos-dagua",
-    "slug": "olhos-dagua",
+    "name": "book-club-mobile-frontend",
+    "slug": "book-club-mobile-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
