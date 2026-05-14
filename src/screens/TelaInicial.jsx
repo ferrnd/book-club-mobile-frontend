@@ -87,6 +87,26 @@ export default function TelaInicial() {
           </View>
         )}
 
+        {citacao && (
+          <View style={styles.secao}>
+            <Text style={styles.liSecao}>Citação do Dia</Text>
+            <ImageBackground
+              source={{ uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/parte-tras.png' }}
+              style={styles.frase}
+              imageStyle={{borderRadius: 11}}
+            >
+              <View style={styles.corCima}>
+                <Feather name="message-circle" size={28} color={'#fffffeff'} style={{marginBottom: 10}} />
+                <Text style={styles.textopt}>"{citacao.texto_pt}"</Text>
+                <View style={{marginTop: 20}}>
+                  <View style={styles.traco} />
+                  <Text style={styles.menci}>{citacao.personagem}</Text>
+                </View>
+              </View>
+            </ImageBackground>
+          </View>
+        )}
+
         <View style={{ height: 40 }} />
       </ScrollView>
 
@@ -152,5 +172,51 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#0E6BA8',
     marginRight: 4,
+  },
+  secao: {
+    marginBottom: 32,
+  },
+  liSecao: {
+    marginBottom: 22,
+    fontFamily: 'Nunito_800ExtraBold',
+    fontSize: 20,
+    color: '#fffffeff',
+  },
+  frase: {
+    width: '100%',
+    minHeight: 220,
+    elevation: 5,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+  },
+  corCima: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.79)',
+    borderRadius: 11,
+    padding: 24
+  },
+  textopt: {
+    fontFamily: 'Outfit_400Regular',
+    fontSize: 20,
+    color: '#0E6BA8',
+    lineHeight: 30,
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+  },
+  traco: {
+    width: 30,
+    height: 3,
+    backgroundColor: '#0E6BA8',
+    marginBottom: 8,
+  },
+  menci: {
+    fontFamily: 'Nunito_700Bold',
+    fontSize: 16,
+    color: '#0E6BA8',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    fontWeight: 'bold',
   },
 });
