@@ -70,6 +70,23 @@ export default function TelaInicial() {
       </View>
 
       <ScrollView contentContainerStyle={styles.tela}>
+
+        {projeto && (
+          <View style={styles.projeto}>
+            <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 12}}>
+              <Feather name="info" size={24} color="#0E6BA8" />
+              <Text style={styles.projetoT}>Sobre o Projeto</Text>
+            </View>
+            <Text style={styles.pApresentacao} numberOfLines={4}>
+              {projeto.apresentacao_pt}
+            </Text>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.lerMais}>Ler mais</Text>
+              <Feather name="chevron-right" size={15} color="#0E6BA8" />
+            </TouchableOpacity>
+          </View>
+        )}
+
         <View style={{ height: 40 }} />
       </ScrollView>
 
@@ -109,5 +126,31 @@ const styles = StyleSheet.create({
   tela: {
     paddingHorizontal: 20,
     paddingBottom: 22,
+  },
+  projeto: {
+    backgroundColor: '#fffffeff',
+    borderRadius: 9,
+    padding: 20,
+    marginTop: 16,
+    marginBottom: 24,
+  },
+  projetoT: {
+    fontFamily: 'Nunito_800ExtraBold',
+    fontSize: 18,
+    color: '#0E6BA8',
+    marginLeft: 8,
+  },
+  pApresentacao: {
+    fontFamily: 'Outfit_400Regular',
+    fontSize: 15,
+    color: '#123247',
+    lineHeight: 22,
+    marginBottom: 16,
+  },
+  lerMais: {
+    fontFamily: 'Nunito_700Bold',
+    fontSize: 14,
+    color: '#0E6BA8',
+    marginRight: 4,
   },
 });
