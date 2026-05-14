@@ -15,6 +15,7 @@ import {
 } from "@expo-google-fonts/outfit";
 
 import TelaInicial from "./src/screens/TelaInicial.jsx";
+import FloatingNavBar from "./src/components/FloatingNavBar.jsx";
 
 export default function App() {
 
@@ -34,6 +35,7 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <StatusBar style="light" />
       <TelaInicial />
+      <FloatingNavBar />
     </View>
   );
 }
