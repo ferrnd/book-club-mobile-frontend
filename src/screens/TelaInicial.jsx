@@ -57,6 +57,25 @@ export default function TelaInicial() {
     );
   }
 
+  function livroCard(livro) {
+    return (
+      <TouchableOpacity style={styles.LivroCard} activeOpacity={0.9} key={livro.titulo}>
+        <Image source={{ uri: livro.capa }} style={styles.capa} />
+        <View style={styles.info}>
+          <View style={styles.ano}>
+            <Text style={styles.textoano}>{livro.anoPublicacao}</Text>
+          </View>
+          <Text style={styles.tituloLivro}>{livro.titulo}</Text>
+          <Text style={styles.autorLivro}>{livro.autor}</Text>
+          <View style={styles.botaoAcesso}>
+            <Text style={styles.textoAcesso}>Acessar Obra</Text>
+            <Feather name="arrow-right" size={16} color={'#fffffeff'} />
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0E6BA8" />
@@ -104,6 +123,19 @@ export default function TelaInicial() {
                 </View>
               </View>
             </ImageBackground>
+          </View>
+        )}
+
+        {livro && (
+          <View style={styles.secao}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16}}>
+              <Text style={styles.liSecao}>Livro em Estudo</Text>
+              <TouchableOpacity>
+                <Text style={styles.detalhes}>Ver detalhes</Text>
+              </TouchableOpacity>
+            </View>
+
+            {livroCard(livro)}
           </View>
         )}
 
@@ -182,6 +214,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#fffffeff',
   },
+  detalhes: {
+    fontFamily: 'Outfit_400Regular',
+    fontSize: 14,
+    color: '#A2C9E4',
+  },
   frase: {
     width: '100%',
     minHeight: 220,
@@ -218,5 +255,62 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1,
     fontWeight: 'bold',
+  },
+  LivroCard: {
+    flexDirection: 'row',
+    backgroundColor: '#fffffeff',
+    borderRadius: 9,
+    padding: 27,
+    marginBottom: 17
+  },
+  capa: {
+    width: 100,
+    height: 140,
+    borderRadius: 4
+  },
+  info: {
+    flex: 1,
+    marginLeft: 17,
+    justifyContent: 'center',
+  },
+  ano: {
+    backgroundColor: 'rgba(14, 106, 168, 0.24)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+    marginBottom: 8,
+  },
+  textoano: {
+    fontFamily: 'Nunito_700Bold',
+    fontSize: 12,
+    color: '#0E6BA8',
+  },
+  tituloLivro: {
+    fontFamily: 'Nunito_800ExtraBold',
+    fontSize: 18,
+    color: '#0E6BA8',
+    marginBottom: 4,
+    lineHeight: 24,
+  },
+  autorLivro: {
+    fontFamily: 'Outfit_400Regular',
+    fontSize: 14,
+    color: '#123247',
+    marginBottom: 16,
+  },
+  botaoAcesso: {
+    backgroundColor: '#0E6BA8',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    borderRadius: 9,
+  },
+  textoAcesso: {
+    fontFamily: 'Nunito_700Bold',
+    fontSize: 14,
+    color: '#fffffeff',
+    marginRight: 5,
   },
 });
