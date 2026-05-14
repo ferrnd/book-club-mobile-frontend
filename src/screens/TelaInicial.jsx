@@ -17,6 +17,9 @@ import { Feather } from '@expo/vector-icons';
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API = "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
+// chave da equipe do arthur (ratsjs)
+const CHAVE_RATS = "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO"
+
 export default function TelaInicial() {
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
@@ -44,6 +47,17 @@ export default function TelaInicial() {
     const resp3 = await fetch(URL_BASE + "/livro", { headers: { "x-api-key": CHAVE_API } });
     const data3 = await resp3.json();
     setLivro(data3[0]);
+
+    // tenta buscar o livro da outra equipe, se der erro nao quebra o app
+    try {
+      const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
+        headers: { "x-api-key": CHAVE_RATS }
+      });
+      const data4 = await resp4.json();
+      setLivroTheRats(data4[0]);
+    } catch (e) {
+      console.log("erro rats:", e);
+    }
 
     setCarregando(false);
   }
@@ -136,6 +150,7 @@ export default function TelaInicial() {
             </View>
 
             {livroCard(livro)}
+            {livroTheRats && livroCard(livroTheRats)}
           </View>
         )}
 
