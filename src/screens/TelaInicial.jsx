@@ -12,56 +12,56 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-
+ 
 // minha api
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API = "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
-
+ 
 // chave da equipe do arthur (ratsjs)
 const CHAVE_RATS = "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO"
-
+ 
 export default function TelaInicial() {
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
   const [livro, setLivro] = useState(null);
   const [livroTheRats, setLivroTheRats] = useState(null);
-
+ 
   useEffect(() => {
     buscarDados()
   }, [])
-
+ 
   async function buscarDados() {
-
+ 
     // projeto
     const resp = await fetch(URL_BASE + "/projeto", { headers: { "x-api-key": CHAVE_API } });
     const data = await resp.json();
-    setProjeto(data[0]);
-
+    setProjeto(data[0]); 
+ 
     // citacao - peguei a de indice 7 pq é a minha frase favorita da obra
     const resp2 = await fetch(URL_BASE + "/citacao", { headers: { "x-api-key": CHAVE_API } });
     const data2 = await resp2.json();
     setCitacao(data2[7]);
-
-    // dados do livro, normal, esse que vai usar para integração
+ 
+     // dados do livro, normal, esse que vai usar para integração
     const resp3 = await fetch(URL_BASE + "/livro", { headers: { "x-api-key": CHAVE_API } });
     const data3 = await resp3.json();
     setLivro(data3[0]);
-
+ 
     // tenta buscar o livro da outra equipe, se der erro nao quebra o app
     try {
-      const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
-        headers: { "x-api-key": CHAVE_RATS }
+      const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", { 
+        headers: { "x-api-key": CHAVE_RATS } 
       });
       const data4 = await resp4.json();
-      setLivroTheRats(data4[0]);
+      setLivroTheRats(data4[0]); 
     } catch (e) {
       console.log("erro rats:", e);
     }
-
+ 
     setCarregando(false);
   }
-
+ 
   // tela de carregamento que o du ensinou na sexta passada
   if (carregando) {
     return (
@@ -70,7 +70,7 @@ export default function TelaInicial() {
       </View>
     );
   }
-
+ 
   function livroCard(livro) {
     return (
       <TouchableOpacity style={styles.LivroCard} activeOpacity={0.9} key={livro.titulo}>
@@ -89,21 +89,21 @@ export default function TelaInicial() {
       </TouchableOpacity>
     )
   }
-
+ 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0E6BA8" />
-
+      
       <View style={styles.header}>
         <Text style={styles.clube}>Clube do Livro</Text>
-        <Image
-          source={{ uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-creme.png' }}
+        <Image 
+          source={{ uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-creme.png' }} 
           style={styles.iconeOlho}
         />
       </View>
-
+ 
       <ScrollView contentContainerStyle={styles.tela}>
-
+        
         {projeto && (
           <View style={styles.projeto}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 12}}>
@@ -119,12 +119,12 @@ export default function TelaInicial() {
             </TouchableOpacity>
           </View>
         )}
-
+ 
         {citacao && (
           <View style={styles.secao}>
             <Text style={styles.liSecao}>Citação do Dia</Text>
-            <ImageBackground
-              source={{ uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/parte-tras.png' }}
+            <ImageBackground 
+              source={{ uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/parte-tras.png' }} 
               style={styles.frase}
               imageStyle={{borderRadius: 11}}
             >
@@ -139,7 +139,7 @@ export default function TelaInicial() {
             </ImageBackground>
           </View>
         )}
-
+ 
         {livro && (
           <View style={styles.secao}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16}}>
@@ -147,24 +147,35 @@ export default function TelaInicial() {
               <TouchableOpacity>
                 <Text style={styles.detalhes}>Ver detalhes</Text>
               </TouchableOpacity>
-            </View>
-
+            </View> 
+ 
             {livroCard(livro)}
             {livroTheRats && livroCard(livroTheRats)}
           </View>
         )}
-
-        <View style={{ height: 40 }} />
+ 
+        <View style={{ height: 40 }} /> 
       </ScrollView>
-
+ 
+      <View style={styles.caixaNav}>
+        <View style={styles.navBar}>
+          <TouchableOpacity style={styles.navHover}>
+            <Feather name="home" size={22} color={'#fffffeff'} />
+            <Text style={styles.navHoverP}>Início</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.navIcone}><Feather name="book" size={24} color="#A2C9E4" /></TouchableOpacity>
+          <TouchableOpacity style={styles.navIcone}><Feather name="award" size={24} color="#A2C9E4" /></TouchableOpacity>
+          <TouchableOpacity style={styles.navIcone}><Feather name="users" size={24} color="#A2C9E4" /></TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0E6BA8',
+    backgroundColor: '#0E6BA8', 
   },
   carregando: {
     flex: 1,
@@ -184,7 +195,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontFamily: 'Nunito_800ExtraBold',
     fontSize: 28,
-    color: '#fffffeff',
+    color: '#fffffeff', 
   },
   iconeOlho: {
     width: 42,
@@ -192,10 +203,10 @@ const styles = StyleSheet.create({
   },
   tela: {
     paddingHorizontal: 20,
-    paddingBottom: 22,
+    paddingBottom: 22, 
   },
   projeto: {
-    backgroundColor: '#fffffeff',
+    backgroundColor: '#fffffeff', 
     borderRadius: 9,
     padding: 20,
     marginTop: 16,
@@ -204,20 +215,20 @@ const styles = StyleSheet.create({
   projetoT: {
     fontFamily: 'Nunito_800ExtraBold',
     fontSize: 18,
-    color: '#0E6BA8',
+    color: '#0E6BA8', 
     marginLeft: 8,
   },
   pApresentacao: {
     fontFamily: 'Outfit_400Regular',
     fontSize: 15,
-    color: '#123247',
+    color: '#123247', 
     lineHeight: 22,
     marginBottom: 16,
   },
   lerMais: {
     fontFamily: 'Nunito_700Bold',
     fontSize: 14,
-    color: '#0E6BA8',
+    color: '#0E6BA8', 
     marginRight: 4,
   },
   secao: {
@@ -232,7 +243,7 @@ const styles = StyleSheet.create({
   detalhes: {
     fontFamily: 'Outfit_400Regular',
     fontSize: 14,
-    color: '#A2C9E4',
+    color: '#A2C9E4', 
   },
   frase: {
     width: '100%',
@@ -311,11 +322,11 @@ const styles = StyleSheet.create({
   autorLivro: {
     fontFamily: 'Outfit_400Regular',
     fontSize: 14,
-    color: '#123247',
+    color: '#123247', 
     marginBottom: 16,
   },
   botaoAcesso: {
-    backgroundColor: '#0E6BA8',
+    backgroundColor: '#0E6BA8', 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -325,7 +336,42 @@ const styles = StyleSheet.create({
   textoAcesso: {
     fontFamily: 'Nunito_700Bold',
     fontSize: 14,
-    color: '#fffffeff',
+    color: '#fffffeff', 
     marginRight: 5,
   },
+  caixaNav: {
+    position: 'absolute',
+    bottom: 24,
+    left: 22,
+    right: 22,
+  },
+  navBar: {
+    flexDirection: 'row',
+    backgroundColor: '#fffffeff', 
+    borderRadius: 15,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    elevation: 10,     // parte de sombra complexa que nao decoro nunca, mas funciona
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+  },
+  navHover: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#0E6BA8',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 9,
+  },
+  navHoverP: {
+    fontFamily: 'Nunito_700Bold',
+    fontSize: 14,
+    color: '#fffffeff', 
+    marginLeft: 8,
+  },
+  navIcone: {}, // vazio por enquanto 
 });
