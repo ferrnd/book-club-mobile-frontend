@@ -13,6 +13,10 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
+// minha api
+const URL_BASE = "https://olhosdagua.onrender.com/api";
+const CHAVE_API = "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
+
 export default function TelaInicial() {
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
@@ -25,6 +29,22 @@ export default function TelaInicial() {
   }, [])
 
   async function buscarDados() {
+
+    // projeto
+    const resp = await fetch(URL_BASE + "/projeto", { headers: { "x-api-key": CHAVE_API } });
+    const data = await resp.json();
+    setProjeto(data[0]);
+
+    // citacao - peguei a de indice 7 pq é a minha frase favorita da obra
+    const resp2 = await fetch(URL_BASE + "/citacao", { headers: { "x-api-key": CHAVE_API } });
+    const data2 = await resp2.json();
+    setCitacao(data2[7]);
+
+    // dados do livro, normal, esse que vai usar para integração
+    const resp3 = await fetch(URL_BASE + "/livro", { headers: { "x-api-key": CHAVE_API } });
+    const data3 = await resp3.json();
+    setLivro(data3[0]);
+
     setCarregando(false);
   }
 
