@@ -23,13 +23,4 @@ export default function App() {
         Outfit_700Bold,
         Outfit_800ExtraBold,
     });
-
-    // se a fonte ainda n carregou n mostra nd
-    if (!carregado) return null;
-
-    return (
-        <View style={{ flex: 1 }}>
-            <TelaInicial />
-        </View>
-    );
 }
