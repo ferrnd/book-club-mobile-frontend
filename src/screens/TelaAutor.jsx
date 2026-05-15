@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  ActivityIndicator,
-} from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
 // minha api
-const URL_BASE = "https://olhosdagua.onrender.com/api";
+const URL_BASE = 'https://olhosdagua.onrender.com/api';
 const CHAVE_API =
-  "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
-
-
+    '6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd';
 
 export default function TelaAutor() {
     const [carregando] = useState(true);
@@ -20,10 +15,9 @@ export default function TelaAutor() {
     }, []);
 
     async function buscarDados() {
-
         // autor
-        const resp = await fetch(URL_BASE + "/autor", {
-            headers: { "x-api-key": CHAVE_API },
+        const resp = await fetch(URL_BASE + '/autor', {
+            headers: { 'x-api-key': CHAVE_API },
         });
         const data = await resp.json();
         setAutor(data[0]);
@@ -32,7 +26,7 @@ export default function TelaAutor() {
         if (carregando) {
             return (
                 <View style={styles.carregando}>
-                    <ActivityIndicator size="large" color={"#fffffeff"} />
+                    <ActivityIndicator size="large" color={'#fffffeff'} />
                 </View>
             );
         }
