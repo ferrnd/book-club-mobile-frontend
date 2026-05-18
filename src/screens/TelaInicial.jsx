@@ -183,7 +183,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: "#000000",
   },
-
   objt: {
     fontSize: 14,
     fontWeight: "bold",
