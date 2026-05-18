@@ -72,6 +72,15 @@ export default function TelaInicial() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <StatusBar style="dark" />
+            <View style={styles.header}>
+                <Image
+                    source={{
+                        uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png',
+                    }}
+                    style={styles.logo}
+                />
+                <Text style={styles.headerT}>Clube Do Livro</Text>
+            </View>
             <ScrollView
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}>
@@ -160,6 +169,27 @@ const styles = StyleSheet.create({
         backgroundColor: '#fffbfb',
     },
 
+    header: {
+        paddingVertical: 22,
+        paddingHorizontal: 25,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#ffffffff',
+        marginTop: 8,
+    },
+
+    headerT: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+    },
+
+    logo: {
+        height: 45,
+        width: 45,
+    },
+
     secao: {
         marginBottom: 30,
     },
@@ -183,7 +213,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         color: '#000000',
     },
-    
+
     objt: {
         fontSize: 14,
         fontWeight: 'bold',
