@@ -13,12 +13,7 @@ import {
 import { Outfit_400Regular, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-google-fonts/outfit';
 import TelaInicial from './src/screens/TelaInicial.jsx';
 import DicasScreen from './src/screens/DicasScreen.jsx';
-function TelaBiblioteca() {
-    return <View style={{ flex: 1, backgroundColor: '#F6FBFF' }} />;
-}
-function ProjetosScreen() {
-    return <View style={{ flex: 1, backgroundColor: '#F6FBFF' }} />;
-}
+import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,12 +61,22 @@ export default function App() {
                     }}
                 />
                 <Tab.Screen
-                    name="Biblioteca"
+                    name="TelaBiblioteca"
                     component={TelaBiblioteca}
                     options={{
                         tabBarLabel: 'Biblioteca',
                         tabBarIcon: ({ color, size }) => (
                             <Ionicons name="book" size={size} color={color} />
+                        ),
+                    }}
+                />
+                 <Tab.Screen
+                    name="DicasScreen"
+                    component={DicasScreen}
+                    options={{
+                        tabBarLabel: 'Dicas',
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons name="" size={size} color={color} />
                         ),
                     }}
                 />
