@@ -12,6 +12,7 @@ import {
 
 import { Outfit_400Regular, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-google-fonts/outfit';
 import TelaInicial from './src/screens/TelaInicial.jsx';
+import DicasScreen from './src/screens/DicasScreen.jsx';
 function TelaBiblioteca() {
     return <View style={{ flex: 1, backgroundColor: '#F6FBFF' }} />;
 }
