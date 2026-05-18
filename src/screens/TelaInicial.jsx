@@ -144,7 +144,7 @@ export default function TelaInicial() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: '#fffbfb',
+        backgroundColor: '#f4faffff',
     },
 
     container: {
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         color: '#000000',
     },
+    
     objt: {
         fontSize: 14,
         fontWeight: 'bold',
