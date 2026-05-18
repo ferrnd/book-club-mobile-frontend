@@ -10,6 +10,7 @@ import {
 import { Outfit_400Regular, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-google-fonts/outfit';
 
 import TelaInicial from './src/screens/TelaInicial.jsx';
+import DicasScreen from './src/screens/DicasScreen.jsx';
 
 export default function App() {
     const [carregado] = useFonts({
