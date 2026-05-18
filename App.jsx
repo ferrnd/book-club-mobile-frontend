@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import {
     useFonts,
@@ -23,4 +23,31 @@ export default function App() {
         Outfit_700Bold,
         Outfit_800ExtraBold,
     });
+
+    if (!carregado) {
+        return (
+            <View style={styles.containerCarregando}>
+                <ActivityIndicator size="large" color="#111" />
+            </View>
+        );
+    }
+
+    return (
+        <View style={styles.container}>
+            <TelaInicial />
+        </View>
+    );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fffbfb',
+    },
+    containerCarregando: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fffbfb',
+    }
+});
