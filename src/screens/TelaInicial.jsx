@@ -1,30 +1,286 @@
 import React, { useState, useEffect } from "react";
 import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-// minha api
+// Minha api
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
-// chave da equipe do arthur (ratsjs)
+// chave da equipe do arthur, the rats
 const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
 export default function TelaInicial() {
-    const [ setProjeto] = useState(null);
+  const [carregando, setCarregando] = useState(true);
+  const [projeto, setProjeto] = useState(null);
+  const [citacao, setCitacao] = useState(null);
+  const [livro, setLivro] = useState(null);
+  const [rats, setRats] = useState(null);
 
+  useEffect(() => {
+    buscarDados();
+  }, []);
 
-    useEffect(() => {
-        buscarDados();
-    }, []);
+  async function buscarDados() {
+    // puxando a tabela onde fica a explicacao do projeto
+    const resp = await fetch(URL_BASE + "/projeto", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data = await resp.json();
+    setProjeto(data[0]);
 
-    async function buscarDados() {
-        // projeto
-        const resp = await fetch(URL_BASE + "/projeto", {
-            headers: { "x-api-key": CHAVE_API },
-        });
-        const data = await resp.json();
-        setProjeto(data[0]);
-    }
+    // frases, escolhi 7 pq é a minha favorita do jovem do morro
+    const resp2 = await fetch(URL_BASE + "/citacao", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data2 = await resp2.json();
+    setCitacao(data2[7]);
+
+    // puxando a tabela de lirvo
+    const resp3 = await fetch(URL_BASE + "/livro", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data3 = await resp3.json();
+    setLivro(data3[0]);
+
+    // puxa os dados do livro da equipe do arthur
+    const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
+      headers: { "x-api-key": CHAVE_RATS },
+    });
+    const data4 = await resp4.json();
+    setRats(data4[0]);
+
+    setCarregando(false);
+  }
+
+  // tela de carregamento que o du ensinou an sexta passada
+  if (carregando) {
+    return (
+      <View style={styles.carregando}>
+        <ActivityIndicator size="large" color="#000000" />
+      </View>
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar style="dark" />
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.secao}>
+          <Text style={styles.secaoT}>Sobre o Projeto</Text>
+          <View style={styles.card}>
+            <Text style={styles.explicacaoP}>{projeto.apresentacao_pt}</Text>
+            <View style={styles.linha} />
+            <Text style={styles.objt}>Objetivo</Text>
+            <Text style={styles.explicacaoP}>{projeto.objetivo_pt}</Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.citacaoCaixa}>
+            <FontAwesome
+              name="quote-left"
+              size={24}
+              color="#ffffff"
+              style={styles.iconeCitacao}
+            />
+            <Text style={styles.frase}>"{citacao.texto_pt}"</Text>
+            <Text style={styles.dito}>— {citacao.personagem}</Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <Text style={styles.secaoT}>Livro em Destaque</Text>
+          <View style={[styles.card, styles.livroCard]}>
+            <View>
+              <Image source={{ uri: livro.capa }} style={styles.livroCapa} />
+            </View>
+
+            <View style={styles.info}>
+              <Text style={styles.livroT}>{livro.titulo}</Text>
+              <Text style={styles.livroAutor}>{livro.autor}</Text>
+              <View style={styles.contorno}>
+                <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <Text style={styles.secaoT}>Outras Obras Literáreas</Text>
+          <View style={[styles.card, styles.livroCard]}>
+            <View>
+              <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
+            </View>
+
+            <View style={styles.info}>
+              <Text style={styles.livroT}>{rats.titulo}</Text>
+              <Text style={styles.livroAutor}>{rats.autor}</Text>
+              {rats.anoPublicacao && (
+                <View style={styles.contornoIntegracao}>
+                  <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#fffbfb",
+  },
+
+  container: {
+    padding: 25,
+    paddingTop: 45,
+    paddingBottom: 45,
+  },
+
+  carregando: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fffbfb",
+  },
+
+  secao: {
+    marginBottom: 30,
+  },
+
+  secaoT: {
+    marginTop: 5,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000000",
+    marginBottom: 27,
+  },
+
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 9,
+    padding: 21,
+  },
+
+  explicacaoP: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#000000",
+  },
+
+  linha: {
+    height: 1,
+    backgroundColor: "#f0f0f0",
+    marginVertical: 16,
+  },
+
+  objt: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#bebebe",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginBottom: 7,
+  },
+
+  citacaoCaixa: {
+    backgroundColor: "#c2e1ff",
+    borderRadius: 9,
+    padding: 21,
+    alignItems: "center",
+  },
+
+  iconeCitacao: {
+    marginBottom: 9,
+  },
+
+  frase: {
+    fontSize: 17,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    color: "#ffffff",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+
+  dito: {
+    padding: 1,
+    textTransform: "uppercase",
+    fontSize: 12,
+    letterSpacing: 1,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+
+  livroCard: {
+    flexDirection: "row",
+    padding: 20,
+    alignItems: "center",
+  },
+
+  livroCapa: {
+    width: 150,
+    height: 200,
+    borderRadius: 5,
+  },
+
+  info: {
+    marginLeft: 15,
+    justifyContent: "center",
+  },
+
+  livroT: {
+    fontSize: 19,
+    fontWeight: "bold",
+    textTransform: "capitalize",
+    color: "#000000",
+    marginBottom: 5,
+  },
+
+  livroAutor: {
+    padding: 1,
+    fontSize: 15.5,
+    textTransform: "capitalize",
+    color: "#6b6b6b",
+    marginBottom: 12,
+  },
+
+  contorno: {
+    alignSelf: "flex-start",
+    backgroundColor: "#c2e1ff",
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    borderRadius: 5,
+  },
+
+  anoPublicacao: {
+    color: "#ffffff",
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+
+  contornoIntegracao: {
+    alignSelf: "flex-start",
+    backgroundColor: "#000000",
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    borderRadius: 5,
+  },
+});
