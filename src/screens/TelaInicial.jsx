@@ -83,7 +83,6 @@ export default function TelaInicial() {
           <Text style={styles.secaoT}>Sobre o Projeto</Text>
           <View style={styles.card}>
             <Text style={styles.explicacaoP}>{projeto.apresentacao_pt}</Text>
-            <View style={styles.linha} />
             <Text style={styles.objt}>Objetivo</Text>
             <Text style={styles.explicacaoP}>{projeto.objetivo_pt}</Text>
           </View>
@@ -183,12 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: "#000000",
-  },
-
-  linha: {
-    height: 1,
-    backgroundColor: "#f0f0f0",
-    marginVertical: 16,
   },
 
   objt: {
