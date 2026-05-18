@@ -119,7 +119,7 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
-          <Text style={styles.secaoT}>Outras Obras Literáreas</Text>
+          <Text style={styles.secaoT}>Outras Obras Literárias</Text>
           <View style={[styles.card, styles.livroCard]}>
             <View>
               <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
