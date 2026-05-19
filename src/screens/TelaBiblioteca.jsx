@@ -9,11 +9,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-// chave da api do arthur para integração
-const CHAVE_RATS =
-  "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
+const CHAVE_RATS = "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
 export default function TelaBiblioteca() {
   const [carregando, setCarregando] = useState(true);
@@ -24,19 +21,21 @@ export default function TelaBiblioteca() {
   }, []);
 
   async function buscarDados() {
-    const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
-      headers: { "x-api-key": CHAVE_RATS },
-    });
-    const data4 = await resp4.json();
-    setRats(data4[0]);
-    setCarregando(false);
+    try {
+      const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
+        headers: { "x-api-key": CHAVE_RATS },
+      });
+      const data4 = await resp4.json();
+      setRats(data4[0]);
+    } catch (error) {
+      console.error(error);
+    } 
   }
 
-  // tela de carregamento que o du ensinou an sexta passada
   if (carregando) {
     return (
       <View style={styles.carregando}>
-        <ActivityIndicator size="large" color="#000000" />
+        <ActivityIndicator size="large" color="#05407A" />
       </View>
     );
   }
@@ -44,51 +43,186 @@ export default function TelaBiblioteca() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-      <View style={styles.header}>
-        <Image
-          source={{
-            uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png",
-          }}
-          style={styles.logo}
-        />
-        <Text style={styles.headerT}>Clube Do Livro</Text>
-      </View>
+      
+
+     <View style={styles.header}>
+             <Image
+               source={{
+                 uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png",
+               }}
+               style={styles.logo}
+             />
+             <Text style={styles.headerT}>Clube Do Livro</Text>
+           </View>
       
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-       <View style={styles.secao}>
-  <Text style={styles.secaoT}>Biblioteca</Text>
-  
-  <View style={styles.linhaLivros}>
-    
-    <View style={[styles.card, styles.livroCard]}>
-      <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
-      <View style={styles.info}>
-        {rats.anoPublicacao && (
-          <View style={styles.contorno}> 
-            <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
-          </View>
-        )}
-      </View>
-    </View>
+        <View style={styles.secao}>
+          <Text style={styles.secaoT}>Biblioteca</Text>
+          
+          <View style={styles.gridLivros}>
+           
 
-    <View style={[styles.card, styles.livroCard]}>
-      <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
-      <View style={styles.info}>
-        <Text numberOfLines={2} style={styles.livroT}>{rats.titulo}</Text>
-        <Text numberOfLines={1} style={styles.livroAutor}>{rats.autor}</Text>
-        {rats.anoPublicacao && (
-          <View style={styles.contorno}> 
-            <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
-          </View>
-        )}
-      </View>
-    </View>
+            <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{rats?.titulo}</Text>
+                <Text  style={styles.livroAutor}>{rats?.autor}</Text>
+                {rats?.anoPublicacao && (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ uri: rats?.capa }} style={styles.livroCapaMini} />
+              </View>
+            </View>
 
-  </View>
-</View>
+            
+            <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+   <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+            <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+
+ <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+
+ <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+             <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+ <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+ <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+ <View style={styles.card}>
+              <View style={styles.infoTextos}>
+                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
+                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
+                {/*livro?.anoPublicacao && */ (
+                  <View style={styles.contorno}> 
+                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerCapaMini}>
+                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
+              </View>
+            </View>
+
+
+
+
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -99,21 +233,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f4faffff",
   },
-  container: {
-    padding: 20,
-    paddingTop: 13,
-    paddingBottom: 45,
-  },
-
   carregando: {
-       flex: 1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fffbfb",
-
   },
-
- header: {
+  header: {
     paddingVertical: 15,
     paddingHorizontal: 35,
     flexDirection: "row",
@@ -121,200 +247,87 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#f4faffff",
   },
-
   headerT: {
-    fontSize: 18,
+  marginTop: 23,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#05407A",
-    textTransform: "uppercase",
+    color: "#000000",
   },
-    linhaLivros: {
+  logo: {
+    height: 30,
+    width: 35,
+    resizeMode: "contain",
+  },
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 20,
+    paddingBottom: 40,
+  },
+  secao: {
+    width: "100%",
+  },
+  secaoT: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#000000",
+    marginBottom: 20,
+  },
+  gridLivros: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
-
   card: {
-    backgroundColor: "#A8D4FF",
-    borderRadius: 12,
+    backgroundColor: "#BCE0FD", // Azul claro dos cards do Figma
+    borderRadius: 16,
     padding: 12,
-    width: "48%", 
-    marginBottom: 15,
-  },
-
-  livroCard: {
-    flexDirection: "column",
+    width: "48%", // Faz caber dois por linha com espaço no meio
+    height: 100, // Altura fixa aproximada do formato horizontal do Figma
+    flexDirection: "row", // Alinha textos na esquerda e imagem na direita
+    justifyContent: "space-between",
     alignItems: "center",
-  },
-
-  livroCapa: {
-    width: "100%",
-    height: 190, 
-    borderRadius: 6,
-    marginBottom: 10,
-  },
-
-  info: {
-    width: "100%",
-    backgroundColor: "transparent", 
-    padding: 0,
-  },
-
-  livroT: {
-    fontSize: 15,
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    color: "#000000",
-    marginBottom: 3,
-  },
-
-  livroAutor: {
-    fontSize: 13,
-    textTransform: "capitalize",
-    color: "#555555",
-    marginBottom: 8,
-  },
-
-  contorno: {
-    alignSelf: "flex-start",
-    backgroundColor: "#5EAFFF",
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-  },
-
-  anoPublicacao: {
-    color: "#ffffff",
-    fontSize: 10,
-    fontWeight: "bold",
-  },
-
-  logo: {
-    height: 35,
-    width: 35,
-    tintColor: "#05407A",
-  },
-
-  secao: {
-    marginBottom: 30,
-  },
-
-  secaoT: {
-    marginTop: 5,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 27,
-  },
-
-  card: {
-    backgroundColor: "#A8D4FF",
-    borderRadius: 12,
-    padding: 15,
-    margin: 8,
-    flex: 1,
-  },
-
-  explicacaoP: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#000000",
-  },
-
-  objt: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#5EAFFF",
-    textTransform: "uppercase",
-    letterSpacing: 1,
-    marginTop: 7,
-    marginBottom: 7,
-  },
-
-  citacaoCaixa: {
-    backgroundColor: "#5EAFFF",
-    borderRadius: 9,
-    padding: 21,
-    alignItems: "center",
-  },
-
-  iconeCitacao: {
-    marginBottom: 9,
-  },
-
-  frase: {
-    fontSize: 17,
-    fontStyle: "italic",
-    fontWeight: "bold",
-    color: "#ffffff",
-    textAlign: "center",
     marginBottom: 16,
   },
-
-  dito: {
-    padding: 1,
-    textTransform: "uppercase",
-    fontSize: 12,
-    letterSpacing: 1,
-    fontWeight: "bold",
-    color: "#ffffff",
+  infoTextos: {
+    flex: 1,
+    height: "100%",
+    justifyContent: "space-between", // Distribui o título no topo e o ano embaixo
+    paddingRight: 6,
   },
-
-  livroCard: {
-    flexDirection: "column",
-    alignItems: "center",
-  },
-
-  livroCapa: {
-    width: 200,
-    height: 280,
-    borderRadius: 4,
-    marginBottom: 20,
-  },
-
-  info: {
-    width: "100%",
-    backgroundColor: "#A8D4FF",
-    borderRadius: 12,
-    padding: 20,
-  },
-
   livroT: {
-    fontSize: 19,
+    fontSize: 14,
     fontWeight: "bold",
-    textTransform: "capitalize",
     color: "#000000",
-    marginBottom: 5,
   },
-
   livroAutor: {
-    padding: 1,
-    fontSize: 15.5,
-    textTransform: "capitalize",
-    color: "#6b6b6b",
-    marginBottom: 12,
+    fontSize: 11,
+    color: "#555555",
+    marginTop: -2,
   },
-
-  livroGenero: {
-    marginTop: 12,
-    padding: 1,
-    fontSize: 10,
-    textTransform: "uppercase",
-    color: "#6b6b6b",
-    flexShrink: 1,
-  },
-
   contorno: {
     alignSelf: "flex-start",
-    backgroundColor: "#5EAFFF",
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    borderRadius: 5,
+    backgroundColor: "#6CB7FF",
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 6,
   },
-
   anoPublicacao: {
     color: "#ffffff",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: "bold",
+  },
+  containerCapaMini: {
+    width: 45,
+    height: "100%",
+    backgroundColor: "#80C2FF", // Tom de azul de fundo da mini capa
+    borderRadius: 10,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  livroCapaMini: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
 });
