@@ -43,18 +43,7 @@ export default function TelaBiblioteca() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-      
-
-     <View style={styles.header}>
-             <Image
-               source={{
-                 uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png",
-               }}
-               style={styles.logo}
-             />
-             <Text style={styles.headerT}>Clube Do Livro</Text>
-           </View>
-      
+    
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}

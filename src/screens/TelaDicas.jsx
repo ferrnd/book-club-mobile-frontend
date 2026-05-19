@@ -19,7 +19,7 @@ const CHAVE_API =
 const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
-export default function DicasScreen() {
+export default function TelaDicas() {
   const [dicas, setDicas] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
