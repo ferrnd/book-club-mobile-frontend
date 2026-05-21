@@ -16,6 +16,8 @@ import { Outfit_400Regular, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-go
 import TelaInicial from './src/screens/TelaInicial.jsx';
 import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
+import TelaSobre from './src/screens/TelaSobre.jsx';
+
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -55,6 +57,7 @@ function TabNavigator() {
                     ),
                 }}
             />
+               
         </Tab.Navigator>
     );
 }
@@ -129,15 +132,16 @@ export default function App() {
                 />
 
                 <Drawer.Screen
-                    name="Curiosidades"
-                    component={TelaCuriosidades}
+                    name="Sobre"
+                    component={TelaSobre}
                     options={{
-                        drawerLabel: 'Curiosidades',
+                        drawerLabel: 'Sobre',
                         drawerIcon: ({ color }) => (
                             <Ionicons name="information-circle" size={24} color={color} />
                         ),
                     }}
                 />
+
             </Drawer.Navigator>
         </NavigationContainer>
     );
