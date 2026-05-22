@@ -11,12 +11,10 @@ import {
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-// Minha api
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
-// chave da api do arthur para integração
 const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
@@ -32,21 +30,18 @@ export default function TelaInicial() {
   }, []);
 
   async function buscarDados() {
-    // puxando a tabela onde fica a explicacao do projeto
     const resp = await fetch(URL_BASE + "/projeto", {
       headers: { "x-api-key": CHAVE_API },
     });
     const data = await resp.json();
     setProjeto(data[0]);
 
-    // frases, escolhi 7 pq é a minha favorita do jovem do morro
     const resp2 = await fetch(URL_BASE + "/citacao", {
       headers: { "x-api-key": CHAVE_API },
     });
     const data2 = await resp2.json();
     setCitacao(data2[7]);
 
-    // puxando a tabela de lirvo
     const resp3 = await fetch(URL_BASE + "/livro", {
       headers: { "x-api-key": CHAVE_API },
     });
@@ -62,7 +57,6 @@ export default function TelaInicial() {
     setCarregando(false);
   }
 
-  // tela de carregamento que o du ensinou an sexta passada
   if (carregando) {
     return (
       <View style={styles.carregando}>
@@ -73,7 +67,7 @@ export default function TelaInicial() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="dark" /> 
+      <StatusBar style="dark" />
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
@@ -83,7 +77,7 @@ export default function TelaInicial() {
             <View>
               <Image source={{ uri: livro.capa }} style={styles.livroCapa} />
             </View>
-
+            
             <View style={styles.info}>
               <Text style={styles.livroT}>{livro.titulo}</Text>
               <Text style={styles.livroAutor}>{livro.autor}</Text>
@@ -121,6 +115,7 @@ export default function TelaInicial() {
             <Text style={styles.explicacaoP}>{projeto.objetivo_pt}</Text>
           </View>
         </View>
+
         <View style={styles.secao}>
           <Text style={styles.secaoT}>Outras Obras Literárias</Text>
           <View style={[styles.card, styles.livroCard]}>
@@ -128,14 +123,15 @@ export default function TelaInicial() {
               <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
             </View>
 
-            <View style={styles.info}>
+<View style={styles.info}>
               <Text style={styles.livroT}>{rats.titulo}</Text>
               <Text style={styles.livroAutor}>{rats.autor}</Text>
-              {rats.anoPublicacao && (
-                <View style={styles.contornoIntegracao}>
-                  <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
-                </View>
-              )}
+              
+              <View style={styles.contornoIntegracao}>
+                <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
+              </View>
+                <Text style={styles.livroGenero}>{rats.genero}</Text>
+
             </View>
           </View>
         </View>
@@ -207,6 +203,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: "#000000",
+    textAlign: "justify",
   },
 
   objt: {
@@ -264,6 +261,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 15,
     justifyContent: "center",
+    
   },
 
   livroT: {
@@ -294,6 +292,14 @@ const styles = StyleSheet.create({
   contorno: {
     alignSelf: "flex-start",
     backgroundColor: "#5eafffff",
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    borderRadius: 5,
+  },
+
+  contornoIntegracao: {
+    alignSelf: "flex-start",
+    backgroundColor: "rgb(0, 0, 0)",
     paddingVertical: 7,
     paddingHorizontal: 14,
     borderRadius: 5,
