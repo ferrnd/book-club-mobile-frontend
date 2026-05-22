@@ -92,31 +92,31 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
+          <ScrollView style={styles.card} nestedScrollEnabled={true}>
             <Text style={styles.subt}>Resumo</Text>
             <Text style={styles.explicacaoP}>{livro.resumo}</Text>
-          </View>
+          </ScrollView>
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
+          <ScrollView style={styles.card} nestedScrollEnabled={true}>
             <Text style={styles.subt}>Contexto da Obra</Text>
             <Text style={styles.explicacaoP}>{livro.contexto}</Text>
-          </View>
+          </ScrollView>
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
+          <ScrollView style={styles.card} nestedScrollEnabled={true}>
             <Text style={styles.subt}>Enredo</Text>
             <Text style={styles.explicacaoP}>{livro.enredo}</Text>
-          </View>
+          </ScrollView>
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
+          <View style={styles.card1}>
             <Text style={styles.subt}>Personagens</Text>
             {livro.personagens.map((personagem, index) => (
-      <Text key={index} style={styles.explicacaoP}>
+      <Text key={index} style={styles.perso}>
         • {personagem}
       </Text>
     ))}
@@ -124,17 +124,17 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
+          <ScrollView style={styles.card} nestedScrollEnabled={true}>
             <Text style={styles.subt}>Características Literárias</Text>
             <Text style={styles.explicacaoP}>{livro.caracteristicasLiterarias}</Text>
-          </View>
+          </ScrollView>
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
+          <ScrollView style={styles.card} nestedScrollEnabled={true}>
             <Text style={styles.subt}>Conclusão</Text>
             <Text style={styles.explicacaoP}>{livro.conclusao}</Text>
-          </View>
+          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -176,6 +176,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 9,
     padding: 21,
+    maxHeight: 350,
+    paddingHorizontal: 30
+  },
+
+  card1: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 9,
+    padding: 21,
   },
 
   subt: {
@@ -189,6 +197,13 @@ const styles = StyleSheet.create({
   },
 
   explicacaoP: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#000000",
+    textAlign: "justify",
+    marginBottom: 50
+  },
+  perso: {
     fontSize: 16,
     lineHeight: 24,
     color: "#000000",

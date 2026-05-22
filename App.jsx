@@ -81,16 +81,7 @@ function TabNavigator() {
                     ),
                 }}
             />
-            <Tab.Screen
-                name="Autor"
-                component={TelaAutor}
-                options={{
-                    tabBarLabel: 'Autor',
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="information-circle" size={size} color={color} />
-                    ),
-                }}
-            />
+            
             <Tab.Screen
                 name="TelaBiblioteca"
                 component={TelaBiblioteca}
