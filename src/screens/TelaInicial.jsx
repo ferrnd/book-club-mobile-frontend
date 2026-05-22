@@ -19,11 +19,13 @@ const CHAVE_API =
 const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
-const CHAVE_MURILO = 
+const CHAVE_MURILO =
   "livr0"
 
-const CHAVE_MORENINHA = 
-"entreLinhas123";
+const CHAVE_MORENINHA =
+    "entreLinhas123";
+
+const CHAVE_PEDRO = 'chaveSecreta';
 
 export default function TelaInicial({ navigation }) {
   const [carregando, setCarregando] = useState(true);
@@ -33,6 +35,7 @@ export default function TelaInicial({ navigation }) {
   const [rats, setRats] = useState(null);
   const [murilo, setMurilo] = useState(null);
   const [moreninha, setMoreninha] = useState(null);
+  const [pedro, setPedro] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -73,7 +76,13 @@ export default function TelaInicial({ navigation }) {
       headers: { "x-api-key": CHAVE_MORENINHA},
     });
     const data6 = await resp6.json();
-    setMoreninha(data6[0]);
+      setMoreninha(data6[0]);
+
+    const resp7 = await fetch('https://atividade-portugues-backend.onrender.com/api/livro', {
+        headers: { 'x-api-key': CHAVE_PEDRO },
+    });
+    const data7 = await resp7.json();
+    setPedro(data7[0]);
 
     setCarregando(false);
   }
@@ -98,7 +107,7 @@ export default function TelaInicial({ navigation }) {
             <View>
               <Image source={{ uri: livro.capa }} style={styles.livroCapa} />
             </View>
-            
+
             <View style={styles.info}>
               <Text style={styles.livroT}>{livro.titulo}</Text>
               <Text style={styles.livroAutor}>{livro.autor}</Text>
@@ -127,9 +136,9 @@ export default function TelaInicial({ navigation }) {
             />
             <Text style={styles.frase}>"{citacao.texto_pt}"</Text>
             <Text style={styles.dito}>— {citacao.personagem} —</Text>
-            <TouchableOpacity 
-          style={styles.saibaMais} 
-          onPress={() => navigation.navigate('TelaCitacoes')} 
+            <TouchableOpacity
+          style={styles.saibaMais}
+          onPress={() => navigation.navigate('TelaCitacoes')}
         >
           <Text style={styles.botaoT}>Saiba Mais</Text>
           <FontAwesome name="arrow-right" size={10} color="#ffffff" style={{ marginLeft: 5 }} />
@@ -154,7 +163,7 @@ export default function TelaInicial({ navigation }) {
 <View style={styles.info}>
               <Text style={styles.livroT}>{rats.titulo}</Text>
               <Text style={styles.livroAutor}>{rats.autor}</Text>
-              
+
               <View style={styles.contornoIntegracao}>
                 <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
               </View>
@@ -171,7 +180,7 @@ export default function TelaInicial({ navigation }) {
 <View style={styles.info}>
               <Text style={styles.livroT}>{murilo.titulo}</Text>
               <Text style={styles.livroAutor}>{murilo.autor}</Text>
-              
+
               <View style={styles.contornoIntegracao}>
                 <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
               </View>
@@ -188,11 +197,28 @@ export default function TelaInicial({ navigation }) {
 <View style={styles.info}>
               <Text style={styles.livroT}>{moreninha.titulo}</Text>
               <Text style={styles.livroAutor}>{moreninha.autor}</Text>
-              
+
               <View style={styles.contornoIntegracao}>
                 <Text style={styles.anoPublicacao}>{moreninha.anoPublicacao}</Text>
               </View>
                 <Text style={styles.livroGenero}>{moreninha.genero}</Text>
+
+            </View>
+                  </View>
+
+          <View style={[styles.card, styles.livroCard]}>
+            <View>
+              <Image source={{ uri: pedro.capa }} style={styles.livroCapa} />
+            </View>
+
+<View style={styles.info}>
+              <Text style={styles.livroT}>{pedro.titulo}</Text>
+              <Text style={styles.livroAutor}>{pedro.autor}</Text>
+
+              <View style={styles.contornoIntegracao}>
+                <Text style={styles.anoPublicacao}>{pedro.anoPublicacao}</Text>
+              </View>
+                <Text style={styles.livroGenero}>{pedro.genero}</Text>
 
             </View>
           </View>
@@ -244,15 +270,15 @@ const styles = StyleSheet.create({
   },
 
   saibaMais: {
-    marginTop: 15, 
-    backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+    marginTop: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderRadius: 20, 
-    flexDirection: 'row', 
+    borderRadius: 20,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center', 
+    alignSelf: 'center',
   },
 
   botaoT: {
@@ -352,7 +378,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 15,
     justifyContent: "center",
-    
+
   },
 
   livroT: {
