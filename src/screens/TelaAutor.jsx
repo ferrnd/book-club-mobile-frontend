@@ -106,7 +106,8 @@ export default function TelaInicial() {
           </View>
         </View>
 
-        <View style={styles.secao}>
+              <View style={styles.secao}>
+                   
           <View style={styles.card}>
             <Text style={styles.subt}>Estilo Escrita</Text>
                       <Text style={styles.explicacaoP}>{livro.estiloEscrita}</Text>

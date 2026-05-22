@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -23,6 +24,7 @@ import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
 import TelaVideoaula from './src/screens/TelaVideoaula.jsx';
 import TelaAutor from './src/screens/TelaAutor.jsx'
+import TelaCuriosidades from './src/screens/TelaCuriosidades.jsx';
 
 
 const Tab = createBottomTabNavigator();
@@ -176,6 +178,16 @@ export default function App() {
                         drawerLabel: 'Vídeo Aulas',
                         drawerIcon: ({ color }) => (
                             <FontAwesome name="video-camera" size={24} color={color} />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Curiosidades"
+                    component={TelaCuriosidades}
+                    options={{
+                        drawerLabel: 'curiosidades',
+                        drawerIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="comment-question" size={24} color={color} />
                         ),
                     }}
                 />
