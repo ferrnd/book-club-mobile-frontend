@@ -137,7 +137,7 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
-          <Text style={styles.secaoT}>Outras Obras Literárias</Text>
+          <Text style={styles.secaoT1}>Outras Obras Literárias</Text>
           <View style={[styles.card, styles.livroCard]}>
             <View>
               <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
@@ -236,11 +236,18 @@ const styles = StyleSheet.create({
   },
 
   secao: {
-    marginBottom: 30,
+    marginBottom: 9,
   },
 
   secaoT: {
-    marginTop: 5,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000000",
+    marginBottom: 27,
+  },
+
+  secaoT1: {
+    marginTop: 9,
     fontSize: 20,
     fontWeight: "bold",
     color: "#000000",
@@ -248,6 +255,7 @@ const styles = StyleSheet.create({
   },
 
   card: {
+    marginBottom: 10,
     backgroundColor: "#FFFFFF",
     borderRadius: 9,
     padding: 21,
@@ -271,6 +279,7 @@ const styles = StyleSheet.create({
   },
 
   citacaoCaixa: {
+    marginBottom: 10,
     backgroundColor: "#5eafffff",
     borderRadius: 9,
     padding: 21,
