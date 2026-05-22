@@ -2,6 +2,8 @@ import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 're
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Entypo from '@expo/vector-icons/Entypo'
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -18,7 +20,6 @@ import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
-import TelaSobre from './src/screens/TelaSobre.jsx';
 
 
 const Tab = createBottomTabNavigator();
@@ -55,7 +56,7 @@ function TabNavigator() {
                 options={{
                     tabBarLabel: 'Livro',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="book" size={size} color={color} />
+                        <Entypo name="book" size={size} color={color} />
                     ),
                 }}
             />
@@ -65,7 +66,7 @@ function TabNavigator() {
                 options={{
                     tabBarLabel: 'Sobre',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="information-circle" size={size} color={color} />
+                        <FontAwesome5 name="users" size={size} color={color} />
                     ),
                 }}
             />
