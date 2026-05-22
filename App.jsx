@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 'react-native'; // Importado Image e TouchableOpacity
+import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 'react-native'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -18,13 +18,14 @@ import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
+import TelaSobre from './src/screens/TelaSobre.jsx';
+
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 function TabNavigator() {
     return (
-        /*Navigation Bar*/
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
@@ -78,6 +79,7 @@ function TabNavigator() {
                     ),
                 }}
             />
+               
         </Tab.Navigator>
     );
 }
@@ -105,7 +107,7 @@ export default function App() {
             <Drawer.Navigator
                 screenOptions={({ navigation }) => ({
                     headerShown: true, 
-                    /*Botao que abre o drawer*/
+                    title: "Clube do Livro",
                     headerLeft: () => (
                         <TouchableOpacity 
                             onPress={() => navigation.openDrawer()}
@@ -130,7 +132,7 @@ export default function App() {
                 })}>
         
                 <Drawer.Screen
-                    name="Clube Do Livro" 
+                    name="Home" 
                     component={TabNavigator}
                     options={{
                         drawerLabel: 'Início',
@@ -141,16 +143,27 @@ export default function App() {
                 />
 
                 <Drawer.Screen
-                    name="Clube do Livro"
+                    name="Dicas"
                     component={TelaDicas}
                     options={{
-                        headerShown: false, 
                         drawerLabel: 'Dicas',
                         drawerIcon: ({ color }) => (
                             <Ionicons name="information-circle" size={24} color={color} />
                         ),
                     }}
                 />
+
+                <Drawer.Screen
+                    name="Sobre"
+                    component={TelaSobre}
+                    options={{
+                        drawerLabel: 'Sobre',
+                        drawerIcon: ({ color }) => (
+                            <Ionicons name="information-circle" size={24} color={color} />
+                        ),
+                    }}
+                />
+
             </Drawer.Navigator>
         </NavigationContainer>
     );
