@@ -21,6 +21,7 @@ const CHAVE_RATS =
 export default function TelaDicas() {
   const [dicas, setDicas] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  const [temas, setTemas] = useState([]);
 
   useEffect(() => {
     buscarDados();
@@ -50,6 +51,15 @@ export default function TelaDicas() {
         console.warn("A API autenticou, mas retornou uma lista sem dados.");
       }
 
+          if (listaBruta.length > 0) {
+        const apenasTemas = listaBruta.filter(
+          (item) => item.tipo_pt === "Possíveis temas de redação sobre o livro principal"
+        );
+        setTemas(apenasTemas);
+      } else {
+        console.warn("A API autenticou, mas retornou uma lista sem dados.");
+      }
+
     } catch (error) {
       console.error("Erro na requisição:", error);
     } finally {
@@ -67,10 +77,25 @@ export default function TelaDicas() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.secao}>
-          <Text style={styles.secaoT}>Dicas de temas de redação</Text>
+          <Text style={styles.secaoT}>Dicas de conteúdo</Text>
           
           <View style={styles.gridLivros}>
             {dicas.map((item, index) => (
+              <View key={item.id || index} style={styles.card}>
+                <View style={styles.infoTextos}>
+                  <Text style={styles.livroT}>
+                    {item.conteudo_pt}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+        <View style={styles.secao}>
+          <Text style={styles.secaoT}>Possiveis temas de redação</Text>
+          
+          <View style={styles.gridLivros}>
+            {temas.map((item, index) => (
               <View key={item.id || index} style={styles.card}>
                 <View style={styles.infoTextos}>
                   <Text style={styles.livroT}>
