@@ -18,12 +18,16 @@ const CHAVE_API =
 const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
+const CHAVE_MURILO = 
+  "livr0"
+
 export default function TelaInicial() {
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
   const [livro, setLivro] = useState(null);
   const [rats, setRats] = useState(null);
+  const [murilo, setMurilo] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -53,6 +57,13 @@ export default function TelaInicial() {
     });
     const data4 = await resp4.json();
     setRats(data4[0]);
+
+    const resp5 = await fetch("https://clubelivro-backend-zui4.onrender.com/api/livro", {
+      headers: { "x-api-key": CHAVE_MURILO },
+    });
+    const data5 = await resp5.json();
+    console.log("MURILO:", data5);
+    setMurilo(data5[0]);
 
     setCarregando(false);
   }
@@ -131,6 +142,23 @@ export default function TelaInicial() {
                 <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
               </View>
                 <Text style={styles.livroGenero}>{rats.genero}</Text>
+
+            </View>
+          </View>
+
+          <View style={[styles.card, styles.livroCard]}>
+            <View>
+              <Image source={{ uri: murilo.capa }} style={styles.livroCapa} />
+            </View>
+
+<View style={styles.info}>
+              <Text style={styles.livroT}>{murilo.titulo}</Text>
+              <Text style={styles.livroAutor}>{murilo.autor}</Text>
+              
+              <View style={styles.contornoIntegracao}>
+                <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
+              </View>
+                <Text style={styles.livroGenero}>{murilo.genero}</Text>
 
             </View>
           </View>
@@ -246,6 +274,7 @@ const styles = StyleSheet.create({
   },
 
   livroCard: {
+    marginBottom: 20,
     flexDirection: "row",
     padding: 20,
     alignItems: "center",
