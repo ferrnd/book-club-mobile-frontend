@@ -18,7 +18,6 @@ import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
-import TelaSobre from './src/screens/TelaSobre.jsx';
 
 
 const Tab = createBottomTabNavigator();
