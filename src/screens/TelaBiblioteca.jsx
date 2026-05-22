@@ -11,12 +11,14 @@ import {
 import { StatusBar } from 'expo-status-bar';
 
 const CHAVE_RATS = 'Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO';
-const CHAVE_MORENINHA = 'entreLinhas123'; 
+const CHAVE_MORENINHA = 'entreLinhas123';
+const CHAVE_MURILO = 'livr0';
 
 export default function TelaBiblioteca() {
     const [carregando, setCarregando] = useState(true);
     const [rats, setRats] = useState(null);
     const [moreninha, setMoreninha] = useState(null);
+    const [murilo, setMurilo] = useState(null);
 
     useEffect(() => {
         buscarDados();
@@ -29,19 +31,37 @@ export default function TelaBiblioteca() {
             });
             const dataRats = await respRats.json();
             setRats(dataRats);
-
-            const respMoreninha = await fetch('https://clubelivro-backend.onrender.com/api/livros', {
+const respMoreninha = await fetch(
+            'https://clubelivro-backend.onrender.com/api/livros',
+            {
                 headers: { 'x-api-key': CHAVE_MORENINHA },
-            });
-            const dataMoreninha = await respMoreninha.json();
-            setMoreninha(dataMoreninha);
+            }
+        );
+        const dataMoreninha = await respMoreninha.json();
 
-        } catch (error) {
-            console.error("Erro ao buscar dados: ", error);
-        } finally {
-            setCarregando(false);
-        }
+        setMoreninha(Array.isArray(dataMoreninha) ? dataMoreninha[0] : dataMoreninha);
+    } catch (error) {
+        console.error('Erro ao buscar dados da Moreninha: ', error);
     }
+
+    try {
+
+        const respMurilo = await fetch(
+            'https://clubelivro-backend-zui4.onrender.com/api/livro',
+            {
+                headers: { 'x-api-key': CHAVE_MURILO },
+            }
+        );
+        const dataMurilo = await respMurilo.json();
+
+        setMurilo(Array.isArray(dataMurilo) ? dataMurilo[0] : dataMurilo);
+    } catch (error) {
+        console.error('Erro ao buscar dados do Murilo: ', error);
+    } finally {
+
+        setCarregando(false);
+    }
+}
 
     if (carregando) {
         return (
@@ -53,6 +73,7 @@ export default function TelaBiblioteca() {
 
     const listaRats = Array.isArray(rats) ? rats : rats ? [rats] : [];
     const listaMoreninha = Array.isArray(moreninha) ? moreninha : moreninha ? [moreninha] : [];
+    const listaMurilo = Array.isArray(murilo) ? murilo : murilo ? [murilo] : [];
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -64,10 +85,7 @@ export default function TelaBiblioteca() {
                     <Text style={styles.secaoT}>Biblioteca</Text>
 
                     <View style={styles.gridLivros}>
-                        
-                        {/* 1. MAPEAMENTO INDIVIDUAL DOS LIVROS DO RATS */}
                         {listaRats.map((livro, index) => (
-                            // CORREÇÃO: Sintaxe correta usando aspas normais e concatenação para a key
                             <View key={'rats-' + index} style={styles.card}>
                                 <View style={styles.infoTextos}>
                                     <Text style={styles.livroT} numberOfLines={2}>
@@ -93,9 +111,7 @@ export default function TelaBiblioteca() {
                             </View>
                         ))}
 
-                        {/* 2. MAPEAMENTO INDIVIDUAL DOS LIVROS DA MORENINHA */}
                         {listaMoreninha.map((livro, index) => (
-                            // CORREÇÃO: Sintaxe correta usando aspas normais e concatenação para a key
                             <View key={'moreninha-' + index} style={styles.card}>
                                 <View style={styles.infoTextos}>
                                     <Text style={styles.livroT} numberOfLines={2}>
@@ -121,6 +137,31 @@ export default function TelaBiblioteca() {
                             </View>
                         ))}
 
+                              {listaMurilo.map((livro, index) => (
+                            <View key={'murilo-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={2}>
+                                        {livro?.titulo}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={1}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
                     </View>
                 </View>
             </ScrollView>
