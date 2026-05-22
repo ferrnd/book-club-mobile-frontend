@@ -1,176 +1,214 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, Text, View, Image, ScrollView,
-  ActivityIndicator, SafeAreaView,
-} from "react-native";
-import { StatusBar } from "expo-status-bar";
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    ScrollView,
+    ActivityIndicator,
+    SafeAreaView,
+} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
-const CHAVE_RATS = "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
+const CHAVE_RATS = 'Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO';
+const CHAVE_MORENINHA = 'entreLinhas123'; 
 
 export default function TelaBiblioteca() {
-  const [carregando, setCarregando] = useState(true);
-  const [livros, setLivros] = useState([]);
+    const [carregando, setCarregando] = useState(true);
+    const [rats, setRats] = useState(null);
+    const [moreninha, setMoreninha] = useState(null);
 
-  useEffect(() => {
-    buscarDados();
-  }, []);
+    useEffect(() => {
+        buscarDados();
+    }, []);
 
-  async function buscarDados() {
-    try {
-      const resp = await fetch("https://ratsjs.onrender.com/api/livros", {
-        headers: { "x-api-key": CHAVE_RATS },
-      });
-      const data = await resp.json();
-      setLivros(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setCarregando(false); 
+    async function buscarDados() {
+        try {
+            const respRats = await fetch('https://ratsjs.onrender.com/api/livros', {
+                headers: { 'x-api-key': CHAVE_RATS },
+            });
+            const dataRats = await respRats.json();
+            setRats(dataRats);
+
+            const respMoreninha = await fetch('https://clubelivro-backend.onrender.com/api/livros', {
+                headers: { 'x-api-key': CHAVE_MORENINHA },
+            });
+            const dataMoreninha = await respMoreninha.json();
+            setMoreninha(dataMoreninha);
+
+        } catch (error) {
+            console.error("Erro ao buscar dados: ", error);
+        } finally {
+            setCarregando(false);
+        }
     }
-  }
 
-  if (carregando) {
+    if (carregando) {
+        return (
+            <View style={styles.carregando}>
+                <ActivityIndicator size='large' color='#05407A' />
+            </View>
+        );
+    }
+
+    const listaRats = Array.isArray(rats) ? rats : rats ? [rats] : [];
+    const listaMoreninha = Array.isArray(moreninha) ? moreninha : moreninha ? [moreninha] : [];
+
     return (
-      <View style={styles.carregando}>
-        <ActivityIndicator size="large" color="#05407A" />
-      </View>
-    );
-  }
+        <SafeAreaView style={styles.safeArea}>
+            <StatusBar style='dark' />
+            <ScrollView
+                contentContainerStyle={styles.container}
+                showsVerticalScrollIndicator={false}>
+                <View style={styles.secao}>
+                    <Text style={styles.secaoT}>Biblioteca</Text>
 
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="dark" />
-      <ScrollView
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.secao}>
-          <Text style={styles.secaoT}>Biblioteca</Text>
+                    <View style={styles.gridLivros}>
+                        
+                        {/* 1. MAPEAMENTO INDIVIDUAL DOS LIVROS DO RATS */}
+                        {listaRats.map((livro, index) => (
+                            // CORREÇÃO: Sintaxe correta usando aspas normais e concatenação para a key
+                            <View key={'rats-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={2}>
+                                        {livro?.titulo}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={1}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
 
-          <View style={styles.gridLivros}>
-            {livros.map((livro, index) => (
-              <View key={index} style={styles.card}>
-                <View style={styles.infoTextos}>
-                  <Text style={styles.livroT}>{livro?.titulo}</Text>
-                  <Text style={styles.livroAutor}>{livro?.autor}</Text>
-                  {livro?.anoPublicacao && (
-                    <View style={styles.contorno}>
-                      <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
+                        {/* 2. MAPEAMENTO INDIVIDUAL DOS LIVROS DA MORENINHA */}
+                        {listaMoreninha.map((livro, index) => (
+                            // CORREÇÃO: Sintaxe correta usando aspas normais e concatenação para a key
+                            <View key={'moreninha-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={2}>
+                                        {livro?.titulo}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={1}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
+
                     </View>
-                  )}
                 </View>
-                <View style={styles.containerCapaMini}>
-                  <Image source={{ uri: livro?.capa }} style={styles.livroCapaMini} />
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f4faffff",
-  },
-  carregando: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fffbfb",
-  },
-  header: {
-    paddingVertical: 15,
-    paddingHorizontal: 35,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#f4faffff",
-  },
-  headerT: {
-  marginTop: 23,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-  },
-  logo: {
-    height: 30,
-    width: 35,
-    resizeMode: "contain",
-  },
-  container: {
-    paddingHorizontal: 16,
-    paddingTop: 20,
-    paddingBottom: 40,
-  },
-  secao: {
-    width: "100%",
-  },
-  secaoT: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 20,
-  },
-  gridLivros: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  card: {
-    backgroundColor: "#BCE0FD", 
-    borderRadius: 16,
-    padding: 12,
-    width: "48%", 
-    height: 100, 
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  infoTextos: {
-    flex: 1,
-    height: "100%",
-    justifyContent: "space-between", 
-    paddingRight: 6,
-  },
-  livroT: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#000000",
-  },
-  livroAutor: {
-    fontSize: 11,
-    color: "#555555",
-    marginTop: -2,
-  },
-  contorno: {
-    alignSelf: "flex-start",
-    backgroundColor: "#6CB7FF",
-    paddingVertical: 3,
-    paddingHorizontal: 8,
-    borderRadius: 6,
-  },
-  anoPublicacao: {
-    color: "#ffffff",
-    fontSize: 10,
-    fontWeight: "bold",
-  },
-  containerCapaMini: {
-    width: 45,
-    height: "100%",
-    backgroundColor: "#80C2FF", // Tom de azul de fundo da mini capa
-    borderRadius: 10,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  livroCapaMini: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#f4faffff',
+    },
+    carregando: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fffbfb',
+    },
+    container: {
+        paddingHorizontal: 16,
+        paddingTop: 20,
+        paddingBottom: 40,
+    },
+    secao: {
+        width: '100%',
+    },
+    secaoT: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#000000',
+        marginBottom: 20,
+    },
+    gridLivros: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
+    card: {
+        backgroundColor: '#BCE0FD',
+        borderRadius: 16,
+        padding: 12,
+        width: '48%',
+        height: 110,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 16,
+    },
+    infoTextos: {
+        flex: 1,
+        height: '100%',
+        justifyContent: 'space-between',
+        paddingRight: 6,
+    },
+    livroT: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#000000',
+    },
+    livroAutor: {
+        fontSize: 11,
+        color: '#555555',
+        marginTop: -2,
+    },
+    contorno: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#6CB7FF',
+        paddingVertical: 3,
+        paddingHorizontal: 8,
+        borderRadius: 6,
+    },
+    anoPublicacao: {
+        color: '#ffffff',
+        fontSize: 10,
+        fontWeight: 'bold',
+    },
+    containerCapaMini: {
+        width: 45,
+        height: '100%',
+        backgroundColor: '#80C2FF',
+        borderRadius: 10,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    livroCapaMini: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    },
 });

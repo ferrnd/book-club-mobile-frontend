@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -59,16 +60,6 @@ function TabNavigator() {
                     tabBarLabel: 'Livro',
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="book" size={size} color={color} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Sobre"
-                component={TelaSobre}
-                options={{
-                    tabBarLabel: 'Sobre',
-                    tabBarIcon: ({ color, size }) => (
-                        <FontAwesome5 name="users" size={size} color={color} />
                     ),
                 }}
             />
@@ -168,12 +159,12 @@ export default function App() {
                 />
 
                 <Drawer.Screen
-                    name="Sobre"
+                    name="Equipe"
                     component={TelaSobre}
                     options={{
                         drawerLabel: 'Sobre',
                         drawerIcon: ({ color }) => (
-                            <Ionicons name="information-circle" size={24} color={color} />
+                          <FontAwesome5 name="users" size={24} color={color} />
                         ),
                     }}
                 />
@@ -184,7 +175,7 @@ export default function App() {
                     options={{
                         drawerLabel: 'Vídeo Aulas',
                         drawerIcon: ({ color }) => (
-                            <Ionicons name="information-circle" size={24} color={color} />
+                            <FontAwesome name="video-camera" size={24} color={color} />
                         ),
                     }}
                 />
