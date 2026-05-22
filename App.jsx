@@ -20,6 +20,7 @@ import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
+import TelaVideoaula from './src/screens/TelaVideoaula.jsx';
 import TelaAutor from './src/screens/TelaAutor.jsx'
 
 
@@ -180,6 +181,17 @@ export default function App() {
                     component={TelaSobre}
                     options={{
                         drawerLabel: 'Sobre',
+                        drawerIcon: ({ color }) => (
+                            <Ionicons name="information-circle" size={24} color={color} />
+                        ),
+                    }}
+                />
+
+                <Drawer.Screen
+                    name="Video Aulas"
+                    component={TelaVideoaula}
+                    options={{
+                        drawerLabel: 'Vídeo Aulas',
                         drawerIcon: ({ color }) => (
                             <Ionicons name="information-circle" size={24} color={color} />
                         ),
