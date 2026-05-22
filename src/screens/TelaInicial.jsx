@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -24,7 +25,7 @@ const CHAVE_MURILO =
 const CHAVE_MORENINHA = 
 "entreLinhas123";
 
-export default function TelaInicial() {
+export default function TelaInicial({ navigation }) {
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
@@ -125,7 +126,14 @@ export default function TelaInicial() {
               style={styles.iconeCitacao}
             />
             <Text style={styles.frase}>"{citacao.texto_pt}"</Text>
-            <Text style={styles.dito}>— {citacao.personagem}</Text>
+            <Text style={styles.dito}>— {citacao.personagem} —</Text>
+            <TouchableOpacity 
+          style={styles.saibaMais} 
+          onPress={() => navigation.navigate('TelaCitacoes')} 
+        >
+          <Text style={styles.botaoT}>Saiba Mais</Text>
+          <FontAwesome name="arrow-right" size={10} color="#ffffff" style={{ marginLeft: 5 }} />
+        </TouchableOpacity>
           </View>
         </View>
 
@@ -233,6 +241,25 @@ const styles = StyleSheet.create({
     marginTop: 23,
     height: 35,
     width: 35,
+  },
+
+  saibaMais: {
+    marginTop: 15, 
+    backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20, 
+    flexDirection: 'row', 
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center', 
+  },
+
+  botaoT: {
+    color: '#ffffff',
+    fontSize: 9,
+    fontWeight: 'bold',
+    textTransform: "uppercase"
   },
 
   secao: {
