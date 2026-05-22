@@ -6,7 +6,6 @@ import {
   ScrollView,
   ActivityIndicator,
   SafeAreaView,
-  Alert,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -24,115 +23,121 @@ export default function TelaDicas() {
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    buscarDicas();
+    buscarDados();
   }, []);
 
-  async function buscarDicas() {
-    const resp = await fetch(URL_BASE + "/dicas", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data = await resp.json();
-    setDicas(data[0]);
+  async function buscarDados() {
+     try {
+    const response = await fetch(`${URL_BASE}/dicas`, {
+        method: "GET",
+        headers: { 
+          "Content-Type": "application/json",
+          "x-api-key": CHAVE_API 
+        },
+      });
+      const data = await response.json();
+      
+      console.log("O QUE VEIO DA API CORRIGIDO:", data);
 
-    setCarregando(false);
+      const listaBruta = Array.isArray(data) ? data : (data && Array.isArray(data.dados) ? data.dados : []);
+
+      if (listaBruta.length > 0) {
+        const apenasDicas = listaBruta.filter(
+          (item) => item.tipo_pt === "Dicas de Vestibular sobre o Conteúdo"
+        );
+        setDicas(apenasDicas);
+      } else {
+        console.warn("A API autenticou, mas retornou uma lista sem dados.");
+      }
+
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    } finally {
+      setCarregando(false);
+    }
   }
 
-  if (carregando) {
+
     return (
-      <View style={styles.carregando}>
-        <ActivityIndicator size="large" color="#000000" />
-      </View>
-    );
-  }
-
-  return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-      <View style={styles.header}>
-        <Text style={styles.headerT}>Clube Do Livro</Text>
-      </View>
-      {/*Dicas*/}
+    
       <ScrollView
+        contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scroll}
       >
-
-         {carregando && <ActivityIndicator size="large" color="#1e225f" style={{ marginTop: 24 }} />}
-
-         {dicas && (
-            <View style={styles.card}>
-                <Text style={styles.tipo}> {dicas.tipo_pt} </Text>
-                 <Text style={styles.conteudo}>{dicas.conteudo_pt}</Text>
-            </View>
-         )}
+        <View style={styles.secao}>
+          <Text style={styles.secaoT}>Dicas de temas de redação</Text>
+          
+          <View style={styles.gridLivros}>
+            {dicas.map((item, index) => (
+              <View key={item.id || index} style={styles.card}>
+                <View style={styles.infoTextos}>
+                  <Text style={styles.livroT}>
+                    {item.conteudo_pt}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
   safeArea: {
     flex: 1,
     backgroundColor: "#f4faffff",
   },
-
-  container: {
-    padding: 25,
-    paddingTop: 45,
-    paddingBottom: 45,
-  },
-
   carregando: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fffbfb",
+    backgroundColor: "#f4faffff",
   },
-
-  header: {
-    paddingVertical: 22,
-    paddingHorizontal: 25,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#ffffffff",
-    marginTop: 8,
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 20,
+    paddingBottom: 40,
   },
-
-  headerT: {
-    fontSize: 20,
+  secao: {
+    width: "100%",
+  },
+  secaoT: {
+    fontSize: 22,
     fontWeight: "bold",
     color: "#000000",
+    marginBottom: 20,
   },
-
-  logo: {
-    height: 45,
-    width: 45,
-  },
-  scroll: {
-    padding: 20,
-    paddingBottom: 100,
+  gridLivros: {
+    flexDirection: "column", 
+    width: "100%",
   },
   card: {
-    backgroundColor: "#DDF1FF",
-    borderRadius: 25,
-    padding: 22,
-    marginBottom: 25,
-    minHeight: 180,
+    backgroundColor: "#BCE0FD", 
+    borderRadius: 16,
+    padding: 16, 
+    width: "100%",
+    minHeight: 90, 
     justifyContent: "center",
+    marginBottom: 16,
+    
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2, 
   },
-  tipo: {
-    fontSize: 20,
-    color: "#3D5A80",
-    marginBottom: 18,
+  infoTextos: {
+    width: "100%",
   },
-  conteudo: {
-    fontSize: 18,
-    color: "#5B6B7A",
-    lineHeight: 28,
+  livroT: {
+    fontSize: 14, 
+    fontWeight: "600",
+    color: "#000000",
+    lineHeight: 20, 
   },
 });
