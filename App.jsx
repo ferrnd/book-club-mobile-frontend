@@ -18,7 +18,7 @@ import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
-import TelaSobre from './src/screens/TelaSobre.jsx';
+import TelaAutor from './src/screens/TelaAutor.jsx'
 
 
 const Tab = createBottomTabNavigator();
@@ -64,6 +64,16 @@ function TabNavigator() {
                 component={TelaSobre}
                 options={{
                     tabBarLabel: 'Sobre',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="information-circle" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Autor"
+                component={TelaAutor}
+                options={{
+                    tabBarLabel: 'Autor',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="information-circle" size={size} color={color} />
                     ),
