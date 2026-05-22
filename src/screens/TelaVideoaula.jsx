@@ -16,7 +16,7 @@ export default function TelaVideoAula() {
             <ScrollView
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}>
-                <View style={styles.cardUm}>
+                <View style={styles.Card}>
                     <Text style={styles.title}>
                         Video Aula
                     </Text>
@@ -25,17 +25,32 @@ export default function TelaVideoAula() {
                             Vídeo em breve
                         </Text>
                     </View>
-                </View>
+                    
+                    <View style={StyleSheet.Card}>
 
-                <View style={StyleSheet.CardDois}>
-                    <View style={styles.placeholder}>
-                        <Text style={styles.placeholderText}>
-                            Vídeo em breve
+                        <Text style={styles.title}>
+                            Video Aula
                         </Text>
+                        <View style={styles.placeholder}>
+                            <Text style={styles.placeholderText}>
+                                Vídeo em breve
+                            </Text>
+                        </View>
+
+                    </View>
+
+                    <View style={StyleSheet.Card}>
+
+                        <Text style={styles.title}>
+                            Video Aula
+                        </Text>
+                        <View style={styles.placeholder}>
+                            <Text style={styles.placeholderText}>
+                                Vídeo em breve
+                            </Text>
+                        </View>
                     </View>
                 </View>
-
-
             </ScrollView>
         </SafeAreaView>
     );
@@ -46,30 +61,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f4faff',
     },
-    header: {
-        paddingVertical: 22,
-        paddingHorizontal: 25,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: '#ffffff',
-        marginTop: 8,
-    },
-    logo: {
-        height: 45,
-        width: 45,
-    },
-    headerT: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#000000',
-    },
     container: {
         padding: 25,
         paddingTop: 45,
         paddingBottom: 45,
     },
-    card: {
+    Card: {
         backgroundColor: '#FFFFFF',
         borderRadius: 9,
         padding: 21,
@@ -79,17 +76,15 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 2,
     },
+
     title: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 12,
         color: '#000000',
+        marginTop: 12,
     },
-    description: {
-        fontSize: 16,
-        lineHeight: 24,
-        color: '#444444',
-    },
+
     placeholder: {
         marginTop: 20,
         borderRadius: 9,
@@ -104,17 +99,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: '#4aa1f3',
-    },
-    CardDois: {
-        backgroundColor: '#ffffff',
-        borderRadius: 12,
-        padding: 20,
-        borderLeftWidth: 5,
-        borderLeftColor: '#4aa1f3',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.08,
-        shadowRadius: 3,
-        elevation: 2,
     },
 });
