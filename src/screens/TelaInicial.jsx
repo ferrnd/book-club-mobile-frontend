@@ -21,6 +21,9 @@ const CHAVE_RATS =
 const CHAVE_MURILO = 
   "livr0"
 
+const CHAVE_MORENINHA = 
+"entreLinhas123";
+
 export default function TelaInicial() {
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
@@ -28,6 +31,7 @@ export default function TelaInicial() {
   const [livro, setLivro] = useState(null);
   const [rats, setRats] = useState(null);
   const [murilo, setMurilo] = useState(null);
+  const [moreninha, setMoreninha] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -62,8 +66,13 @@ export default function TelaInicial() {
       headers: { "x-api-key": CHAVE_MURILO },
     });
     const data5 = await resp5.json();
-    console.log("MURILO:", data5);
     setMurilo(data5[0]);
+
+    const resp6 = await fetch("https://clubelivro-backend.onrender.com/api/livros", {
+      headers: { "x-api-key": CHAVE_MORENINHA},
+    });
+    const data6 = await resp6.json();
+    setMoreninha(data6[0]);
 
     setCarregando(false);
   }
@@ -159,6 +168,23 @@ export default function TelaInicial() {
                 <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
               </View>
                 <Text style={styles.livroGenero}>{murilo.genero}</Text>
+
+            </View>
+          </View>
+
+          <View style={[styles.card, styles.livroCard]}>
+            <View>
+              <Image source={{ uri: moreninha.capa }} style={styles.livroCapa} />
+            </View>
+
+<View style={styles.info}>
+              <Text style={styles.livroT}>{moreninha.titulo}</Text>
+              <Text style={styles.livroAutor}>{moreninha.autor}</Text>
+              
+              <View style={styles.contornoIntegracao}>
+                <Text style={styles.anoPublicacao}>{moreninha.anoPublicacao}</Text>
+              </View>
+                <Text style={styles.livroGenero}>{moreninha.genero}</Text>
 
             </View>
           </View>
