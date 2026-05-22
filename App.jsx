@@ -25,6 +25,7 @@ import TelaLivro from './src/screens/TelaLivro.jsx';
 import TelaVideoaula from './src/screens/TelaVideoaula.jsx';
 import TelaAutor from './src/screens/TelaAutor.jsx'
 import TelaCuriosidades from './src/screens/TelaCuriosidades.jsx';
+import TelaCitacoes from './src/screens/TelaCitacoes.jsx'
 
 
 const Tab = createBottomTabNavigator();
@@ -63,6 +64,13 @@ function TabNavigator() {
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="book" size={size} color={color} />
                     ),
+                }}
+            />
+            <Tab.Screen
+                name="TelaCitacoes" 
+                component={TelaCitacoes}
+                options={{
+                    tabBarButton: () => null, tabBarItemStyle: { display: 'none' }
                 }}
             />
             <Tab.Screen
