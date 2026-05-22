@@ -2,6 +2,8 @@ import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 're
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Entypo from '@expo/vector-icons/Entypo'
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -19,6 +21,7 @@ import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
 import TelaLivro from './src/screens/TelaLivro.jsx';
 import TelaVideoaula from './src/screens/TelaVideoaula.jsx';
+import TelaAutor from './src/screens/TelaAutor.jsx'
 
 
 const Tab = createBottomTabNavigator();
@@ -55,7 +58,7 @@ function TabNavigator() {
                 options={{
                     tabBarLabel: 'Livro',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="book" size={size} color={color} />
+                        <Entypo name="book" size={size} color={color} />
                     ),
                 }}
             />
@@ -64,6 +67,26 @@ function TabNavigator() {
                 component={TelaSobre}
                 options={{
                     tabBarLabel: 'Sobre',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome5 name="users" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Autor"
+                component={TelaAutor}
+                options={{
+                    tabBarLabel: 'Autor',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome5 name="users" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Autor"
+                component={TelaAutor}
+                options={{
+                    tabBarLabel: 'Autor',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="information-circle" size={size} color={color} />
                     ),

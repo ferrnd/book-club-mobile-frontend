@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  ActivityIndicator,
-  SafeAreaView,
+  StyleSheet, Text, View, Image, ScrollView,
+  ActivityIndicator, SafeAreaView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
@@ -14,7 +9,7 @@ const CHAVE_RATS = "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLi
 
 export default function TelaBiblioteca() {
   const [carregando, setCarregando] = useState(true);
-  const [rats, setRats] = useState(null);
+  const [livros, setLivros] = useState([]);
 
   useEffect(() => {
     buscarDados();
@@ -22,14 +17,16 @@ export default function TelaBiblioteca() {
 
   async function buscarDados() {
     try {
-      const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
+      const resp = await fetch("https://ratsjs.onrender.com/api/livros", {
         headers: { "x-api-key": CHAVE_RATS },
       });
-      const data4 = await resp4.json();
-      setRats(data4[0]);
+      const data = await resp.json();
+      setLivros(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error(error);
-    } 
+    } finally {
+      setCarregando(false); 
+    }
   }
 
   if (carregando) {
@@ -43,173 +40,30 @@ export default function TelaBiblioteca() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-    
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.secao}>
           <Text style={styles.secaoT}>Biblioteca</Text>
-          
+
           <View style={styles.gridLivros}>
-           
-
-            <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{rats?.titulo}</Text>
-                <Text  style={styles.livroAutor}>{rats?.autor}</Text>
-                {rats?.anoPublicacao && (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
-                  </View>
-                )}
+            {livros.map((livro, index) => (
+              <View key={index} style={styles.card}>
+                <View style={styles.infoTextos}>
+                  <Text style={styles.livroT}>{livro?.titulo}</Text>
+                  <Text style={styles.livroAutor}>{livro?.autor}</Text>
+                  {livro?.anoPublicacao && (
+                    <View style={styles.contorno}>
+                      <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
+                    </View>
+                  )}
+                </View>
+                <View style={styles.containerCapaMini}>
+                  <Image source={{ uri: livro?.capa }} style={styles.livroCapaMini} />
+                </View>
               </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ uri: rats?.capa }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-            
-            <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-   <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-            <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-
- <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-
- <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-             <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
- <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
- <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
- <View style={styles.card}>
-              <View style={styles.infoTextos}>
-                <Text  style={styles.livroT}>{/*livro?.titulo*/}</Text>
-                <Text  style={styles.livroAutor}>{/*livro?.autor*/}</Text>
-                {/*livro?.anoPublicacao && */ (
-                  <View style={styles.contorno}> 
-                    <Text style={styles.anoPublicacao}>{/*livro.anoPublicacao*/}</Text>
-                  </View>
-                )}
-              </View>
-              <View style={styles.containerCapaMini}>
-                <Image source={{ /* uri: livro.capa*/ }} style={styles.livroCapaMini} />
-              </View>
-            </View>
-
-
-
-
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -267,12 +121,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   card: {
-    backgroundColor: "#BCE0FD", // Azul claro dos cards do Figma
+    backgroundColor: "#BCE0FD", 
     borderRadius: 16,
     padding: 12,
-    width: "48%", // Faz caber dois por linha com espaço no meio
-    height: 100, // Altura fixa aproximada do formato horizontal do Figma
-    flexDirection: "row", // Alinha textos na esquerda e imagem na direita
+    width: "48%", 
+    height: 100, 
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 16,
@@ -280,7 +134,7 @@ const styles = StyleSheet.create({
   infoTextos: {
     flex: 1,
     height: "100%",
-    justifyContent: "space-between", // Distribui o título no topo e o ano embaixo
+    justifyContent: "space-between", 
     paddingRight: 6,
   },
   livroT: {
