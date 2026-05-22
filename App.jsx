@@ -16,6 +16,8 @@ import { Outfit_400Regular, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-go
 import TelaInicial from './src/screens/TelaInicial.jsx';
 import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
+import TelaSobre from './src/screens/TelaSobre.jsx';
+import TelaLivro from './src/screens/TelaLivro.jsx';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -43,6 +45,26 @@ function TabNavigator() {
                     tabBarLabel: 'Início',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="home" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Book"
+                component={TelaLivro}
+                options={{
+                    tabBarLabel: 'Livro',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="book" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Sobre"
+                component={TelaSobre}
+                options={{
+                    tabBarLabel: 'Sobre',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="information-circle" size={size} color={color} />
                     ),
                 }}
             />
