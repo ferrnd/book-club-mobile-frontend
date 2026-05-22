@@ -13,12 +13,14 @@ import { StatusBar } from 'expo-status-bar';
 const CHAVE_RATS = 'Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO';
 const CHAVE_MORENINHA = 'entreLinhas123';
 const CHAVE_MURILO = 'livr0';
+const CHAVE_PEDRO = 'chaveSecreta';
 
 export default function TelaBiblioteca() {
     const [carregando, setCarregando] = useState(true);
     const [rats, setRats] = useState(null);
     const [moreninha, setMoreninha] = useState(null);
     const [murilo, setMurilo] = useState(null);
+    const [pedro, setPedro] = useState(null);
 
     useEffect(() => {
         buscarDados();
@@ -57,8 +59,22 @@ const respMoreninha = await fetch(
         setMurilo(Array.isArray(dataMurilo) ? dataMurilo[0] : dataMurilo);
     } catch (error) {
         console.error('Erro ao buscar dados do Murilo: ', error);
-    } finally {
+    }
 
+
+    try {
+        const respPedro = await fetch(
+            'https://atividade-portugues-backend.onrender.com/api/livro',
+            {
+                headers: { 'x-api-key': CHAVE_MURILO },
+            },
+        );
+        const dataPedro = await respMurilo.json();
+
+        setMurilo(Array.isArray(dataPedro) ? dataPedro[0] : dataPedro);
+    } catch (error) {
+        console.error('Erro ao buscar dados da API do Pedro: ', error);
+    } finally {
         setCarregando(false);
     }
 }
@@ -74,10 +90,11 @@ const respMoreninha = await fetch(
     const listaRats = Array.isArray(rats) ? rats : rats ? [rats] : [];
     const listaMoreninha = Array.isArray(moreninha) ? moreninha : moreninha ? [moreninha] : [];
     const listaMurilo = Array.isArray(murilo) ? murilo : murilo ? [murilo] : [];
+    const listaPedro = Array.isArray(pedro) ? pedro : pedro ? [pedro] : [];
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <StatusBar style='dark' />
+            <StatusBar style="dark" />
             <ScrollView
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}>
@@ -137,8 +154,34 @@ const respMoreninha = await fetch(
                             </View>
                         ))}
 
-                              {listaMurilo.map((livro, index) => (
+                        {listaMurilo.map((livro, index) => (
                             <View key={'murilo-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={2}>
+                                        {livro?.titulo}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={1}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
+
+                        {listaPedro.map((livro, index) => (
+                            <View key={'pedro-' + index} style={styles.card}>
                                 <View style={styles.infoTextos}>
                                     <Text style={styles.livroT} numberOfLines={2}>
                                         {livro?.titulo}
