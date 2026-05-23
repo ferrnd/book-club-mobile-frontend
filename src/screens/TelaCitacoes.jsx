@@ -16,40 +16,21 @@ const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
-const CHAVE_RATS =
-  "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
-
-const CHAVE_MURILO = 
-  "livr0"
-
-const CHAVE_MORENINHA = 
-"entreLinhas123";
-
 export default function TelaInicial({ navigation }) {
   const [carregando, setCarregando] = useState(true);
-  const [projeto, setProjeto] = useState(null);
-  const [citacao, setCitacao] = useState(null);
+  const [citacao, setCitacao] = useState([]);
+  const [indiceCitacao, setIndiceCitacao] = useState(0);
   const [livro, setLivro] = useState(null);
-  const [rats, setRats] = useState(null);
-  const [murilo, setMurilo] = useState(null);
-  const [moreninha, setMoreninha] = useState(null);
 
   useEffect(() => {
     buscarDados();
   }, []);
 
-  async function buscarDados() {
-    const resp = await fetch(URL_BASE + "/projeto", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data = await resp.json();
-    setProjeto(data[0]);
-
     const resp2 = await fetch(URL_BASE + "/citacao", {
       headers: { "x-api-key": CHAVE_API },
     });
     const data2 = await resp2.json();
-    setCitacao(data2[0]);
+    setCitacao(data2);
 
     const resp3 = await fetch(URL_BASE + "/livro", {
       headers: { "x-api-key": CHAVE_API },
@@ -57,25 +38,15 @@ export default function TelaInicial({ navigation }) {
     const data3 = await resp3.json();
     setLivro(data3[0]);
 
-    const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
-      headers: { "x-api-key": CHAVE_RATS },
-    });
-    const data4 = await resp4.json();
-    setRats(data4[0]);
-
-    const resp5 = await fetch("https://clubelivro-backend-zui4.onrender.com/api/livro", {
-      headers: { "x-api-key": CHAVE_MURILO },
-    });
-    const data5 = await resp5.json();
-    setMurilo(data5[0]);
-
-    const resp6 = await fetch("https://clubelivro-backend.onrender.com/api/livros", {
-      headers: { "x-api-key": CHAVE_MORENINHA},
-    });
-    const data6 = await resp6.json();
-    setMoreninha(data6[0]);
-
     setCarregando(false);
+  }
+
+  function proximaCitacao() {
+    setIndiceCitacao((prev) => (prev + 1) % citacao.length);
+  }
+
+  function citacaoAnterior() {
+    setIndiceCitacao((prev) => (prev - 1 + citacao.length) % citacao.length);
   }
 
   if (carregando) {
@@ -93,7 +64,15 @@ export default function TelaInicial({ navigation }) {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-            <View style={styles.secao}>
+        <View style={styles.cabecalho}>
+          <Image source={{ uri: livro.capa }} style={styles.capaLivro} />
+          <Text style={styles.cabecalhoT}>{livro.titulo}</Text>
+          <Text style={styles.cabecalhoAutor}>{livro.autor}</Text>
+          <View style={styles.cabecalhoDivisor} />
+          <Text style={styles.cabecalhoSbt}>Citações & Explicações</Text>
+        </View>
+
+        <View style={styles.citacaoCard}>
           <View style={styles.citacaoCaixa}>
             <FontAwesome
               name="quote-left"
@@ -101,14 +80,46 @@ export default function TelaInicial({ navigation }) {
               color="#ffffff"
               style={styles.iconeCitacao}
             />
-            <Text style={styles.frase}>"{citacao.texto_pt}"</Text>
-            <Text style={styles.dito}>— {citacao.personagem} —</Text>
+            <Text style={styles.contoTag}>
+              Conto: 
+              {citacao[indiceCitacao].conto.titulo_pt}
+            </Text>
+            <Text style={styles.frase}>
+              "{citacao[indiceCitacao].texto_pt}"
+            </Text>
+            <Text style={styles.dito}>
+              — {citacao[indiceCitacao].personagem} —
+            </Text>
+          </View>
+
+          <View style={styles.divisor}>
+            <View style={styles.divisorLinha} />
+            <Text style={styles.divisorTexto}>Explicação</Text>
+            <View style={styles.divisorLinha} />
+          </View>
+
+          <Text style={styles.explicacaoTexto}>
+            {citacao[indiceCitacao].explicacao_pt}
+          </Text>
+
+          <View style={styles.navegacao}>
+            <TouchableOpacity onPress={citacaoAnterior} style={styles.seta}>
+              <FontAwesome name="chevron-left" size={15} color="#5eafff" />
+            </TouchableOpacity>
+
+            <Text style={styles.navegacaoIndicador}>
+              {indiceCitacao + 1} / {citacao.length}
+            </Text>
+
+            <TouchableOpacity onPress={proximaCitacao} style={styles.seta}>
+              <FontAwesome name="chevron-right" size={15} color="#5eafff" />
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-}
+
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -127,66 +138,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fffbfb",
-  },
-
-  header: {
-    paddingVertical: 15,
-    paddingHorizontal: 35,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#f4faffff",
-  },
-
-  headerT: {
-    marginTop: 23,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-  },
-
-  logo: {
-    marginTop: 23,
-    height: 35,
-    width: 35,
-  },
-
-  saibaMais: {
-    marginTop: 15, 
-    backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20, 
-    flexDirection: 'row', 
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center', 
-  },
-
-  botaoT: {
-    color: '#ffffff',
-    fontSize: 9,
-    fontWeight: 'bold',
-    textTransform: "uppercase"
-  },
-
-  secao: {
-    marginBottom: 9,
-  },
-
-  secaoT: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 27,
-  },
-
-  secaoT1: {
-    marginTop: 9,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 27,
   },
 
   citacaoCaixa: {
@@ -217,5 +168,118 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     fontWeight: "bold",
     color: "#ffffff",
-  }
+  },
+
+  citacaoCard: {
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    marginBottom: 18,
+  },
+
+  divisor: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 17,
+    marginVertical: 15,
+  },
+
+  divisorLinha: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#e0e0e0",
+  },
+
+  divisorTexto: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#adadad",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+
+  explicacaoTexto: {
+    paddingHorizontal: 18,
+    paddingBottom: 18,
+    fontSize: 18,
+    color: "#444444",
+    lineHeight: 21,
+    fontStyle: "italic",
+    textAlign: "justify",
+  },
+
+  navegacao: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    borderTopColor: "#f0f0f0",
+  },
+
+  seta: {
+    padding: 8,
+  },
+
+  navegacaoIndicador: {
+    fontSize: 12,
+    color: "#a8a8a8",
+    fontWeight: "bold",
+    letterSpacing: 1,
+  },
+
+  contoTag: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "rgba(255,255,255,0.7)",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginBottom: 12,
+  },
+
+  cabecalho: {
+    alignItems: "center",
+    marginBottom: 24,
+  },
+
+  capaLivro: {
+    width: 210,
+    height: 320,
+    borderRadius: 8,
+    marginBottom: 14,
+  },
+
+  cabecalhoT: {
+    padding: 1,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#111",
+    textAlign: "center",
+    marginBottom: 4,
+    textTransform: "capitalize",
+  },
+
+  cabecalhoAutor: {
+    fontSize: 13,
+    color: "#888",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+
+  cabecalhoDivisor: {
+    width: 400,
+    height: 3,
+    backgroundColor: "#5eafff",
+    borderRadius: 2,
+    marginBottom: 16,
+  },
+
+  cabecalhoSbt: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#aaa",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginTop: 7,
+    marginBottom: 5,
+  },
 });
