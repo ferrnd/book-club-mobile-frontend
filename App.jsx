@@ -199,6 +199,16 @@ export default function App() {
                         ),
                     }}
                 />
+                <Drawer.Screen
+                    name="Citações"
+                    component={TelaCitacoes}
+                    options={{
+                        drawerLabel: 'citações',
+                        drawerIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="comment-quote" size={24} color={color} />
+                        ),
+                    }}
+                />
 
             </Drawer.Navigator>
         </NavigationContainer>
