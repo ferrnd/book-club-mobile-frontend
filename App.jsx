@@ -26,7 +26,7 @@ import TelaVideoaula from './src/screens/TelaVideoaula.jsx';
 import TelaAutor from './src/screens/TelaAutor.jsx'
 import TelaCuriosidades from './src/screens/TelaCuriosidades.jsx';
 import TelaCitacoes from './src/screens/TelaCitacoes.jsx'
-
+import telaQuiz from './src/screens/telaQuiz.jsx';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -89,6 +89,16 @@ function TabNavigator() {
                 component={TelaBiblioteca}
                 options={{
                     tabBarLabel: 'Biblioteca',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="book" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Telaquiz"
+                component={telaQuiz}
+                options={{
+                    tabBarLabel: 'quiz',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="book" size={size} color={color} />
                     ),
