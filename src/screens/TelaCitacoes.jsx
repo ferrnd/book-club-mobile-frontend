@@ -16,7 +16,7 @@ const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
-export default function TelaInicial({ navigation }) {
+export default function TelaCitacoes({ navigation }) {
   const [carregando, setCarregando] = useState(true);
   const [citacao, setCitacao] = useState([]);
   const [indiceCitacao, setIndiceCitacao] = useState(0);
@@ -26,6 +26,7 @@ export default function TelaInicial({ navigation }) {
     buscarDados();
   }, []);
 
+  async function buscarDados() {
     const resp2 = await fetch(URL_BASE + "/citacao", {
       headers: { "x-api-key": CHAVE_API },
     });
@@ -81,8 +82,7 @@ export default function TelaInicial({ navigation }) {
               style={styles.iconeCitacao}
             />
             <Text style={styles.contoTag}>
-              Conto: 
-              {citacao[indiceCitacao].conto.titulo_pt}
+              Conto: {citacao[indiceCitacao].conto.titulo_pt}  
             </Text>
             <Text style={styles.frase}>
               "{citacao[indiceCitacao].texto_pt}"
@@ -119,7 +119,7 @@ export default function TelaInicial({ navigation }) {
       </ScrollView>
     </SafeAreaView>
   );
-
+}
 
 const styles = StyleSheet.create({
   safeArea: {
