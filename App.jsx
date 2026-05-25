@@ -100,16 +100,6 @@ function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="TelaPersonagens"
-                component={TelaPersonagem}
-                options={{
-                    tabBarLabel: 'Perso',
-                    tabBarIcon: ({ color, size }) => (
-                        <FontAwesome6 name="person" size={size} color={color} />
-                    ),
-                }}
-            />
-            <Tab.Screen
                 name="Telaquiz"
                 component={telaQuiz}
                 options={{
@@ -146,14 +136,15 @@ export default function App() {
             <Drawer.Navigator
                 screenOptions={({ navigation }) => ({
                     headerShown: true,
-                    title: "Clube do Livro",
+                    title: 'Clube do Livro',
                     headerLeft: () => (
                         <TouchableOpacity
                             onPress={() => navigation.openDrawer()}
-                            style={{ marginLeft: 16 }}
-                        >
+                            style={{ marginLeft: 16 }}>
                             <Image
-                                source={{ uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png" }}
+                                source={{
+                                    uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png',
+                                }}
                                 style={{ width: 32, height: 32, resizeMode: 'contain' }}
                             />
                         </TouchableOpacity>
@@ -169,15 +160,12 @@ export default function App() {
                         backgroundColor: '#94a5b6',
                     },
                 })}>
-
                 <Drawer.Screen
                     name="Home"
                     component={TabNavigator}
                     options={{
                         drawerLabel: 'Início',
-                        drawerIcon: ({ color }) => (
-                            <Ionicons name="home" size={24} color={color} />
-                        ),
+                        drawerIcon: ({ color }) => <Ionicons name="home" size={24} color={color} />,
                     }}
                 />
 
@@ -193,12 +181,23 @@ export default function App() {
                 />
 
                 <Drawer.Screen
+                    name="TelaPersonagens"
+                    component={TelaPersonagem}
+                    options={{
+                        drawerLabel: 'Personagens',
+                        drawerIcon: ({ color }) => (
+                            <FontAwesome6 name="person" size={24} color={color} />
+                        ),
+                    }}
+                />
+
+                <Drawer.Screen
                     name="Equipe"
                     component={TelaSobre}
                     options={{
                         drawerLabel: 'Sobre',
                         drawerIcon: ({ color }) => (
-                          <FontAwesome5 name="users" size={24} color={color} />
+                            <FontAwesome5 name="users" size={24} color={color} />
                         ),
                     }}
                 />
@@ -219,7 +218,11 @@ export default function App() {
                     options={{
                         drawerLabel: 'curiosidades',
                         drawerIcon: ({ color }) => (
-                            <MaterialCommunityIcons name="comment-question" size={24} color={color} />
+                            <MaterialCommunityIcons
+                                name="comment-question"
+                                size={24}
+                                color={color}
+                            />
                         ),
                     }}
                 />
@@ -233,7 +236,6 @@ export default function App() {
                         ),
                     }}
                 />
-
             </Drawer.Navigator>
         </NavigationContainer>
     );
