@@ -36,6 +36,8 @@ export default function TelaInicial({ navigation }) {
   const [murilo, setMurilo] = useState(null);
   const [moreninha, setMoreninha] = useState(null);
   const [pedro, setPedro] = useState(null);
+  const [tema, setTema] = useState(null);
+  const [autor, setAutor] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -83,6 +85,22 @@ export default function TelaInicial({ navigation }) {
     });
     const data7 = await resp7.json();
     setPedro(data7[0]);
+
+    const resp8 = await fetch(`${URL_BASE}/dicas`, {
+  headers: { "x-api-key": CHAVE_API },
+});
+const data8 = await resp8.json();
+const especifico = Array.isArray(data8) ? data8 : (data8?.dados ?? []);
+const temas = especifico.filter(
+  (item) => item.tipo_pt === "Possíveis temas de redação sobre o livro principal"
+);
+setTema(temas[0]);
+
+const respAutor = await fetch(URL_BASE + "/autor", {
+  headers: { "x-api-key": CHAVE_API },
+});
+const dataAutor = await respAutor.json();
+setAutor(dataAutor[0]);
 
     setCarregando(false);
   }
@@ -154,6 +172,21 @@ export default function TelaInicial({ navigation }) {
         </View>
 
         <View style={styles.secao}>
+  <View style={styles.card1}>
+    <Image source={{ uri: autor.fotoUrl }} style={styles.autorF} />
+    <Text style={styles.autorN}>{autor.nome}</Text>
+    <Text style={styles.autorSbt}>{autor.nacionalidade_pt}</Text>
+    <TouchableOpacity
+      style={styles.saibaMais}
+      onPress={() => navigation.navigate('Autor')}
+    >
+      <Text style={styles.botaoT}>Saiba Mais</Text>
+      <FontAwesome name="arrow-right" size={10} color="#6e5a47" style={{ marginLeft: 5 }} />
+    </TouchableOpacity>
+  </View>
+</View>
+
+        <View style={styles.secao}>
           <Text style={styles.secaoT1}>Outras Obras Literárias</Text>
           <View style={[styles.card, styles.livroCard]}>
             <View>
@@ -222,6 +255,26 @@ export default function TelaInicial({ navigation }) {
 
             </View>
           </View>
+          <View style={styles.secao}>
+  <Text style={styles.secaoT1}>Temas de Redação</Text>
+  <View style={styles.CaixaMarrom}>
+    <FontAwesome
+      name="pencil"
+      size={24}
+      color="#ffffff"
+      style={styles.iconeCitacao}
+    />
+    <Text style={styles.frase}>{tema.conteudo_pt}</Text>
+    <Text style={styles.frase}>{tema.explicacao_pt}</Text>
+    <TouchableOpacity
+      style={styles.saibaMais}
+      onPress={() => navigation.navigate('Dicas')}
+    >
+      <Text style={styles.botaoT}>Saiba Mais</Text>
+      <FontAwesome name="arrow-right" size={10} color="#ffffff" style={{ marginLeft: 5 }} />
+    </TouchableOpacity>
+  </View>
+</View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -270,7 +323,7 @@ const styles = StyleSheet.create({
   },
 
   saibaMais: {
-    marginTop: 15,
+    marginTop: 5,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -314,6 +367,13 @@ const styles = StyleSheet.create({
     padding: 21,
   },
 
+  card1: {
+    marginBottom: 10,
+    backgroundColor: "#A48B73",
+    borderRadius: 9,
+    padding: 21,
+  },
+
   explicacaoP: {
     fontSize: 16,
     lineHeight: 24,
@@ -338,6 +398,14 @@ const styles = StyleSheet.create({
     padding: 21,
     alignItems: "center",
   },
+  
+  CaixaMarrom: {
+    marginBottom: 10,
+    backgroundColor: "#A48B73",
+    borderRadius: 9,
+    padding: 21,
+    alignItems: "center",
+  },
 
   iconeCitacao: {
     marginBottom: 9,
@@ -353,6 +421,7 @@ const styles = StyleSheet.create({
   },
 
   dito: {
+    marginBottom: 13,
     padding: 1,
     textTransform: "uppercase",
     fontSize: 12,
@@ -427,4 +496,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
   },
+
+  autorF: {
+  width: 350,
+  height: 200,
+  borderRadius: 10,
+  alignSelf: "center",
+  marginBottom: 12,
+},
+
+autorN: {
+  fontSize: 20,
+  fontWeight: "bold",
+  color: "#ffffff",
+  textAlign: "center",
+  marginBottom: 4,
+},
+
+autorSbt: {
+  fontSize: 15,
+  color: "#38291e",
+  textAlign: "center",
+  marginBottom: 14,
+  textTransform: "uppercase",
+  letterSpacing: 1,
+},
 });
