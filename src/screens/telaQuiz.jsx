@@ -28,7 +28,7 @@ export default function TelaQuiz() {
                 headers: { 'x-api-key': CHAVE_API },
             });
             const data = await resp.json();
-            
+
             if (data.dados) {
                 setListaPerguntas(data.dados);
             } else {
@@ -59,15 +59,15 @@ export default function TelaQuiz() {
             >
                 <View style={styles.secao}>
                     <Text style={styles.secaoTitulo}>quiz</Text>
-                    
+
                     {listaPerguntas.map((quiz, index) => (
                         <View key={index} style={styles.quizCard}>
-                            
+
                             <Text style={styles.perguntas}>
                                 Questão {index + 1}: {"\n"}
                                 {quiz.pergunta_pt}
                             </Text>
-                    
+
                             <View style={styles.opcaoBloco}>
                                 <Text style={styles.opcaoTexto}><Text style={styles.letraDestaque}>A)</Text> {quiz.opcaoA_pt}</Text>
                             </View>
@@ -128,9 +128,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: '#e0e8f0',
         marginBottom: 20,
-        elevation: 2,
     },
     perguntas: {
         fontSize: 16,
@@ -142,7 +140,6 @@ const styles = StyleSheet.create({
     opcaoBloco: {
         backgroundColor: '#f8fafc',
         borderWidth: 1,
-        borderColor: '#e2e8f0',
         padding: 12,
         borderRadius: 8,
         marginBottom: 10,
