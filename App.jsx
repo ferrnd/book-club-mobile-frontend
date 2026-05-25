@@ -99,16 +99,6 @@ function TabNavigator() {
                     ),
                 }}
             />
-            <Tab.Screen
-                name="Telaquiz"
-                component={telaQuiz}
-                options={{
-                    tabBarLabel: 'Quiz',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialIcons name="question-answer" size={size} color={color} />
-                    ),
-                }}
-            />
         </Tab.Navigator>
     );
 }
@@ -187,6 +177,17 @@ export default function App() {
                         drawerLabel: 'Personagens',
                         drawerIcon: ({ color }) => (
                             <FontAwesome6 name="person" size={24} color={color} />
+                        ),
+                    }}
+                />
+
+                <Drawer.Screen
+                    name="Telaquiz"
+                    component={telaQuiz}
+                    options={{
+                        drawerLabel: 'Quiz',
+                        drawerIcon: ({ color }) => (
+                            <MaterialIcons name="question-answer" size={24} color={color} />
                         ),
                     }}
                 />
