@@ -28,21 +28,19 @@ O projeto é dividido em **5 equipes** (4 Web + 1 Mobile). Esta equipe é respon
 ```
 book-club-mobile-frontend/
 ├── assets/                #Imagens
-│   ├──
-│   └──
 │
 ├── src/
-|   ├── components
-|   |    └── NavBar.jsx
 │   ├── screens
-│       └──
-|       └──
-|       └──
-|       └──
-|       └──
-|       └──
-|       └──
-|       └──
+│       └── TelaAutor.jsx
+|       └──TelaBiblioteca.jsx
+|       └──TelaCitacoes.jsx
+|       └──TelaCuriosidades.jsx
+|       └──TelaDicas.jsx
+|       └──TelaInicial.jsx
+|       └──TelaLivro.jsx
+|       └──TelaQuiz.jsx
+|       └──TelaSobre.jsx
+|       └──TelaVideoaula.jsx
 ├── .gitignore
 ├── app.json
 ├── App.jsx
