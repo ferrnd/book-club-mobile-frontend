@@ -52,7 +52,7 @@ book-club-mobile-frontend/
 ├── README.md
 
 ---
-
+```
 ## 🌍 Bilinguismo (PT 🇧🇷 / EN 🇺🇸)
 
 Um dos requisitos centrais do projeto é o suporte completo a **dois idiomas**. Todos os campos de texto no banco de dados existem em versão duplicada:
@@ -61,7 +61,7 @@ Um dos requisitos centrais do projeto é o suporte completo a **dois idiomas**. 
 - Sufixo `_en` → conteúdo em **Inglês**
 
 **Exemplo no banco:**
-```
+
 titulo_pt  = "A Gente Combinamos de Não Esquecer"
 titulo_en  = "We Agreed Not to Forget"
 
