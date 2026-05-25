@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Entypo from '@expo/vector-icons/Entypo';
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
@@ -38,6 +39,7 @@ export default function TelaInicial({ navigation }) {
   const [pedro, setPedro] = useState(null);
   const [tema, setTema] = useState(null);
   const [autor, setAutor] = useState(null);
+  const [personagem, setPersonagem] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -60,7 +62,13 @@ export default function TelaInicial({ navigation }) {
       headers: { "x-api-key": CHAVE_API },
     });
     const data3 = await resp3.json();
-    setLivro(data3[0]);
+      setLivro(data3[0]);
+
+    const resp10 = await fetch(URL_BASE + "/personagens", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data10 = await resp10.json();
+    setPersonagem(data10[3]);
 
     const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
       headers: { "x-api-key": CHAVE_RATS },
@@ -114,411 +122,581 @@ setAutor(dataAutor[0]);
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="dark" />
-      <ScrollView
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.secao}>
-          <View style={[styles.card, styles.livroCard]}>
-            <View>
-              <Image source={{ uri: livro.capa }} style={styles.livroCapa} />
-            </View>
+      <SafeAreaView style={styles.safeArea}>
+          <StatusBar style="dark" />
+          <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+              <View style={styles.secao}>
+                  <View style={[styles.card, styles.livroCard]}>
+                      <View>
+                          <Image source={{ uri: livro.capa }} style={styles.livroCapa} />
+                      </View>
 
-            <View style={styles.info}>
-              <Text style={styles.livroT}>{livro.titulo}</Text>
-              <Text style={styles.livroAutor}>{livro.autor}</Text>
-              <View style={styles.contorno}>
-                <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
+                      <View style={styles.info}>
+                          <Text style={styles.livroT}>{livro.titulo}</Text>
+                          <Text style={styles.livroAutor}>{livro.autor}</Text>
+                          <View style={styles.contorno}>
+                              <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
+                          </View>
+                          <Text style={styles.livroGenero}>{livro.genero}</Text>
+                      </View>
+                  </View>
               </View>
-              <Text style={styles.livroGenero}>{livro.genero}</Text>
-            </View>
-          </View>
-        </View>
 
-        <View style={styles.secao}>
-          <Text style={styles.secaoT}>Sobre o Projeto</Text>
-          <View style={styles.card}>
-            <Text style={styles.explicacaoP}>{projeto.apresentacao_pt}</Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.citacaoCaixa}>
-            <FontAwesome
-              name="quote-left"
-              size={24}
-              color="#ffffff"
-              style={styles.iconeCitacao}
-            />
-            <Text style={styles.frase}>"{citacao.texto_pt}"</Text>
-            <Text style={styles.dito}>— {citacao.personagem} —</Text>
-            <TouchableOpacity
-          style={styles.saibaMais}
-          onPress={() => navigation.navigate('TelaCitacoes')}
-        >
-          <Text style={styles.botaoT}>Saiba Mais</Text>
-          <FontAwesome name="arrow-right" size={10} color="#ffffff" style={{ marginLeft: 5 }} />
-        </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.objt}>Objetivo</Text>
-            <Text style={styles.explicacaoP}>{projeto.objetivo_pt}</Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-  <View style={styles.card1}>
-    <Image source={{ uri: autor.fotoUrl }} style={styles.autorF} />
-    <Text style={styles.autorN}>{autor.nome}</Text>
-    <Text style={styles.autorSbt}>{autor.nacionalidade_pt}</Text>
-    <TouchableOpacity
-      style={styles.saibaMais}
-      onPress={() => navigation.navigate('Autor')}
-    >
-      <Text style={styles.botaoT}>Saiba Mais</Text>
-      <FontAwesome name="arrow-right" size={10} color="#6e5a47" style={{ marginLeft: 5 }} />
-    </TouchableOpacity>
-  </View>
-</View>
-
-        <View style={styles.secao}>
-          <Text style={styles.secaoT1}>Outras Obras Literárias</Text>
-          <View style={[styles.card, styles.livroCard]}>
-            <View>
-              <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
-            </View>
-
-<View style={styles.info}>
-              <Text style={styles.livroT}>{rats.titulo}</Text>
-              <Text style={styles.livroAutor}>{rats.autor}</Text>
-
-              <View style={styles.contornoIntegracao}>
-                <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
+              <View style={styles.secao}>
+                  <Text style={styles.secaoT}>Sobre o Projeto</Text>
+                  <View style={styles.card}>
+                      <Text style={styles.explicacaoP}>{projeto.apresentacao_pt}</Text>
+                  </View>
               </View>
-                <Text style={styles.livroGenero}>{rats.genero}</Text>
 
-            </View>
-          </View>
-
-          <View style={[styles.card, styles.livroCard]}>
-            <View>
-              <Image source={{ uri: murilo.capa }} style={styles.livroCapa} />
-            </View>
-
-<View style={styles.info}>
-              <Text style={styles.livroT}>{murilo.titulo}</Text>
-              <Text style={styles.livroAutor}>{murilo.autor}</Text>
-
-              <View style={styles.contornoIntegracao}>
-                <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
+              <View style={styles.secao}>
+                  <View style={styles.citacaoCaixa}>
+                      <FontAwesome
+                          name="quote-left"
+                          size={24}
+                          color="#ffffff"
+                          style={styles.iconeCitacao}
+                      />
+                      <Text style={styles.frase}>"{citacao.texto_pt}"</Text>
+                      <Text style={styles.dito}>— {citacao.personagem} —</Text>
+                      <TouchableOpacity
+                          style={styles.saibaMais}
+                          onPress={() => navigation.navigate('TelaCitacoes')}>
+                          <Text style={styles.botaoT}>Mais citações da obra</Text>
+                          <FontAwesome
+                              name="arrow-right"
+                              size={10}
+                              color="#ffffff"
+                              style={{ marginLeft: 5 }}
+                          />
+                      </TouchableOpacity>
+                  </View>
               </View>
-                <Text style={styles.livroGenero}>{murilo.genero}</Text>
 
-            </View>
-          </View>
-
-          <View style={[styles.card, styles.livroCard]}>
-            <View>
-              <Image source={{ uri: moreninha.capa }} style={styles.livroCapa} />
-            </View>
-
-<View style={styles.info}>
-              <Text style={styles.livroT}>{moreninha.titulo}</Text>
-              <Text style={styles.livroAutor}>{moreninha.autor}</Text>
-
-              <View style={styles.contornoIntegracao}>
-                <Text style={styles.anoPublicacao}>{moreninha.anoPublicacao}</Text>
+              <View style={styles.secao}>
+                  <View style={styles.card}>
+                      <Text style={styles.objt}>Objetivo</Text>
+                      <Text style={styles.explicacaoP}>{projeto.objetivo_pt}</Text>
+                  </View>
               </View>
-                <Text style={styles.livroGenero}>{moreninha.genero}</Text>
 
-            </View>
+              <View style={styles.secao}>
+                  <View style={styles.card1}>
+                      <Image source={{ uri: autor.fotoUrl }} style={styles.autorF} />
+                      <Text style={styles.autorN}>{autor.nome}</Text>
+                      <Text style={styles.autorSbt}>{autor.nacionalidade_pt}</Text>
+                      <TouchableOpacity
+                          style={styles.saibaMais}
+                          onPress={() => navigation.navigate('Autor')}>
+                          <Text style={styles.botaoT}>Saiba Mais</Text>
+                          <FontAwesome
+                              name="arrow-right"
+                              size={10}
+                              color="#6e5a47"
+                              style={{ marginLeft: 5 }}
+                          />
+                      </TouchableOpacity>
+                  </View>
+              </View>
+
+              <View style={styles.secao}>
+                  <Text style={styles.secaoT1}>Outras Obras Literárias</Text>
+                  <View style={[styles.card, styles.livroCard]}>
+                      <View>
+                          <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
+                      </View>
+
+                      <View style={styles.info}>
+                          <Text style={styles.livroT}>{rats.titulo}</Text>
+                          <Text style={styles.livroAutor}>{rats.autor}</Text>
+
+                          <View style={styles.contornoIntegracao}>
+                              <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
+                          </View>
+                          <Text style={styles.livroGenero}>{rats.genero}</Text>
+                      </View>
                   </View>
 
-          <View style={[styles.card, styles.livroCard]}>
-            <View>
-              <Image source={{ uri: pedro.capa }} style={styles.livroCapa} />
-            </View>
+                  <View style={[styles.card, styles.livroCard]}>
+                      <View>
+                          <Image source={{ uri: murilo.capa }} style={styles.livroCapa} />
+                      </View>
 
-<View style={styles.info}>
-              <Text style={styles.livroT}>{pedro.titulo}</Text>
-              <Text style={styles.livroAutor}>{pedro.autor}</Text>
+                      <View style={styles.info}>
+                          <Text style={styles.livroT}>{murilo.titulo}</Text>
+                          <Text style={styles.livroAutor}>{murilo.autor}</Text>
 
-              <View style={styles.contornoIntegracao}>
-                <Text style={styles.anoPublicacao}>{pedro.anoPublicacao}</Text>
+                          <View style={styles.contornoIntegracao}>
+                              <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
+                          </View>
+                          <Text style={styles.livroGenero}>{murilo.genero}</Text>
+                      </View>
+                  </View>
+
+                  <View style={[styles.card, styles.livroCard]}>
+                      <View>
+                          <Image source={{ uri: moreninha.capa }} style={styles.livroCapa} />
+                      </View>
+
+                      <View style={styles.info}>
+                          <Text style={styles.livroT}>{moreninha.titulo}</Text>
+                          <Text style={styles.livroAutor}>{moreninha.autor}</Text>
+
+                          <View style={styles.contornoIntegracao}>
+                              <Text style={styles.anoPublicacao}>{moreninha.anoPublicacao}</Text>
+                          </View>
+                          <Text style={styles.livroGenero}>{moreninha.genero}</Text>
+                      </View>
+                  </View>
+
+                  <View style={[styles.card, styles.livroCard]}>
+                      <View>
+                          <Image source={{ uri: pedro.capa }} style={styles.livroCapa} />
+                      </View>
+
+                      <View style={styles.info}>
+                          <Text style={styles.livroT}>{pedro.titulo}</Text>
+                          <Text style={styles.livroAutor}>{pedro.autor}</Text>
+
+                          <View style={styles.contornoIntegracao}>
+                              <Text style={styles.anoPublicacao}>{pedro.anoPublicacao}</Text>
+                          </View>
+                          <Text style={styles.livroGenero}>{pedro.genero}</Text>
+                      </View>
+                  </View>
+                  <View style={styles.secao}>
+                      <Text style={styles.secaoT1}>Temas de Redação</Text>
+                      <View style={styles.CaixaMarrom}>
+                          <FontAwesome
+                              name="pencil"
+                              size={24}
+                              color="#ffffff"
+                              style={styles.iconeCitacao}
+                          />
+                          <Text style={styles.frase}>{tema.conteudo_pt}</Text>
+                          <Text style={styles.frase}>{tema.explicacao_pt}</Text>
+                          <TouchableOpacity
+                              style={styles.saibaMais}
+                              onPress={() => navigation.navigate('Dicas')}>
+                              <Text style={styles.botaoT}>Mais temas de redação</Text>
+                              <FontAwesome
+                                  name="arrow-right"
+                                  size={10}
+                                  color="#ffffff"
+                                  style={{ marginLeft: 5 }}
+                              />
+                          </TouchableOpacity>
+                      </View>
+                  </View>
+                  <View style={styles.personagemCard}>
+                      <Text style={styles.nome}>{personagem.nome}</Text>
+                      <Image source={{ uri: personagem.fotoUrl }} style={styles.fotoPersonagem} />
+                      <View style={styles.cabecalho1}>
+                          <Text style={styles.cabecalhoSbt1}>
+                              Nota: A Imagem presente do personagem é especulada e não foi feita
+                              originalmente pela autora
+                          </Text>
+                      </View>
+                      <View style={styles.personagemCaixa}>
+                          <Entypo
+                              name="pencil"
+                              size={24}
+                              color="#ffffffff"
+                              style={styles.iconepersonagem}
+                          />
+                          <View style={styles.divisorLinha1} />
+                          <Text style={styles.divisorTexto1}>Características</Text>
+                          <View style={styles.divisorLinha1} />
+                          <Text style={styles.frase}>{personagem.caracteristicas_pt}</Text>
+                      </View>
+
+                      <View style={styles.divisor}>
+                          <View style={styles.divisorLinha} />
+                          <Text style={styles.divisorTexto}>Descrição</Text>
+                          <View style={styles.divisorLinha} />
+                      </View>
+
+                      <Text style={styles.explicacaoTexto}>{personagem.descricao_pt}</Text>
+                      <TouchableOpacity
+                          style={styles.saibaMais1}
+                          onPress={() => navigation.navigate('TelaPersonagens')}>
+                          <Text style={styles.botaoT}>Saiba Mais Sobre Personagens</Text>
+                          <FontAwesome
+                              name="arrow-right"
+                              size={10}
+                              color="#ffffff"
+                              style={{ marginLeft: 5 }}
+                          />
+                      </TouchableOpacity>
+                  </View>
               </View>
-                <Text style={styles.livroGenero}>{pedro.genero}</Text>
-
-            </View>
-          </View>
-          <View style={styles.secao}>
-  <Text style={styles.secaoT1}>Temas de Redação</Text>
-  <View style={styles.CaixaMarrom}>
-    <FontAwesome
-      name="pencil"
-      size={24}
-      color="#ffffff"
-      style={styles.iconeCitacao}
-    />
-    <Text style={styles.frase}>{tema.conteudo_pt}</Text>
-    <Text style={styles.frase}>{tema.explicacao_pt}</Text>
-    <TouchableOpacity
-      style={styles.saibaMais}
-      onPress={() => navigation.navigate('Dicas')}
-    >
-      <Text style={styles.botaoT}>Saiba Mais</Text>
-      <FontAwesome name="arrow-right" size={10} color="#ffffff" style={{ marginLeft: 5 }} />
-    </TouchableOpacity>
-  </View>
-</View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          </ScrollView>
+      </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f4faffff",
-  },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#f4faffff',
+    },
 
-  container: {
-    padding: 25,
-    paddingTop: 13,
-    paddingBottom: 45,
-  },
+    container: {
+        padding: 25,
+        paddingTop: 13,
+        paddingBottom: 45,
+    },
 
-  carregando: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fffbfb",
-  },
+    carregando: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fffbfb',
+    },
 
-  header: {
-    paddingVertical: 15,
-    paddingHorizontal: 35,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#f4faffff",
-  },
+    header: {
+        paddingVertical: 15,
+        paddingHorizontal: 35,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#f4faffff',
+    },
 
-  headerT: {
-    marginTop: 23,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-  },
+    headerT: {
+        marginTop: 23,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+    },
 
-  logo: {
-    marginTop: 23,
-    height: 35,
-    width: 35,
-  },
+    personagemCaixa: {
+        marginBottom: 10,
+        backgroundColor: '#5eafffff',
+        borderRadius: 9,
+        padding: 21,
+        alignItems: 'center',
+    },
 
-  saibaMais: {
-    marginTop: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
+    logo: {
+        marginTop: 23,
+        height: 35,
+        width: 35,
+    },
 
-  botaoT: {
-    color: '#ffffff',
-    fontSize: 9,
-    fontWeight: 'bold',
-    textTransform: "uppercase"
-  },
+    saibaMais: {
+        marginTop: 5,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    saibaMais1: {
+        marginTop: 5,
+        marginBottom: 25,
+        backgroundColor: 'rgba(37, 37, 37, 0.64)',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
 
-  secao: {
-    marginBottom: 9,
-  },
+    botaoT: {
+        color: '#ffffff',
+        fontSize: 9,
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+    },
 
-  secaoT: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 27,
-  },
+    secao: {
+        marginBottom: 9,
+    },
 
-  secaoT1: {
-    marginTop: 9,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 27,
-  },
+    secaoT: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+        marginBottom: 27,
+    },
 
-  card: {
-    marginBottom: 10,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 9,
-    padding: 21,
-  },
+    secaoT1: {
+        marginTop: 9,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+        marginBottom: 27,
+    },
 
-  card1: {
-    marginBottom: 10,
-    backgroundColor: "#A48B73",
-    borderRadius: 9,
-    padding: 21,
-  },
+    card: {
+        marginBottom: 10,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 9,
+        padding: 21,
+    },
 
-  explicacaoP: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#000000",
-    textAlign: "justify",
-  },
+    card1: {
+        marginBottom: 10,
+        backgroundColor: '#A48B73',
+        borderRadius: 9,
+        padding: 21,
+    },
 
-  objt: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#5eafffff",
-    textTransform: "uppercase",
-    letterSpacing: 1,
-    marginTop: 7,
-    marginBottom: 7,
-  },
+    explicacaoP: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: '#000000',
+        textAlign: 'justify',
+    },
 
-  citacaoCaixa: {
-    marginBottom: 10,
-    backgroundColor: "#5eafffff",
-    borderRadius: 9,
-    padding: 21,
-    alignItems: "center",
-  },
-  
-  CaixaMarrom: {
-    marginBottom: 10,
-    backgroundColor: "#A48B73",
-    borderRadius: 9,
-    padding: 21,
-    alignItems: "center",
-  },
+    objt: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#5eafffff',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        marginTop: 7,
+        marginBottom: 7,
+    },
 
-  iconeCitacao: {
-    marginBottom: 9,
-  },
+    citacaoCaixa: {
+        marginBottom: 10,
+        backgroundColor: '#5eafffff',
+        borderRadius: 9,
+        padding: 21,
+        alignItems: 'center',
+    },
 
-  frase: {
-    fontSize: 17,
-    fontStyle: "italic",
-    fontWeight: "bold",
-    color: "#ffffff",
-    textAlign: "center",
-    marginBottom: 16,
-  },
+    CaixaMarrom: {
+        marginBottom: 10,
+        backgroundColor: '#A48B73',
+        borderRadius: 9,
+        padding: 21,
+        alignItems: 'center',
+    },
 
-  dito: {
-    marginBottom: 13,
-    padding: 1,
-    textTransform: "uppercase",
-    fontSize: 12,
-    letterSpacing: 1,
-    fontWeight: "bold",
-    color: "#ffffff",
-  },
+    iconeCitacao: {
+        marginBottom: 9,
+    },
 
-  livroCard: {
-    marginBottom: 20,
-    flexDirection: "row",
-    padding: 20,
-    alignItems: "center",
-  },
+    frase: {
+        fontSize: 17,
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+        color: '#ffffff',
+        textAlign: 'center',
+        marginBottom: 16,
+    },
 
-  livroCapa: {
-    width: 150,
-    height: 200,
-    borderRadius: 5,
-  },
+    dito: {
+        marginBottom: 13,
+        padding: 1,
+        textTransform: 'uppercase',
+        fontSize: 12,
+        letterSpacing: 1,
+        fontWeight: 'bold',
+        color: '#ffffff',
+    },
 
-  info: {
-    flex: 1,
-    marginLeft: 15,
-    justifyContent: "center",
+    livroCard: {
+        marginBottom: 20,
+        flexDirection: 'row',
+        padding: 20,
+        alignItems: 'center',
+    },
 
-  },
+    livroCapa: {
+        width: 150,
+        height: 200,
+        borderRadius: 5,
+    },
 
-  livroT: {
-    fontSize: 19,
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    color: "#000000",
-    marginBottom: 5,
-  },
+    info: {
+        flex: 1,
+        marginLeft: 15,
+        justifyContent: 'center',
+    },
 
-  livroAutor: {
-    padding: 1,
-    fontSize: 15.5,
-    textTransform: "capitalize",
-    color: "#6b6b6b",
-    marginBottom: 12,
-  },
+    livroT: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        textTransform: 'capitalize',
+        color: '#000000',
+        marginBottom: 5,
+    },
 
-  livroGenero: {
-    marginTop: 12,
-    padding: 1,
-    fontSize: 10,
-    textTransform: "uppercase",
-    color: "#6b6b6b",
-    flexShrink: 1,
-  },
+    livroAutor: {
+        padding: 1,
+        fontSize: 15.5,
+        textTransform: 'capitalize',
+        color: '#6b6b6b',
+        marginBottom: 12,
+    },
 
-  contorno: {
-    alignSelf: "flex-start",
-    backgroundColor: "#5eafffff",
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    borderRadius: 5,
-  },
+    livroGenero: {
+        marginTop: 12,
+        padding: 1,
+        fontSize: 10,
+        textTransform: 'uppercase',
+        color: '#6b6b6b',
+        flexShrink: 1,
+    },
 
-  contornoIntegracao: {
-    alignSelf: "flex-start",
-    backgroundColor: "rgb(0, 0, 0)",
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    borderRadius: 5,
-  },
+    contorno: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#5eafffff',
+        paddingVertical: 7,
+        paddingHorizontal: 14,
+        borderRadius: 5,
+    },
 
-  anoPublicacao: {
-    color: "#ffffff",
-    fontSize: 12,
-    fontWeight: "bold",
-  },
+    contornoIntegracao: {
+        alignSelf: 'flex-start',
+        backgroundColor: 'rgb(0, 0, 0)',
+        paddingVertical: 7,
+        paddingHorizontal: 14,
+        borderRadius: 5,
+    },
 
-  autorF: {
-  width: 350,
-  height: 200,
-  borderRadius: 10,
-  alignSelf: "center",
-  marginBottom: 12,
-},
+    anoPublicacao: {
+        color: '#ffffff',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 
-autorN: {
-  fontSize: 20,
-  fontWeight: "bold",
-  color: "#ffffff",
-  textAlign: "center",
-  marginBottom: 4,
-},
+    autorF: {
+        width: 350,
+        height: 200,
+        borderRadius: 10,
+        alignSelf: 'center',
+        marginBottom: 12,
+    },
 
-autorSbt: {
-  fontSize: 15,
-  color: "#38291e",
-  textAlign: "center",
-  marginBottom: 14,
-  textTransform: "uppercase",
-  letterSpacing: 1,
-},
+    autorN: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#ffffff',
+        textAlign: 'center',
+        marginBottom: 4,
+    },
+
+    autorSbt: {
+        fontSize: 15,
+        color: '#38291e',
+        textAlign: 'center',
+        marginBottom: 14,
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+    },
+
+    iconepersonagem: {
+        marginBottom: 9,
+    },
+
+    frase: {
+        fontSize: 17,
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+        color: '#ffffff',
+        textAlign: 'center',
+        marginBottom: 16,
+    },
+    nome: {
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        fontSize: 13,
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+        color: '#000000ff',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+    },
+
+    personagemCard: {
+        backgroundColor: '#ffffff',
+        borderRadius: 12,
+        marginBottom: 18,
+    },
+
+    divisor: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 17,
+        marginVertical: 15,
+    },
+
+    divisorLinha: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#e0e0e0',
+    },
+
+    divisorLinha1: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#ffffffff',
+    },
+
+    divisorTexto: {
+        fontSize: 11,
+        fontWeight: 'bold',
+        color: '#adadad',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+    },
+
+    divisorTexto1: {
+        fontSize: 11,
+        fontWeight: 'bold',
+        color: '#ffffffff',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        marginBottom: 15,
+    },
+
+    explicacaoTexto: {
+        paddingHorizontal: 18,
+        paddingBottom: 18,
+        fontSize: 18,
+        color: '#444444',
+        lineHeight: 21,
+        fontStyle: 'italic',
+        textAlign: 'justify',
+    },
+
+    cabecalho: {
+        alignItems: 'center',
+        marginBottom: 24,
+    },
+    cabecalho1: {
+        alignItems: 'center',
+        marginBottom: 24,
+        textAlign: 'center',
+    },
+
+    cabecalhoSbt1: {
+        fontSize: 11,
+        fontWeight: 'bold',
+        color: '#aaa',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        letterSpacing: 2,
+        marginTop: 7,
+        marginBottom: 5,
+    },
+
+    fotoPersonagem: {
+        width: 400,
+        height: 600,
+        borderRadius: 8,
+        marginBottom: 14,
+        alignSelf: 'center',
+    },
 });
