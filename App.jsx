@@ -6,6 +6,7 @@ import Entypo from '@expo/vector-icons/Entypo'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -98,9 +99,9 @@ function TabNavigator() {
                 name="Telaquiz"
                 component={telaQuiz}
                 options={{
-                    tabBarLabel: 'quiz',
+                    tabBarLabel: 'Quiz',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="book" size={size} color={color} />
+                        <MaterialIcons name="question-answer" size={size} color={color} />
                     ),
                 }}
             />
