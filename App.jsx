@@ -7,6 +7,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Fontisto from '@expo/vector-icons/Fontisto';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -80,7 +81,7 @@ function TabNavigator() {
                 options={{
                     tabBarLabel: 'Autor',
                     tabBarIcon: ({ color, size }) => (
-                        <FontAwesome5 name="users" size={size} color={color} />
+                        <Fontisto name="female" size={size} color={color} />
                     ),
                 }}
             />
