@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 'react-native'; 
+import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -8,6 +8,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Fontisto from '@expo/vector-icons/Fontisto';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
@@ -29,6 +30,7 @@ import TelaAutor from './src/screens/TelaAutor.jsx'
 import TelaCuriosidades from './src/screens/TelaCuriosidades.jsx';
 import TelaCitacoes from './src/screens/TelaCitacoes.jsx'
 import telaQuiz from './src/screens/telaQuiz.jsx';
+import TelaPersonagem from './src/screens/TelaPersonagens.jsx'
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -69,10 +71,11 @@ function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="TelaCitacoes" 
+                name="TelaCitacoes"
                 component={TelaCitacoes}
                 options={{
-                    tabBarButton: () => null, tabBarItemStyle: { display: 'none' }
+                    tabBarButton: () => null,
+                    tabBarItemStyle: { display: 'none' },
                 }}
             />
             <Tab.Screen
@@ -85,7 +88,7 @@ function TabNavigator() {
                     ),
                 }}
             />
-            
+
             <Tab.Screen
                 name="TelaBiblioteca"
                 component={TelaBiblioteca}
@@ -93,6 +96,16 @@ function TabNavigator() {
                     tabBarLabel: 'Biblioteca',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="book" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="TelaPersonagens"
+                component={TelaPersonagem}
+                options={{
+                    tabBarLabel: 'Perso',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome6 name="person" size={size} color={color} />
                     ),
                 }}
             />
@@ -106,7 +119,6 @@ function TabNavigator() {
                     ),
                 }}
             />
-               
         </Tab.Navigator>
     );
 }
@@ -133,16 +145,16 @@ export default function App() {
         <NavigationContainer>
             <Drawer.Navigator
                 screenOptions={({ navigation }) => ({
-                    headerShown: true, 
+                    headerShown: true,
                     title: "Clube do Livro",
                     headerLeft: () => (
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             onPress={() => navigation.openDrawer()}
                             style={{ marginLeft: 16 }}
                         >
-                            <Image 
-                                source={{ uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png" }} 
-                                style={{ width: 32, height: 32, resizeMode: 'contain' }} 
+                            <Image
+                                source={{ uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png" }}
+                                style={{ width: 32, height: 32, resizeMode: 'contain' }}
                             />
                         </TouchableOpacity>
                     ),
@@ -152,14 +164,14 @@ export default function App() {
                     },
                     drawerActiveTintColor: '#ffffff',
                     drawerInactiveTintColor: '#ccc',
-                    drawerLabelStyle: { color: '#ffffff' }, 
+                    drawerLabelStyle: { color: '#ffffff' },
                     drawerContentStyle: {
                         backgroundColor: '#94a5b6',
                     },
                 })}>
-        
+
                 <Drawer.Screen
-                    name="Home" 
+                    name="Home"
                     component={TabNavigator}
                     options={{
                         drawerLabel: 'Início',

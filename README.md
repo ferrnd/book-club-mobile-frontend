@@ -28,21 +28,19 @@ O projeto é dividido em **5 equipes** (4 Web + 1 Mobile). Esta equipe é respon
 ```
 book-club-mobile-frontend/
 ├── assets/                #Imagens
-│   ├──
-│   └──
 │
 ├── src/
-|   ├── components
-|   |    └── NavBar.jsx
 │   ├── screens
-│       └──
-|       └──
-|       └──
-|       └──
-|       └──
-|       └──
-|       └──
-|       └──
+│       └── TelaAutor.jsx
+|       └──TelaBiblioteca.jsx
+|       └──TelaCitacoes.jsx
+|       └──TelaCuriosidades.jsx
+|       └──TelaDicas.jsx
+|       └──TelaInicial.jsx
+|       └──TelaLivro.jsx
+|       └──TelaQuiz.jsx
+|       └──TelaSobre.jsx
+|       └──TelaVideoaula.jsx
 ├── .gitignore
 ├── app.json
 ├── App.jsx
@@ -52,7 +50,7 @@ book-club-mobile-frontend/
 ├── README.md
 
 ---
-
+```
 ## 🌍 Bilinguismo (PT 🇧🇷 / EN 🇺🇸)
 
 Um dos requisitos centrais do projeto é o suporte completo a **dois idiomas**. Todos os campos de texto no banco de dados existem em versão duplicada:
@@ -61,7 +59,7 @@ Um dos requisitos centrais do projeto é o suporte completo a **dois idiomas**. 
 - Sufixo `_en` → conteúdo em **Inglês**
 
 **Exemplo no banco:**
-```
+
 titulo_pt  = "A Gente Combinamos de Não Esquecer"
 titulo_en  = "We Agreed Not to Forget"
 
