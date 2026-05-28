@@ -66,12 +66,12 @@ const respMoreninha = await fetch(
         const respPedro = await fetch(
             'https://atividade-portugues-backend.onrender.com/api/livro',
             {
-                headers: { 'x-api-key': CHAVE_MURILO },
+                headers: { 'x-api-key': CHAVE_PEDRO },
             },
         );
-        const dataPedro = await respMurilo.json();
+        const dataPedro = await respPedro.json();
 
-        setMurilo(Array.isArray(dataPedro) ? dataPedro[0] : dataPedro);
+        setPedro(Array.isArray(dataPedro) ? dataPedro[0] : dataPedro);
     } catch (error) {
         console.error('Erro ao buscar dados da API do Pedro: ', error);
     } finally {
