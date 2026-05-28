@@ -46,6 +46,7 @@ import TelaCitacoes from "./src/screens/TelaCitacoes.jsx";
 import telaQuiz from "./src/screens/telaQuiz.jsx";
 import TelaPersonagem from "./src/screens/TelaPersonagens.jsx";
 import TelaConfiguracoes from './src/screens/TelaConfiguracoes.jsx';
+import TelaContos from "./src/screens/TelaConto.jsx";
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -145,9 +146,9 @@ function AppNavigator() {
             >
               <Image
                 source={{
-                  uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/icone-olhos-da-agua-preto.png",
+                  uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-frontend/refs/heads/main/assets/agua-icone.png",
                 }}
-                style={{ width: 32, height: 32, resizeMode: "contain" }}
+                style={{ width: 50, height: 50, resizeMode: "contain" }}
               />
             </TouchableOpacity>
           ),
@@ -204,6 +205,16 @@ function AppNavigator() {
             drawerLabel: "Quiz",
             drawerIcon: ({ color }) => (
               <MaterialIcons name="question-answer" size={24} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="TelaContos"
+          component={TelaContos}
+          options={{
+            drawerLabel: "Contos",
+            drawerIcon: ({ color }) => (
+              <MaterialIcons name="book" size={24} color={color} />
             ),
           }}
         />
