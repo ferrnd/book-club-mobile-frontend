@@ -20,6 +20,10 @@ export default function TelaConfiguracoes({ navigation }) {
     Linking.openURL("mailto:evencio.tech@gmail.com");
   }
 
+  function abrirWhatsApp() {
+    Linking.openURL("https://wa.me/5519995780363");
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
@@ -66,28 +70,29 @@ export default function TelaConfiguracoes({ navigation }) {
         <View style={styles.cardEquipe}>
           <Text style={styles.explicacaoP}>
             {pt
-              ? "Conheça os desenvolvedores por trás deste projeto."
-              : "Meet the developers behind this project."}
+              ? "Conheça mais sobre nós"
+              : "Meet the developers behind this project"}
           </Text>
           <TouchableOpacity 
-  style={styles.botaoAcao} 
-  onPress={() => navigation.navigate("Equipe")}
->
-  <Text style={styles.botaoIdiomaT}>
-    {pt ? "Ver Equipe" : "View Team"}
-  </Text>
-  <FontAwesome
-    name="users"
-    size={12}
-    color="#ffffff"
-    style={{ marginLeft: 8 }}
-  />
-</TouchableOpacity>
+            style={styles.botaoAcao} 
+            onPress={() => navigation.navigate("Equipe")}
+          >
+            <Text style={styles.botaoIdiomaT}>
+              {pt ? "Ver Equipe" : "View Team"}
+            </Text>
+            <FontAwesome
+              name="users"
+              size={12}
+              color="#ffffff"
+              style={{ marginLeft: 8 }}
+            />
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.secaoT}>
           {pt ? "Contato" : "Contact"}
         </Text>
+        
         <View style={styles.CaixaMarrom}>
           <FontAwesome
             name="envelope"
@@ -110,6 +115,30 @@ export default function TelaConfiguracoes({ navigation }) {
             />
           </TouchableOpacity>
         </View>
+
+        <View style={styles.CaixaVerde}>
+          <FontAwesome
+            name="whatsapp"
+            size={30}
+            color="#ffffff"
+            style={styles.iconeCitacao}
+          />
+          <Text style={styles.frase}>
+            {pt ? "Prefere conversar pelo WhatsApp?" : "Prefer to chat on WhatsApp?"}
+          </Text>
+          <TouchableOpacity style={styles.saibaMais} onPress={abrirWhatsApp}>
+            <Text style={styles.botaoT}>
+              {pt ? "Chamar no Whats" : "Message Us"}
+            </Text>
+            <FontAwesome
+              name="arrow-right"
+              size={10}
+              color="#ffffff"
+              style={{ marginLeft: 5 }}
+            />
+          </TouchableOpacity>
+        </View>
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -156,6 +185,14 @@ const styles = StyleSheet.create({
   CaixaMarrom: {
     marginBottom: 20,
     backgroundColor: "#ff4f4f",
+    borderRadius: 9,
+    padding: 21,
+    alignItems: "center",
+  },
+
+  CaixaVerde: {
+    marginBottom: 20,
+    backgroundColor: "#25D366",
     borderRadius: 9,
     padding: 21,
     alignItems: "center",
