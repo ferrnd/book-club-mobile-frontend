@@ -32,7 +32,7 @@ export default function TelaConfiguracoes() {
               onPress={toggleLanguage}
             >
               <Text style={styles.botaoIdiomaT}>
-                {pt ? " Mudar para Inglês" : " Mudar para Português"}
+                {pt ? " Mudar para Inglês" : " Switch to Portuguese"}
               </Text>
             </TouchableOpacity>
           </View>
