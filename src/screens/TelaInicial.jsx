@@ -148,7 +148,6 @@ export default function TelaInicial({ navigation }) {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={styles.secao}>
           <View style={[styles.card, styles.livroCard]}>
             <View>
@@ -208,7 +207,7 @@ export default function TelaInicial({ navigation }) {
             <Text style={styles.explicacaoP}>{t(projeto, "objetivo")}</Text>
           </View>
         </View>
-
+        <Text style={styles.secaoT1}>{pt ? "Autora" : "Author"}</Text>
         <View style={styles.secao}>
           <View style={styles.card1}>
             <Image source={{ uri: autor.fotoUrl }} style={styles.autorF} />
@@ -333,8 +332,8 @@ export default function TelaInicial({ navigation }) {
             </View>
           </View>
           <Text style={styles.secaoT1}>
-              {pt ? "Personagens" : "Characters"}
-            </Text>
+            {pt ? "Personagens" : "Characters"}
+          </Text>
           <View style={styles.personagemCard}>
             <Text style={styles.nome}>{personagem.nome}</Text>
             <Image
