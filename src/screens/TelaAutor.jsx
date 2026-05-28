@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
@@ -19,12 +20,15 @@ const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
 export default function TelaInicial() {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
   const [autor, setAutor] = useState(null);
-    const [rats, setRats] = useState(null);
-    const [livro, setLivro] = useState(null)
+  const [rats, setRats] = useState(null);
+  const [livro, setLivro] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -75,7 +79,9 @@ export default function TelaInicial() {
       >
 
         <View style={styles.secao}>
-          <Text style={styles.secaoT}>Sobre a Autora</Text>
+          <Text style={styles.secaoT}>
+            {pt ? "Sobre a Autora" : "About the Author"}
+          </Text>
           <View style={[styles.card, styles.autorCard]}>
             <View>
               <Image source={{ uri: autor.fotoUrl }} style={styles.autorCapa} />
@@ -85,32 +91,45 @@ export default function TelaInicial() {
               <Text style={styles.autorT}>{autor.nome}</Text>
               <Text style={styles.autorAutor}>{autor.autor}</Text>
               <View style={styles.contorno}>
-                              <Text style={styles.anoPublicacao}>{autor.nacionalidade_pt}</Text>
+                <Text style={styles.anoPublicacao}>
+                  {pt ? autor.nacionalidade_pt : autor.nacionalidade_en}
+                </Text>
               </View>
-                          <Text style={styles.autorGenero}>{autor.nascimento}</Text>
+              <Text style={styles.autorGenero}>{autor.nascimento}</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>Biografia da Autora</Text>
-                      <Text style={styles.explicacaoP}>{autor.biografia_pt}</Text>
+            <Text style={styles.subt}>
+              {pt ? "Biografia da Autora" : "Author Biography"}
+            </Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.biografia_pt : autor.biografia_en}
+            </Text>
           </View>
         </View>
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>Contexto da Obra</Text>
-                      <Text style={styles.explicacaoP}>{livro.verossimilhanca}</Text>
+            <Text style={styles.subt}>
+              {pt ? "Contexto da Obra" : "Work Context"}
+            </Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.verossimilhanca : livro.verossimilhanca_en}
+            </Text>
           </View>
         </View>
 
-              <View style={styles.secao}>
-                   
+        <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>Estilo Escrita</Text>
-                      <Text style={styles.explicacaoP}>{livro.estiloEscrita}</Text>
+            <Text style={styles.subt}>
+              {pt ? "Estilo Escrita" : "Writing Style"}
+            </Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.estiloEscrita : livro.estiloEscrita_en}
+            </Text>
           </View>
         </View>
       </ScrollView>
