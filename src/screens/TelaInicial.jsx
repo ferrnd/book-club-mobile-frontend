@@ -70,7 +70,7 @@ export default function TelaInicial({ navigation }) {
       headers: { "x-api-key": CHAVE_API },
     });
     const data10 = await resp10.json();
-    setPersonagem(data10[3]);
+    setPersonagem(data10[5]);
 
     const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
       headers: { "x-api-key": CHAVE_RATS },
