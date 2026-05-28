@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,12 +11,16 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
 export default function TelaDicas() {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [dicas, setDicas] = useState([]);
   const [temas, setTemas] = useState([]);
   const [carregando, setCarregando] = useState(true);
@@ -102,7 +106,9 @@ export default function TelaDicas() {
           <Text style={styles.cabecalhoT}>{livro.titulo}</Text>
           <Text style={styles.cabecalhoAutor}>{livro.autor}</Text>
           <View style={styles.cabecalhoDivisor} />
-          <Text style={styles.cabecalhoSbt}>Dicas de Vestibular</Text>
+          <Text style={styles.cabecalhoSbt}>
+            {pt ? "Dicas de Vestibular" : "College Entrance Tips"}
+          </Text>
         </View>
 
         <View style={styles.card}>
@@ -113,17 +119,25 @@ export default function TelaDicas() {
               color="#ffffff"
               style={styles.icone}
             />
-            <Text style={styles.caixaT}>{dicas[indiceDica].conteudo_pt}</Text>
+            <Text style={styles.caixaT}>
+              {pt
+                ? dicas[indiceDica].conteudo_pt
+                : dicas[indiceDica].conteudo_en}
+            </Text>
           </View>
 
           <View style={styles.divisor}>
             <View style={styles.divisorLinha} />
-            <Text style={styles.divisorTexto}>Explicação</Text>
+            <Text style={styles.divisorTexto}>
+              {pt ? "Explicação" : "Explanation"}
+            </Text>
             <View style={styles.divisorLinha} />
           </View>
 
           <Text style={styles.explicacaoT}>
-            {dicas[indiceDica].explicacao_pt}
+            {pt
+              ? dicas[indiceDica].explicacao_pt
+              : dicas[indiceDica].explicacao_en}
           </Text>
 
           <View style={styles.navegacao}>
@@ -141,7 +155,9 @@ export default function TelaDicas() {
           </View>
         </View>
 
-        <Text style={styles.secaoT}>Possíveis temas de redação</Text>
+        <Text style={styles.secaoT}>
+          {pt ? "Possíveis temas de redação" : "Possible essay topics"}
+        </Text>
 
         {temas.map((item, index) => (
           <View key={item.id || index} style={styles.card}>
@@ -152,16 +168,22 @@ export default function TelaDicas() {
                 color="#ffffff"
                 style={styles.icone}
               />
-              <Text style={styles.caixaT}>{item.conteudo_pt}</Text>
+              <Text style={styles.caixaT}>
+                {pt ? item.conteudo_pt : item.conteudo_en}
+              </Text>
             </View>
 
             <View style={styles.divisor}>
               <View style={styles.divisorLinha} />
-              <Text style={styles.divisorTexto}>Explicação</Text>
+              <Text style={styles.divisorTexto}>
+                {pt ? "Explicação" : "Explanation"}
+              </Text>
               <View style={styles.divisorLinha} />
             </View>
 
-            <Text style={styles.explicacaoT}>{item.explicacao_pt}</Text>
+            <Text style={styles.explicacaoT}>
+              {pt ? item.explicacao_pt : item.explicacao_en}
+            </Text>
           </View>
         ))}
       </ScrollView>
