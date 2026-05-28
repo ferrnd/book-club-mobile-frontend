@@ -170,9 +170,9 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   fotoMembro: {
-    width: 65,
-    height: 65,
-    borderRadius: 32.5,
+    width: 110,
+    height: 110,
+    borderRadius: 8,
     backgroundColor: "#f4faffff",
     marginRight: 16,
   },
@@ -181,13 +181,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   nomeMembro: {
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#111",
     marginBottom: 4,
   },
   cursoMembro: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#888",
     marginBottom: 10,
   },
