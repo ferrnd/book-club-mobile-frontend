@@ -148,9 +148,6 @@ export default function TelaInicial({ navigation }) {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <TouchableOpacity style={styles.botaoIdioma} onPress={toggleLanguage}>
-          <Text style={styles.botaoIdiomaT}>{pt ? "🇺🇸 EN" : "🇧🇷 PT"}</Text>
-        </TouchableOpacity>
 
         <View style={styles.secao}>
           <View style={[styles.card, styles.livroCard]}>
@@ -477,21 +474,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: "bold",
     textTransform: "uppercase",
-  },
-
-  botaoIdioma: {
-    alignSelf: "flex-end",
-    backgroundColor: "#5eafffff",
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 20,
-    marginBottom: 12,
-  },
-
-  botaoIdiomaT: {
-    color: "#ffffff",
-    fontWeight: "bold",
-    fontSize: 13,
   },
 
   secao: {
