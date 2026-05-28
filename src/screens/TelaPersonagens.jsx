@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,13 +11,17 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Entypo from '@expo/vector-icons/Entypo';
+import Entypo from "@expo/vector-icons/Entypo";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
 export default function TelaCitacoes({ navigation }) {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [carregando, setCarregando] = useState(true);
   const [personagem, setPersonagem] = useState([]);
   const [incidePersonagem, setIndicePersonagem] = useState(0);
@@ -48,7 +52,9 @@ export default function TelaCitacoes({ navigation }) {
   }
 
   function personagemAnterior() {
-    setIndicePersonagem((prev) => (prev - 1 + personagem.length) % personagem.length);
+    setIndicePersonagem(
+      (prev) => (prev - 1 + personagem.length) % personagem.length,
+    );
   }
 
   if (carregando) {
@@ -60,282 +66,298 @@ export default function TelaCitacoes({ navigation }) {
   }
 
   return (
-      <SafeAreaView style={styles.safeArea}>
-          <StatusBar style="dark" />
-          <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-              <View style={styles.cabecalho}>
-                  <Image source={{ uri: livro.capa }} style={styles.capaLivro} />
-                  <Text style={styles.cabecalhoT}>{livro.titulo}</Text>
-                  <Text style={styles.cabecalhoAutor}>{livro.autor}</Text>
-                  <View style={styles.cabecalhoDivisor} />
-                  <Text style={styles.cabecalhoSbt}>Características e Descrições</Text>
-              </View>
-              <View style={styles.personagemCard}>
-              <Text style={styles.nome}>{personagem[incidePersonagem].nome}</Text>
-                  <Image
-                      source={{ uri: personagem[incidePersonagem].fotoUrl }}
-                      style={styles.fotoPersonagem}
-                  />
-                  <View style={styles.cabecalho1}>
-                      <Text style={styles.cabecalhoSbt1}>
-                          Nota: Todas as Imagens presentes dos personagens são especulações e não
-                          foram feitos originalmente pela autora
-                      </Text>
-                  </View>
-                  <View style={styles.personagemCaixa}>
-                      <Entypo
-                          name="pencil"
-                          size={24}
-                          color="#ffffffff"
-                          style={styles.iconepersonagem}
-                      />
-                      <View style={styles.divisorLinha1} />
-                      <Text style={styles.divisorTexto1}>Características</Text>
-                      <View style={styles.divisorLinha1} />
-                      <Text style={styles.frase}>
-                          {personagem[incidePersonagem].caracteristicas_pt}
-                      </Text>
-                  </View>
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar style="dark" />
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.cabecalho}>
+          <Image source={{ uri: livro.capa }} style={styles.capaLivro} />
+          <Text style={styles.cabecalhoT}>{livro.titulo}</Text>
+          <Text style={styles.cabecalhoAutor}>{livro.autor}</Text>
+          <View style={styles.cabecalhoDivisor} />
+          <Text style={styles.cabecalhoSbt}>
+            {pt
+              ? "Características e Descrições"
+              : "Characteristics and Descriptions"}
+          </Text>
+        </View>
+        <View style={styles.personagemCard}>
+          <Text style={styles.nome}>{personagem[incidePersonagem].nome}</Text>
+          <Image
+            source={{ uri: personagem[incidePersonagem].fotoUrl }}
+            style={styles.fotoPersonagem}
+          />
+          <View style={styles.cabecalho1}>
+            <Text style={styles.cabecalhoSbt1}>
+              {pt
+                ? "Nota: Todas as Imagens presentes dos personagens são especulações e não foram feitos originalmente pela autora"
+                : "Note: All character images are speculative and were not originally made by the author"}
+            </Text>
+          </View>
+          <View style={styles.personagemCaixa}>
+            <Entypo
+              name="pencil"
+              size={24}
+              color="#ffffffff"
+              style={styles.iconepersonagem}
+            />
+            <View style={styles.divisorLinha1} />
+            <Text style={styles.divisorTexto1}>
+              {pt ? "Características" : "Characteristics"}
+            </Text>
+            <View style={styles.divisorLinha1} />
+            <Text style={styles.frase}>
+              {pt
+                ? personagem[incidePersonagem].caracteristicas_pt
+                : personagem[incidePersonagem].caracteristicas_en}
+            </Text>
+          </View>
 
-                  <View style={styles.divisor}>
-                      <View style={styles.divisorLinha} />
-                      <Text style={styles.divisorTexto}>Descrição</Text>
-                      <View style={styles.divisorLinha} />
-                  </View>
+          <View style={styles.divisor}>
+            <View style={styles.divisorLinha} />
+            <Text style={styles.divisorTexto}>
+              {pt ? "Descrição" : "Description"}
+            </Text>
+            <View style={styles.divisorLinha} />
+          </View>
 
-                  <Text style={styles.explicacaoTexto}>
-                      {personagem[incidePersonagem].descricao_pt}
-                  </Text>
+          <Text style={styles.explicacaoTexto}>
+            {pt
+              ? personagem[incidePersonagem].descricao_pt
+              : personagem[incidePersonagem].descricao_en}
+          </Text>
 
-                  <View style={styles.navegacao}>
-                      <TouchableOpacity onPress={personagemAnterior} style={styles.seta}>
-                          <FontAwesome name="chevron-left" size={15} color="#A48B73" />
-                      </TouchableOpacity>
+          <View style={styles.navegacao}>
+            <TouchableOpacity onPress={personagemAnterior} style={styles.seta}>
+              <FontAwesome name="chevron-left" size={15} color="#A48B73" />
+            </TouchableOpacity>
 
-                      <Text style={styles.navegacaoIndicador}>
-                          {incidePersonagem + 1} / {personagem.length}
-                      </Text>
+            <Text style={styles.navegacaoIndicador}>
+              {incidePersonagem + 1} / {personagem.length}
+            </Text>
 
-                      <TouchableOpacity onPress={proximoPersonagem} style={styles.seta}>
-                          <FontAwesome name="chevron-right" size={15} color="#A48B73" />
-                      </TouchableOpacity>
-                  </View>
-              </View>
-          </ScrollView>
-      </SafeAreaView>
+            <TouchableOpacity onPress={proximoPersonagem} style={styles.seta}>
+              <FontAwesome name="chevron-right" size={15} color="#A48B73" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#f4faffff',
-    },
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#f4faffff",
+  },
 
-    container: {
-        padding: 25,
-        paddingTop: 13,
-        paddingBottom: 45,
-    },
+  container: {
+    padding: 25,
+    paddingTop: 13,
+    paddingBottom: 45,
+  },
 
-    fotoPersonagem: {
-        width: 400,
-        height: 600,
-        borderRadius: 8,
-        marginBottom: 14,
-        alignSelf: 'center',
-    },
+  fotoPersonagem: {
+    width: 400,
+    height: 600,
+    borderRadius: 8,
+    marginBottom: 14,
+    alignSelf: "center",
+  },
 
-    carregando: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fffbfb',
-    },
+  carregando: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fffbfb",
+  },
 
-    personagemCaixa: {
-        marginBottom: 10,
-        backgroundColor: '#A48B73',
-        borderRadius: 9,
-        padding: 21,
-        alignItems: 'center',
-    },
+  personagemCaixa: {
+    marginBottom: 10,
+    backgroundColor: "#A48B73",
+    borderRadius: 9,
+    padding: 21,
+    alignItems: "center",
+  },
 
-    iconepersonagem: {
-        marginBottom: 9,
-    },
+  iconepersonagem: {
+    marginBottom: 9,
+  },
 
-    frase: {
-        fontSize: 17,
-        fontStyle: 'italic',
-        fontWeight: 'bold',
-        color: '#ffffff',
-        textAlign: 'center',
-        marginBottom: 16,
-    },
-    nome: {
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        fontSize: 13,
-        fontStyle: 'italic',
-        fontWeight: 'bold',
-        color: '#000000ff',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-    },
+  frase: {
+    fontSize: 17,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    color: "#ffffff",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+  nome: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    fontSize: 13,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    color: "#000000ff",
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
 
-    dito: {
-        padding: 1,
-        textTransform: 'uppercase',
-        fontSize: 12,
-        letterSpacing: 1,
-        fontWeight: 'bold',
-        color: '#ffffff',
-    },
+  dito: {
+    padding: 1,
+    textTransform: "uppercase",
+    fontSize: 12,
+    letterSpacing: 1,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
 
-    personagemCard: {
-        backgroundColor: '#ffffff',
-        borderRadius: 12,
-        marginBottom: 18,
-    },
+  personagemCard: {
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    marginBottom: 18,
+  },
 
-    divisor: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 17,
-        marginVertical: 15,
-    },
+  divisor: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 17,
+    marginVertical: 15,
+  },
 
-    divisorLinha: {
-        flex: 1,
-        height: 1,
-        backgroundColor: '#e0e0e0',
-    },
+  divisorLinha: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#e0e0e0",
+  },
 
-    divisorLinha1: {
-        flex: 1,
-        height: 1,
-        backgroundColor: '#ffffffff',
-    },
+  divisorLinha1: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#ffffffff",
+  },
 
-    divisorTexto: {
-        fontSize: 11,
-        fontWeight: 'bold',
-        color: '#adadad',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-    },
+  divisorTexto: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#adadad",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
 
-    divisorTexto1: {
-        fontSize: 11,
-        fontWeight: 'bold',
-        color: '#ffffffff',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-        marginBottom: 15,
-    },
+  divisorTexto1: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#ffffffff",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginBottom: 15,
+  },
 
-    explicacaoTexto: {
-        paddingHorizontal: 18,
-        paddingBottom: 18,
-        fontSize: 18,
-        color: '#444444',
-        lineHeight: 21,
-        fontStyle: 'italic',
-        textAlign: 'justify',
-    },
+  explicacaoTexto: {
+    paddingHorizontal: 18,
+    paddingBottom: 18,
+    fontSize: 18,
+    color: "#444444",
+    lineHeight: 21,
+    fontStyle: "italic",
+    textAlign: "justify",
+  },
 
-    navegacao: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 18,
-        paddingVertical: 14,
-        borderTopColor: '#f0f0f0',
-    },
+  navegacao: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    borderTopColor: "#f0f0f0",
+  },
 
-    seta: {
-        padding: 8,
-    },
+  seta: {
+    padding: 8,
+  },
 
-    navegacaoIndicador: {
-        fontSize: 12,
-        color: '#a8a8a8',
-        fontWeight: 'bold',
-        letterSpacing: 1,
-    },
+  navegacaoIndicador: {
+    fontSize: 12,
+    color: "#a8a8a8",
+    fontWeight: "bold",
+    letterSpacing: 1,
+  },
 
-    contoTag: {
-        fontSize: 10,
-        fontWeight: 'bold',
-        color: 'rgba(255,255,255,0.7)',
-        textTransform: 'uppercase',
-        letterSpacing: 2,
-        marginBottom: 12,
-    },
+  contoTag: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "rgba(255,255,255,0.7)",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginBottom: 12,
+  },
 
-    cabecalho: {
-        alignItems: 'center',
-        marginBottom: 24,
-    },
-    cabecalho1: {
-        alignItems: 'center',
-        marginBottom: 24,
-        textAlign: 'center',
-    },
+  cabecalho: {
+    alignItems: "center",
+    marginBottom: 24,
+  },
+  cabecalho1: {
+    alignItems: "center",
+    marginBottom: 24,
+    textAlign: "center",
+  },
 
-    capaLivro: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 210,
-        height: 320,
-        borderRadius: 8,
-        marginBottom: 14,
-    },
+  capaLivro: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 210,
+    height: 320,
+    borderRadius: 8,
+    marginBottom: 14,
+  },
 
-    cabecalhoT: {
-        padding: 1,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#111',
-        textAlign: 'center',
-        marginBottom: 4,
-        textTransform: 'capitalize',
-    },
+  cabecalhoT: {
+    padding: 1,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#111",
+    textAlign: "center",
+    marginBottom: 4,
+    textTransform: "capitalize",
+  },
 
-    cabecalhoAutor: {
-        fontSize: 13,
-        color: '#888',
-        textAlign: 'center',
-        marginBottom: 16,
-    },
+  cabecalhoAutor: {
+    fontSize: 13,
+    color: "#888",
+    textAlign: "center",
+    marginBottom: 16,
+  },
 
-    cabecalhoDivisor: {
-        width: 400,
-        height: 3,
-        backgroundColor: '#A48B73',
-        borderRadius: 2,
-        marginBottom: 16,
-    },
+  cabecalhoDivisor: {
+    width: 400,
+    height: 3,
+    backgroundColor: "#A48B73",
+    borderRadius: 2,
+    marginBottom: 16,
+  },
 
-    cabecalhoSbt: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        color: '#aaa',
-        textTransform: 'uppercase',
-        letterSpacing: 2,
-        marginTop: 7,
-        marginBottom: 5,
-    },
-    cabecalhoSbt1: {
-        fontSize: 11,
-        fontWeight: 'bold',
-        color: '#aaa',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        letterSpacing: 2,
-        marginTop: 7,
-        marginBottom: 5,
-    },
+  cabecalhoSbt: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#aaa",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginTop: 7,
+    marginBottom: 5,
+  },
+  cabecalhoSbt1: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#aaa",
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginTop: 7,
+    marginBottom: 5,
+  },
 });
