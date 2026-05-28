@@ -45,6 +45,7 @@ import TelaCuriosidades from "./src/screens/TelaCuriosidades.jsx";
 import TelaCitacoes from "./src/screens/TelaCitacoes.jsx";
 import telaQuiz from "./src/screens/telaQuiz.jsx";
 import TelaPersonagem from "./src/screens/TelaPersonagens.jsx";
+import TelaConfiguracoes from './src/screens/TelaConfiguracoes.jsx';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -113,6 +114,16 @@ function TabNavigator({ pt }) {
           ),
         }}
       />
+      <Tab.Screen
+    name="Configuracoes"
+    component={TelaConfiguracoes}
+    options={{
+        tabBarLabel: pt ? 'Configurações' : 'Settings',
+        tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
+        ),
+    }}
+/>
     </Tab.Navigator>
   );
 }
