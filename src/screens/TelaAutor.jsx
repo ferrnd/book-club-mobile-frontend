@@ -77,7 +77,6 @@ export default function TelaInicial() {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={styles.secao}>
           <Text style={styles.secaoT}>
             {pt ? "Sobre a Autora" : "About the Author"}
