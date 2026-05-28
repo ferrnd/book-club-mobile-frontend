@@ -223,7 +223,7 @@ export default function TelaInicial({ navigation }) {
               <FontAwesome
                 name="arrow-right"
                 size={10}
-                color="#6e5a47"
+                color="#8a4c00"
                 style={{ marginLeft: 5 }}
               />
             </TouchableOpacity>
@@ -506,7 +506,7 @@ const styles = StyleSheet.create({
 
   card1: {
     marginBottom: 10,
-    backgroundColor: "#A48B73",
+    backgroundColor: "#DC7D05",
     borderRadius: 9,
     padding: 21,
   },
@@ -651,11 +651,13 @@ const styles = StyleSheet.create({
 
   autorSbt: {
     fontSize: 15,
-    color: "#38291e",
+    color: "#8a4c00",
     textAlign: "center",
-    marginBottom: 14,
+    marginTop: 2,
+    marginBottom: 7,
     textTransform: "uppercase",
     letterSpacing: 1,
+    fontWeight: "bold",
   },
 
   iconepersonagem: {
