@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,12 +11,16 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
 export default function TelaCitacoes({ navigation }) {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [carregando, setCarregando] = useState(true);
   const [citacao, setCitacao] = useState([]);
   const [indiceCitacao, setIndiceCitacao] = useState(0);
@@ -70,7 +74,9 @@ export default function TelaCitacoes({ navigation }) {
           <Text style={styles.cabecalhoT}>{livro.titulo}</Text>
           <Text style={styles.cabecalhoAutor}>{livro.autor}</Text>
           <View style={styles.cabecalhoDivisor} />
-          <Text style={styles.cabecalhoSbt}>Citações & Explicações</Text>
+          <Text style={styles.cabecalhoSbt}>
+            {pt ? "Citações & Explicações" : "Quotes & Explanations"}
+          </Text>
         </View>
 
         <View style={styles.citacaoCard}>
@@ -82,10 +88,15 @@ export default function TelaCitacoes({ navigation }) {
               style={styles.iconeCitacao}
             />
             <Text style={styles.contoTag}>
-              Conto: {citacao[indiceCitacao].conto.titulo_pt}  
+              {pt ? "Conto: " : "Short story: "}
+              {pt
+                ? citacao[indiceCitacao].conto.titulo_pt
+                : citacao[indiceCitacao].conto.titulo_en}
             </Text>
             <Text style={styles.frase}>
-              "{citacao[indiceCitacao].texto_pt}"
+              "{pt
+                ? citacao[indiceCitacao].texto_pt
+                : citacao[indiceCitacao].texto_en}"
             </Text>
             <Text style={styles.dito}>
               — {citacao[indiceCitacao].personagem} —
@@ -94,12 +105,16 @@ export default function TelaCitacoes({ navigation }) {
 
           <View style={styles.divisor}>
             <View style={styles.divisorLinha} />
-            <Text style={styles.divisorTexto}>Explicação</Text>
+            <Text style={styles.divisorTexto}>
+              {pt ? "Explicação" : "Explanation"}
+            </Text>
             <View style={styles.divisorLinha} />
           </View>
 
           <Text style={styles.explicacaoTexto}>
-            {citacao[indiceCitacao].explicacao_pt}
+            {pt
+              ? citacao[indiceCitacao].explicacao_pt
+              : citacao[indiceCitacao].explicacao_en}
           </Text>
 
           <View style={styles.navegacao}>
