@@ -94,9 +94,11 @@ export default function TelaCitacoes({ navigation }) {
                 : citacao[indiceCitacao].conto.titulo_en}
             </Text>
             <Text style={styles.frase}>
-              "{pt
+              "
+              {pt
                 ? citacao[indiceCitacao].texto_pt
-                : citacao[indiceCitacao].texto_en}"
+                : citacao[indiceCitacao].texto_en}
+              "
             </Text>
             <Text style={styles.dito}>
               — {citacao[indiceCitacao].personagem} —
