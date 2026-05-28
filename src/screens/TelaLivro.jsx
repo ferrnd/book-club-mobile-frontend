@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
@@ -19,6 +20,9 @@ const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
 export default function TelaInicial() {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
@@ -72,9 +76,10 @@ export default function TelaInicial() {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={styles.secao}>
-          <Text style={styles.secaoT}>Sobre a Obra</Text>
+          <Text style={styles.secaoT}>
+            {pt ? "Sobre a Obra" : "About the Work"}
+          </Text>
           <View style={[styles.card, styles.livroCard]}>
             <View>
               <Image source={{ uri: livro.capa }} style={styles.livroCapa} />
@@ -86,54 +91,72 @@ export default function TelaInicial() {
               <View style={styles.contorno}>
                 <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
               </View>
-              <Text style={styles.livroGenero}>{livro.genero}</Text>
+              <Text style={styles.livroGenero}>
+                {pt ? livro.genero : livro.genero_en}
+              </Text>
             </View>
           </View>
         </View>
 
         <View style={styles.secao}>
           <ScrollView style={styles.card} nestedScrollEnabled={true}>
-            <Text style={styles.subt}>Resumo</Text>
-            <Text style={styles.explicacaoP}>{livro.resumo}</Text>
+            <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.resumo : livro.resumo_en}
+            </Text>
           </ScrollView>
         </View>
 
         <View style={styles.secao}>
           <ScrollView style={styles.card} nestedScrollEnabled={true}>
-            <Text style={styles.subt}>Contexto da Obra</Text>
-            <Text style={styles.explicacaoP}>{livro.contexto}</Text>
+            <Text style={styles.subt}>
+              {pt ? "Contexto da Obra" : "Work Context"}
+            </Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.contexto : livro.contexto_en}
+            </Text>
           </ScrollView>
         </View>
 
         <View style={styles.secao}>
           <ScrollView style={styles.card} nestedScrollEnabled={true}>
-            <Text style={styles.subt}>Enredo</Text>
-            <Text style={styles.explicacaoP}>{livro.enredo}</Text>
+            <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.enredo : livro.enredo_en}
+            </Text>
           </ScrollView>
         </View>
 
         <View style={styles.secao}>
           <View style={styles.card1}>
-            <Text style={styles.subt}>Personagens</Text>
+            <Text style={styles.subt}>{pt ? "Personagens" : "Characters"}</Text>
             {livro.personagens.map((personagem, index) => (
-      <Text key={index} style={styles.perso}>
-        • {personagem}
-      </Text>
-    ))}
+              <Text key={index} style={styles.perso}>
+                • {personagem}
+              </Text>
+            ))}
           </View>
         </View>
 
         <View style={styles.secao}>
           <ScrollView style={styles.card} nestedScrollEnabled={true}>
-            <Text style={styles.subt}>Características Literárias</Text>
-            <Text style={styles.explicacaoP}>{livro.caracteristicasLiterarias}</Text>
+            <Text style={styles.subt}>
+              {pt ? "Características Literárias" : "Literary Characteristics"}
+            </Text>
+            <Text style={styles.explicacaoP}>
+              {pt
+                ? livro.caracteristicasLiterarias
+                : livro.caracteristicasLiterarias_en}
+            </Text>
           </ScrollView>
         </View>
 
         <View style={styles.secao}>
           <ScrollView style={styles.card} nestedScrollEnabled={true}>
-            <Text style={styles.subt}>Conclusão</Text>
-            <Text style={styles.explicacaoP}>{livro.conclusao}</Text>
+            <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}</Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.conclusao : livro.conclusao_en}
+            </Text>
           </ScrollView>
         </View>
       </ScrollView>
@@ -177,7 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     padding: 21,
     maxHeight: 350,
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
   },
 
   card1: {
@@ -201,7 +224,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: "#000000",
     textAlign: "justify",
-    marginBottom: 50
+    marginBottom: 50,
   },
   perso: {
     fontSize: 16,
