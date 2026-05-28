@@ -48,7 +48,6 @@ export default function TelaSobre() {
         setProjeto(dataProjeto);
       }
 
-      // Tratamento para extrair a lista de membros
       const listaMembros = Array.isArray(dataMembros) 
         ? dataMembros 
         : (dataMembros && Array.isArray(dataMembros.dados) ? dataMembros.dados : []);
@@ -71,7 +70,7 @@ export default function TelaSobre() {
   if (carregando) {
     return (
       <View style={styles.carregando}>
-        <ActivityIndicator size="large" color="#05407A" />
+        <ActivityIndicator size="large" color="#000000" />
       </View>
     );
   }
@@ -100,7 +99,6 @@ export default function TelaSobre() {
                 <Text style={styles.nomeMembro}>{membro.nome}</Text>
                 <Text style={styles.cursoMembro}>{membro.curso_pt}</Text>
                 
-      
                 <View style={styles.containerSociais}>
                   {membro.github ? (
                     <TouchableOpacity onPress={() => abrirLink(membro.github)} style={styles.botaoSocial}>
@@ -121,6 +119,10 @@ export default function TelaSobre() {
                   ) : null}
                 </View>
               </View>
+
+              <Text style={styles.numero}>
+                {String(index + 1).padStart(2, "0")}
+              </Text>
             </View>
           ))}
         </View>
@@ -141,65 +143,37 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4faffff",
   },
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 20,
-    paddingBottom: 40,
+    padding: 25,
+    paddingTop: 13,
+    paddingBottom: 45,
   },
   tituloSecao: {
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 16,
-  },
-  secaoProjeto: {
-    marginBottom: 24,
-    width: "100%",
-  },
-  cardProjeto: {
-    backgroundColor: "#BCE0FD",
-    borderRadius: 16,
-    padding: 16,
-    width: "100%",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  tituloProjeto: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#05407A",
-    marginBottom: 8,
-  },
-  textoProjeto: {
-    fontSize: 13,
-    color: "#333333",
-    lineHeight: 18,
-    textAlign: "justify",
+    color: "#aaa",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginBottom: 20,
+    textAlign: "center",
   },
   secaoMembros: {
     width: "100%",
   },
   cardMembro: {
-    backgroundColor: "#BCE0FD",
-    borderRadius: 16,
-    padding: 14,
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    padding: 20,
     width: "100%",
-    flexDirection: "row", // Alinha imagem ao lado das informações
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 14,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    marginBottom: 20,
+    position: "relative",
   },
   fotoMembro: {
     width: 65,
     height: 65,
-    borderRadius: 32.5, // Mantém a foto 100% redonda
-    backgroundColor: "#80C2FF",
+    borderRadius: 32.5,
+    backgroundColor: "#f4faffff",
     marginRight: 16,
   },
   infoMembro: {
@@ -207,15 +181,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   nomeMembro: {
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 2,
+    color: "#111",
+    marginBottom: 4,
   },
   cursoMembro: {
-    fontSize: 12,
-    color: "#444444",
-    marginBottom: 6,
+    fontSize: 13,
+    color: "#888",
+    marginBottom: 10,
   },
   containerSociais: {
     flexDirection: "row",
@@ -223,8 +197,16 @@ const styles = StyleSheet.create({
   },
   botaoSocial: {
     marginRight: 12,
-    backgroundColor: "rgba(255, 255, 255, 0.5)", // Fundo branco sutil atrás do ícone
-    padding: 4,
-    borderRadius: 6,
+    backgroundColor: "#f4faffff",
+    padding: 6,
+    borderRadius: 8,
+  },
+  numero: {
+    fontSize: 13,
+    fontWeight: "bold",
+    color: "#5eafff",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
   },
 });
