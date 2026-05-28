@@ -332,6 +332,9 @@ export default function TelaInicial({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
+          <Text style={styles.secaoT1}>
+              {pt ? "Personagens" : "Characters"}
+            </Text>
           <View style={styles.personagemCard}>
             <Text style={styles.nome}>{personagem.nome}</Text>
             <Image
