@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,12 +10,16 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
 export default function TelaCuriosidades() {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [carregando, setCarregando] = useState(true);
   const [curiosidades, setCuriosidades] = useState([]);
   const [livro, setLivro] = useState(null);
@@ -71,12 +75,16 @@ export default function TelaCuriosidades() {
           <Text style={styles.cabecalhoT}>{livro.titulo}</Text>
           <Text style={styles.cabecalhoAutor}>{livro.autor}</Text>
           <View style={styles.cabecalhoDivisor} />
-          <Text style={styles.cabecalhoSbt}>Curiosidades</Text>
+          <Text style={styles.cabecalhoSbt}>
+            {pt ? "Curiosidades" : "Fun Facts"}
+          </Text>
         </View>
 
         {curiosidades.map((item, index) => (
           <View key={item.id || index} style={styles.card}>
-            <Text style={styles.curiosidadeTexto}>{item.conteudo_pt}</Text>
+            <Text style={styles.curiosidadeTexto}>
+              {pt ? item.conteudo_pt : item.conteudo_en}
+            </Text>
             <Text style={styles.numero}>
               {String(index + 1).padStart(2, "0")}
             </Text>
