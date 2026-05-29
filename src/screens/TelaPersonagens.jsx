@@ -98,11 +98,20 @@ export default function TelaCitacoes({ navigation }) {
           </View>
           <View style={styles.personagemCaixa}>
             <Entypo
-              name="pencil"
+              name="quote"
               size={24}
               color="#ffffffff"
               style={styles.iconepersonagem}
             />
+
+            <Text style={styles.contoTag}>
+              Conto: {personagem[incidePersonagem].conto
+                ? pt
+                  ? personagem[incidePersonagem].conto.titulo_pt
+                  : personagem[incidePersonagem].conto.titulo_en
+                : ""}
+            </Text>
+
             <View style={styles.divisorLinha1} />
             <Text style={styles.divisorTexto1}>
               {pt ? "Características" : "Characteristics"}
@@ -295,6 +304,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 2,
     marginBottom: 12,
+    textAlign: "center",
   },
 
   cabecalho: {
