@@ -268,6 +268,16 @@ function AppNavigator() {
             ),
           }}
         />
+        <Drawer.Screen
+          name="Configurações"
+          component={TelaConfiguracoes}
+          options={{
+            drawerLabel: pt ? "Configurações" : "Settings",
+            drawerIcon: ({ color }) => (
+              <Ionicons name="settings" size={24} color={color} />
+            ),
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
