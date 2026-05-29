@@ -202,7 +202,7 @@ function AppNavigator() {
           name="Telaquiz"
           component={telaQuiz}
           options={{
-            drawerLabel: "Quiz",
+            drawerLabel: pt ? "Quiz" : "Quiz",
             drawerIcon: ({ color }) => (
               <MaterialIcons name="question-answer" size={24} color={color} />
             ),
@@ -212,7 +212,7 @@ function AppNavigator() {
           name="TelaContos"
           component={TelaContos}
           options={{
-            drawerLabel: "Contos",
+            drawerLabel: pt ? "Contos" : "Short Stories",
             drawerIcon: ({ color }) => (
               <MaterialIcons name="book" size={24} color={color} />
             ),
