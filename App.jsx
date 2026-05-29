@@ -177,6 +177,90 @@ function AppNavigator() {
         </Drawer.Screen>
 
         <Drawer.Screen
+          name="Livro"
+          component={TelaLivro}
+          options={{
+            drawerLabel: pt ? "Livro" : "Book",
+            drawerIcon: ({ color }) => (
+              <Entypo name="book" size={24} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Autor"
+          component={TelaAutor}
+          options={{
+            drawerLabel: pt ? "Autor" : "Author",
+            drawerIcon: ({ color }) => (
+              <Fontisto name="female" size={24} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Biblioteca"
+          component={TelaBiblioteca}
+          options={{
+            drawerLabel: pt ? "Biblioteca" : "Library",
+            drawerIcon: ({ color }) => (
+              <Ionicons name="book" size={24} color={color} />
+            ),
+          }}
+        />
+            <Drawer.Screen
+              name="TelaContos"
+              component={TelaContos}
+              options={{
+                drawerLabel: pt ? "Contos" : "Short Stories",
+                drawerIcon: ({ color }) => (
+                  <MaterialIcons name="book" size={24} color={color} />
+                ),
+              }}
+            />
+              <Drawer.Screen
+                name="Citações"
+                component={TelaCitacoes}
+                options={{
+                  drawerLabel: pt ? "Citações" : "Quotes",
+                  drawerIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="comment-quote"
+                      size={24}
+                      color={color}
+                    />
+                  ),
+                }}
+              />
+          <Drawer.Screen
+            name="TelaPersonagens"
+            component={TelaPersonagem}
+            options={{
+              drawerLabel: pt ? "Personagens" : "Characters",
+              drawerIcon: ({ color }) => (
+                <FontAwesome6 name="person" size={24} color={color} />
+              ),
+            }}
+          />
+            <Drawer.Screen
+              name="Telaquiz"
+              component={telaQuiz}
+              options={{
+                drawerLabel: pt ? "Quiz" : "Quiz",
+                drawerIcon: ({ color }) => (
+                  <MaterialIcons name="question-answer" size={24} color={color} />
+                ),
+              }}
+            />
+          <Drawer.Screen
+            name="Video Aulas"
+            component={TelaVideoaula}
+            options={{
+              drawerLabel: pt ? "Vídeo Aulas" : "Video Lessons",
+              drawerIcon: ({ color }) => (
+                <FontAwesome name="video-camera" size={24} color={color} />
+              ),
+            }}
+          />
+        <Drawer.Screen
           name="Dicas"
           component={TelaDicas}
           options={{
@@ -186,38 +270,22 @@ function AppNavigator() {
             ),
           }}
         />
+          <Drawer.Screen
+            name="Curiosidades"
+            component={TelaCuriosidades}
+            options={{
+              drawerLabel: pt ? "Curiosidades" : "Fun Facts",
+              drawerIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="comment-question"
+                  size={24}
+                  color={color}
+                />
+              ),
+            }}
+          />
 
-        <Drawer.Screen
-          name="TelaPersonagens"
-          component={TelaPersonagem}
-          options={{
-            drawerLabel: pt ? "Personagens" : "Characters",
-            drawerIcon: ({ color }) => (
-              <FontAwesome6 name="person" size={24} color={color} />
-            ),
-          }}
-        />
 
-        <Drawer.Screen
-          name="Telaquiz"
-          component={telaQuiz}
-          options={{
-            drawerLabel: pt ? "Quiz" : "Quiz",
-            drawerIcon: ({ color }) => (
-              <MaterialIcons name="question-answer" size={24} color={color} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="TelaContos"
-          component={TelaContos}
-          options={{
-            drawerLabel: pt ? "Contos" : "Short Stories",
-            drawerIcon: ({ color }) => (
-              <MaterialIcons name="book" size={24} color={color} />
-            ),
-          }}
-        />
 
         <Drawer.Screen
           name="Equipe"
@@ -230,44 +298,6 @@ function AppNavigator() {
           }}
         />
 
-        <Drawer.Screen
-          name="Video Aulas"
-          component={TelaVideoaula}
-          options={{
-            drawerLabel: pt ? "Vídeo Aulas" : "Video Lessons",
-            drawerIcon: ({ color }) => (
-              <FontAwesome name="video-camera" size={24} color={color} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Curiosidades"
-          component={TelaCuriosidades}
-          options={{
-            drawerLabel: pt ? "Curiosidades" : "Fun Facts",
-            drawerIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="comment-question"
-                size={24}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Citações"
-          component={TelaCitacoes}
-          options={{
-            drawerLabel: pt ? "Citações" : "Quotes",
-            drawerIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="comment-quote"
-                size={24}
-                color={color}
-              />
-            ),
-          }}
-        />
         <Drawer.Screen
           name="Configurações"
           component={TelaConfiguracoes}
