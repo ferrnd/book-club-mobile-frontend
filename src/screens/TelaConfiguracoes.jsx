@@ -72,7 +72,7 @@ export default function TelaConfiguracoes({ navigation }) {
           <Text style={styles.explicacaoP}>
             {pt
               ? "Conheça mais sobre nós"
-              : "Meet the developers behind this project"}
+              : "Learn more about us"}
           </Text>
           <TouchableOpacity
             style={styles.botaoE}
