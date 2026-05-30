@@ -101,6 +101,7 @@ export default function TelaInicial({ navigation }) {
         <View style={styles.secao}>
           <View style={styles.card}>
             <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.resumo : livro.resumo_en}
             </Text>
@@ -112,6 +113,7 @@ export default function TelaInicial({ navigation }) {
             <Text style={styles.subt}>
               {pt ? "Contexto da Obra" : "Work Context"}
             </Text>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.contexto : livro.contexto_en}
             </Text>
@@ -121,6 +123,7 @@ export default function TelaInicial({ navigation }) {
         <View style={styles.secao}>
           <View style={styles.card}>
             <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.enredo : livro.enredo_en}
             </Text>
@@ -129,8 +132,7 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>{pt ? "Personagens" : "Characters"}</Text>
-
+            <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
             <View style={styles.tagsContainer}>
               {livro.personagens.map((personagem, index) => (
                 <View key={index} style={styles.chip}>
@@ -169,6 +171,7 @@ export default function TelaInicial({ navigation }) {
             <Text style={styles.subt}>
               {pt ? "Características Literárias" : "Literary Characteristics"}
             </Text>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt
                 ? livro.caracteristicasLiterarias
@@ -179,7 +182,9 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}</Text>
+            <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}
+            </Text>
+              <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.conclusao : livro.conclusao_en}
             </Text>
@@ -195,7 +200,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f4faffff",
   },
-  
+
   container: {
     padding: 25,
     paddingTop: 13,
@@ -228,6 +233,14 @@ const styles = StyleSheet.create({
   },
 
   subt: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#5eafffff",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginTop: 7,
+  },
+  subt1: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#5eafffff",
@@ -343,5 +356,12 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  
+    divisor: {
+      width: 355,
+      height: 2,
+      backgroundColor: "#5eafffff",
+      marginVertical: 15,
   },
 });
