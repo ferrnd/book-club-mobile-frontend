@@ -34,16 +34,20 @@ export default function TelaConfiguracoes({ navigation }) {
         <Text style={styles.secaoT}>
           {pt ? "Configurações" : "Settings"}
         </Text>
+
         <View style={styles.card}>
-          <Text style={styles.topico}>
-            {pt ? "Idioma" : "Language"}
-          </Text>
+          <View style={styles.globo}>
+            <FontAwesome name="globe" size={20} color="#5eafffff" style={styles.iconeCard} />
+            <Text style={styles.topico}>
+              {pt ? "Idioma" : "Language"}
+            </Text>
+          </View>
           <TouchableOpacity
             style={styles.botaoIdioma}
             onPress={toggleLanguage}
           >
             <Text style={styles.botaoIdiomaT}>
-              {pt ? " Mudar para Inglês" : " Switch to Portuguese"}
+              {pt ? "Mudar para Inglês" : "Switch to Portuguese"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -51,17 +55,14 @@ export default function TelaConfiguracoes({ navigation }) {
         <Text style={styles.secaoT}>
           {pt ? "Sobre o App" : "About the App"}
         </Text>
-        <View style={styles.card}>
-          <View>
-            <Text style={styles.topico}>Clube do Livro - Olhos D'Água</Text>
-            <Text style={styles.explicacaoP}>SESI / SENAI</Text>
-
-            <Text style={styles.descricao}>
-              {pt
-                ? 'Este aplicativo é um guia interativo e completo dedicado à obra "Olhos D\'água", da aclamada escritora Conceição Evaristo. Desenvolvido para enriquecer a experiência de leitura e auxiliar nos estudos, o app reúne tudo o que você precisa saber sobre o livro em um só lugar.'
-                : 'This application is a complete and interactive guide dedicated to the book "Olhos D\'água", by the acclaimed author Conceição Evaristo. Developed to enrich the reading experience and assist in your studies, the app gathers everything you need to know about the book in one place.'}
-            </Text>
-          </View>
+        <View style={styles.cardSobre}>
+          <Text style={styles.topico}>Clube do Livro - Olhos D'Água</Text>
+          <Text style={styles.explicacaoP}>SESI / SENAI</Text>
+          <Text style={styles.descricao}>
+            {pt
+              ? 'Este aplicativo é um guia interativo e completo dedicado à obra "Olhos D\'água", da aclamada escritora Conceição Evaristo. Desenvolvido para enriquecer a experiência de leitura e auxiliar nos estudos, o app reúne tudo o que você precisa saber sobre o livro em um só lugar.'
+              : 'This application is a complete and interactive guide dedicated to the book "Olhos D\'água", by the acclaimed author Conceição Evaristo. Developed to enrich the reading experience and assist in your studies, the app gathers everything you need to know about the book in one place.'}
+          </Text>
         </View>
 
         <Text style={styles.secaoT}>
@@ -73,8 +74,8 @@ export default function TelaConfiguracoes({ navigation }) {
               ? "Conheça mais sobre nós"
               : "Meet the developers behind this project"}
           </Text>
-          <TouchableOpacity 
-            style={styles.botaoAcao} 
+          <TouchableOpacity
+            style={styles.botaoE}
             onPress={() => navigation.navigate("Equipe")}
           >
             <Text style={styles.botaoIdiomaT}>
@@ -92,8 +93,8 @@ export default function TelaConfiguracoes({ navigation }) {
         <Text style={styles.secaoT}>
           {pt ? "Contato" : "Contact"}
         </Text>
-        
-        <View style={styles.CaixaMarrom}>
+
+        <View style={styles.CaixaVermelha}>
           <FontAwesome
             name="envelope"
             size={24}
@@ -174,15 +175,34 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
+  globo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  iconeCard: {
+    marginRight: 10,
+  },
+
+  cardSobre: {
+    marginBottom: 20,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 9,
+    padding: 21,
+  },
+
   cardEquipe: {
     marginBottom: 20,
     backgroundColor: "#FFFFFF",
     borderRadius: 9,
     padding: 21,
-    justifyContent: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    
   },
 
-  CaixaMarrom: {
+  CaixaVermelha: {
     marginBottom: 20,
     backgroundColor: "#ff4f4f",
     borderRadius: 9,
@@ -206,6 +226,7 @@ const styles = StyleSheet.create({
   },
 
   explicacaoP: {
+    fontWeight: "bold",
     fontSize: 14,
     color: "#444444",
     marginTop: 2,
@@ -219,7 +240,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 
-  botaoAcao: {
+  botaoE: {
     backgroundColor: "#5eafffff",
     paddingVertical: 9,
     paddingHorizontal: 15,
