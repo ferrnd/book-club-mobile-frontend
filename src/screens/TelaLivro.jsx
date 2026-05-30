@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -15,11 +16,10 @@ import { LanguageContext } from "../contexts/LanguageContext";
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
-
 const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
-export default function TelaInicial() {
+export default function TelaInicial({ navigation }) {
   const { lang } = useContext(LanguageContext);
   const pt = lang === "pt-br";
 
@@ -99,47 +99,73 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
-          <ScrollView style={styles.card} nestedScrollEnabled={true}>
+          <View style={styles.card}>
             <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
             <Text style={styles.explicacaoP}>
               {pt ? livro.resumo : livro.resumo_en}
             </Text>
-          </ScrollView>
+          </View>
         </View>
 
         <View style={styles.secao}>
-          <ScrollView style={styles.card} nestedScrollEnabled={true}>
+          <View style={styles.card}>
             <Text style={styles.subt}>
               {pt ? "Contexto da Obra" : "Work Context"}
             </Text>
             <Text style={styles.explicacaoP}>
               {pt ? livro.contexto : livro.contexto_en}
             </Text>
-          </ScrollView>
-        </View>
-
-        <View style={styles.secao}>
-          <ScrollView style={styles.card} nestedScrollEnabled={true}>
-            <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
-            <Text style={styles.explicacaoP}>
-              {pt ? livro.enredo : livro.enredo_en}
-            </Text>
-          </ScrollView>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.card1}>
-            <Text style={styles.subt}>{pt ? "Personagens" : "Characters"}</Text>
-            {livro.personagens.map((personagem, index) => (
-              <Text key={index} style={styles.perso}>
-                • {personagem}
-              </Text>
-            ))}
           </View>
         </View>
 
         <View style={styles.secao}>
-          <ScrollView style={styles.card} nestedScrollEnabled={true}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.enredo : livro.enredo_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>{pt ? "Personagens" : "Characters"}</Text>
+
+            <View style={styles.tagsContainer}>
+              {livro.personagens.map((personagem, index) => (
+                <View key={index} style={styles.chip}>
+                  <FontAwesome
+                    name="user"
+                    size={12}
+                    color="#5eafffff"
+                    style={{ marginRight: 7 }}
+                  />
+                  <Text style={styles.chipT}>{personagem}</Text>
+                </View>
+              ))}
+            </View>
+
+            <TouchableOpacity
+              style={styles.saibaMais1}
+              onPress={() => navigation.navigate("TelaPersonagens")}
+            >
+              <Text style={styles.botaoT}>
+                {pt
+                  ? "Saiba Mais Sobre Personagens"
+                  : "Learn More About Characters"}
+              </Text>
+              <FontAwesome
+                name="arrow-right"
+                size={12}
+                color="#ffffff"
+                style={{ marginLeft: 8 }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
             <Text style={styles.subt}>
               {pt ? "Características Literárias" : "Literary Characteristics"}
             </Text>
@@ -148,16 +174,16 @@ export default function TelaInicial() {
                 ? livro.caracteristicasLiterarias
                 : livro.caracteristicasLiterarias_en}
             </Text>
-          </ScrollView>
+          </View>
         </View>
 
         <View style={styles.secao}>
-          <ScrollView style={styles.card} nestedScrollEnabled={true}>
+          <View style={styles.card}>
             <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}</Text>
             <Text style={styles.explicacaoP}>
               {pt ? livro.conclusao : livro.conclusao_en}
             </Text>
-          </ScrollView>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -169,7 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f4faffff",
   },
-
+  
   container: {
     padding: 25,
     paddingTop: 13,
@@ -199,14 +225,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 9,
     padding: 21,
-    maxHeight: 350,
-    paddingHorizontal: 30,
-  },
-
-  card1: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 9,
-    padding: 21,
   },
 
   subt: {
@@ -216,17 +234,10 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 1,
     marginTop: 7,
-    marginBottom: 7,
+    marginBottom: 12,
   },
 
   explicacaoP: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#000000",
-    textAlign: "justify",
-    marginBottom: 50,
-  },
-  perso: {
     fontSize: 16,
     lineHeight: 24,
     color: "#000000",
@@ -237,6 +248,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 20,
     alignItems: "center",
+    paddingHorizontal: 20,
   },
 
   livroCapa: {
@@ -267,12 +279,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
-  autorDetalhe: {
-    fontSize: 14,
-    color: "#4a4a4a",
-    marginBottom: 4,
-  },
-
   livroGenero: {
     marginTop: 12,
     padding: 1,
@@ -294,5 +300,48 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 12,
     fontWeight: "bold",
+  },
+
+  tagsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    rowGap: 10,
+    marginBottom: 20,
+  },
+
+  chip: {
+    width: "48%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f4faffff",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+
+  chipT: {
+    fontSize: 14,
+    color: "#000000",
+    fontWeight: "500",
+  },
+
+  saibaMais1: {
+    marginTop: 5,
+    marginBottom: 20,
+    backgroundColor: "rgba(0, 140, 255, 0.64)",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  botaoT: {
+    color: "#ffffff",
+    fontSize: 9,
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
