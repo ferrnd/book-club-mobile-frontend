@@ -104,6 +104,7 @@ export default function TelaInicial() {
             <Text style={styles.subt}>
               {pt ? "Biografia da Autora" : "Author Biography"}
             </Text>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? autor.biografia_pt : autor.biografia_en}
             </Text>
@@ -115,6 +116,7 @@ export default function TelaInicial() {
             <Text style={styles.subt}>
               {pt ? "Contexto da Obra" : "Work Context"}
             </Text>
+              <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.verossimilhanca : livro.verossimilhanca_en}
             </Text>
@@ -126,6 +128,7 @@ export default function TelaInicial() {
             <Text style={styles.subt}>
               {pt ? "Estilo Escrita" : "Writing Style"}
             </Text>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.estiloEscrita : livro.estiloEscrita_en}
             </Text>
@@ -171,12 +174,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 9,
     padding: 21,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   subt: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#5eafffff",
+    color: "#8a4c00",
     textTransform: "uppercase",
     letterSpacing: 1,
     marginTop: 7,
@@ -191,65 +196,72 @@ const styles = StyleSheet.create({
   },
 
   autorCard: {
-    flexDirection: "row",
     padding: 20,
     alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#DC7D05",
   },
 
   autorCapa: {
-    width: 150,
-    height: 200,
+    width: 350,
+    height: 300,
     borderRadius: 5,
   },
 
   info: {
     flex: 1,
-    marginLeft: 15,
+    marginTop: 20,
     justifyContent: "center",
+    alignItems: "center",
   },
 
   autorT: {
     fontSize: 19,
     fontWeight: "bold",
     textTransform: "capitalize",
-    color: "#000000",
-    marginBottom: 5,
+    color: "#663800",
   },
 
   autorAutor: {
     padding: 1,
-    fontSize: 15.5,
+    fontSize: 15,
     textTransform: "capitalize",
-    color: "#6b6b6b",
-    marginBottom: 12,
+    color: "#663800",
   },
 
   autorDetalhe: {
     fontSize: 14,
-    color: "#4a4a4a",
-    marginBottom: 4,
+    color: "#663800",
   },
 
   autorGenero: {
-    marginTop: 12,
+    marginTop: 20,
     padding: 1,
-    fontSize: 10,
+    fontSize: 15,
     textTransform: "uppercase",
-    color: "#6b6b6b",
+    textAlign: "center",
+    color: "#663800",
     flexShrink: 1,
   },
 
   contorno: {
-    alignSelf: "flex-start",
-    backgroundColor: "#5eafffff",
+    backgroundColor: "#8a4c00",
     paddingVertical: 7,
     paddingHorizontal: 14,
     borderRadius: 5,
+    marginBottom: 7,
   },
 
   anoPublicacao: {
     color: "#ffffff",
     fontSize: 12,
     fontWeight: "bold",
+  },
+
+    divisor: {
+      width: 355,
+      height: 2,
+      backgroundColor: "#8a4c00",
+      marginVertical: 13,
   },
 });
