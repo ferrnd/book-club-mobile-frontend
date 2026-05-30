@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -8,6 +8,7 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 // Minha api
 const URL_BASE = 'https://olhosdagua.onrender.com/api';
@@ -15,6 +16,9 @@ const CHAVE_API =
     '6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd';
 
 export default function TelaQuiz() {
+    const { lang } = useContext(LanguageContext);
+    const pt = lang === "pt-br";
+
     const [listaPerguntas, setListaPerguntas] = useState([]);
     const [carregando, setCarregando] = useState(true);
 
@@ -64,28 +68,38 @@ export default function TelaQuiz() {
                         <View key={index} style={styles.quizCard}>
 
                             <Text style={styles.perguntas}>
-                                Questão {index + 1}: {"\n"}
-                                {quiz.pergunta_pt}
+                                {pt ? "Questão" : "Question"} {index + 1}: {"\n"}
+                                {pt ? quiz.pergunta_pt : quiz.pergunta_en}
                             </Text>
 
                             <View style={styles.opcaoBloco}>
-                                <Text style={styles.opcaoTexto}><Text style={styles.letraDestaque}>A)</Text> {quiz.opcaoA_pt}</Text>
+                                <Text style={styles.opcaoTexto}>
+                                    <Text style={styles.letraDestaque}>A)</Text> {pt ? quiz.opcaoA_pt : quiz.opcaoA_en}
+                                </Text>
                             </View>
 
                             <View style={styles.opcaoBloco}>
-                                <Text style={styles.opcaoTexto}><Text style={styles.letraDestaque}>B)</Text> {quiz.opcaoB_pt}</Text>
+                                <Text style={styles.opcaoTexto}>
+                                    <Text style={styles.letraDestaque}>B)</Text> {pt ? quiz.opcaoB_pt : quiz.opcaoB_en}
+                                </Text>
                             </View>
 
                             <View style={styles.opcaoBloco}>
-                                <Text style={styles.opcaoTexto}><Text style={styles.letraDestaque}>C)</Text> {quiz.opcaoC_pt}</Text>
+                                <Text style={styles.opcaoTexto}>
+                                    <Text style={styles.letraDestaque}>C)</Text> {pt ? quiz.opcaoC_pt : quiz.opcaoC_en}
+                                </Text>
                             </View>
 
                             <View style={styles.opcaoBloco}>
-                                <Text style={styles.opcaoTexto}><Text style={styles.letraDestaque}>D)</Text> {quiz.opcaoD_pt}</Text>
+                                <Text style={styles.opcaoTexto}>
+                                    <Text style={styles.letraDestaque}>D)</Text> {pt ? quiz.opcaoD_pt : quiz.opcaoD_en}
+                                </Text>
                             </View>
 
                             <View style={styles.opcaoBloco}>
-                                <Text style={styles.opcaoTexto}><Text style={styles.letraDestaque}>E)</Text> {quiz.opcaoE_pt}</Text>
+                                <Text style={styles.opcaoTexto}>
+                                    <Text style={styles.letraDestaque}>E)</Text> {pt ? quiz.opcaoE_pt : quiz.opcaoE_en}
+                                </Text>
                             </View>
 
                         </View>
