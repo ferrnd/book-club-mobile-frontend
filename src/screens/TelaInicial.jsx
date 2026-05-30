@@ -22,13 +22,11 @@ const CHAVE_RATS =
   "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
 const CHAVE_MURILO = "livr0";
-
 const CHAVE_MORENINHA = "entreLinhas123";
-
 const CHAVE_PEDRO = "chaveSecreta";
 
 export default function TelaInicial({ navigation }) {
-  const { lang, toggleLanguage } = useContext(LanguageContext);
+  const { lang } = useContext(LanguageContext);
   const pt = lang === "pt-br";
 
   const [carregando, setCarregando] = useState(true);
@@ -80,27 +78,21 @@ export default function TelaInicial({ navigation }) {
 
     const resp5 = await fetch(
       "https://clubelivro-backend-zui4.onrender.com/api/livro",
-      {
-        headers: { "x-api-key": CHAVE_MURILO },
-      },
+      { headers: { "x-api-key": CHAVE_MURILO } },
     );
     const data5 = await resp5.json();
     setMurilo(data5[0]);
 
     const resp6 = await fetch(
       "https://clubelivro-backend.onrender.com/api/livros",
-      {
-        headers: { "x-api-key": CHAVE_MORENINHA },
-      },
+      { headers: { "x-api-key": CHAVE_MORENINHA } },
     );
     const data6 = await resp6.json();
     setMoreninha(data6[0]);
 
     const resp7 = await fetch(
       "https://atividade-portugues-backend.onrender.com/api/livro",
-      {
-        headers: { "x-api-key": CHAVE_PEDRO },
-      },
+      { headers: { "x-api-key": CHAVE_PEDRO } },
     );
     const data7 = await resp7.json();
     setPedro(data7[0]);
@@ -163,6 +155,11 @@ export default function TelaInicial({ navigation }) {
               <Text style={styles.livroGenero}>{t(livro, "genero")}</Text>
             </View>
           </View>
+
+          <View style={styles.card}>
+            <Text style={styles.objt}>{pt ? "Sinopse" : "Synopsis"}</Text>
+            <Text style={styles.explicacaoP}>{t(livro, "resumo")}</Text>
+          </View>
         </View>
 
         <View style={styles.secao}>
@@ -182,6 +179,12 @@ export default function TelaInicial({ navigation }) {
               color="#ffffff"
               style={styles.iconeCitacao}
             />
+            <Text style={styles.contoTag}>
+              {pt ? "Conto: " : "Short story: "}
+              {pt
+                ? citacao.conto.titulo_pt
+                : citacao.conto.titulo_en}
+            </Text>
             <Text style={styles.frase}>"{t(citacao, "texto")}"</Text>
             <Text style={styles.dito}>— {citacao.personagem} —</Text>
             <TouchableOpacity
@@ -207,6 +210,7 @@ export default function TelaInicial({ navigation }) {
             <Text style={styles.explicacaoP}>{t(projeto, "objetivo")}</Text>
           </View>
         </View>
+
         <Text style={styles.secaoT1}>{pt ? "Autora" : "Author"}</Text>
         <View style={styles.secao}>
           <View style={styles.card1}>
@@ -238,11 +242,9 @@ export default function TelaInicial({ navigation }) {
             <View>
               <Image source={{ uri: rats.capa }} style={styles.livroCapa} />
             </View>
-
             <View style={styles.info}>
               <Text style={styles.livroT}>{rats.titulo}</Text>
               <Text style={styles.livroAutor}>{rats.autor}</Text>
-
               <View style={styles.contornoIntegracao}>
                 <Text style={styles.anoPublicacao}>{rats.anoPublicacao}</Text>
               </View>
@@ -254,11 +256,9 @@ export default function TelaInicial({ navigation }) {
             <View>
               <Image source={{ uri: murilo.capa }} style={styles.livroCapa} />
             </View>
-
             <View style={styles.info}>
               <Text style={styles.livroT}>{murilo.titulo}</Text>
               <Text style={styles.livroAutor}>{murilo.autor}</Text>
-
               <View style={styles.contornoIntegracao}>
                 <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
               </View>
@@ -268,20 +268,13 @@ export default function TelaInicial({ navigation }) {
 
           <View style={[styles.card, styles.livroCard]}>
             <View>
-              <Image
-                source={{ uri: moreninha.capa }}
-                style={styles.livroCapa}
-              />
+              <Image source={{ uri: moreninha.capa }} style={styles.livroCapa} />
             </View>
-
             <View style={styles.info}>
               <Text style={styles.livroT}>{moreninha.titulo}</Text>
               <Text style={styles.livroAutor}>{moreninha.autor}</Text>
-
               <View style={styles.contornoIntegracao}>
-                <Text style={styles.anoPublicacao}>
-                  {moreninha.anoPublicacao}
-                </Text>
+                <Text style={styles.anoPublicacao}>{moreninha.anoPublicacao}</Text>
               </View>
               <Text style={styles.livroGenero}>{t(moreninha, "genero")}</Text>
             </View>
@@ -291,17 +284,16 @@ export default function TelaInicial({ navigation }) {
             <View>
               <Image source={{ uri: pedro.capa }} style={styles.livroCapa} />
             </View>
-
             <View style={styles.info}>
               <Text style={styles.livroT}>{pedro.titulo}</Text>
               <Text style={styles.livroAutor}>{pedro.autor}</Text>
-
               <View style={styles.contornoIntegracao}>
                 <Text style={styles.anoPublicacao}>{pedro.anoPublicacao}</Text>
               </View>
               <Text style={styles.livroGenero}>{t(pedro, "genero")}</Text>
             </View>
           </View>
+
           <View style={styles.secao}>
             <Text style={styles.secaoT1}>
               {pt ? "Temas de Redação" : "Essay Topics"}
@@ -331,6 +323,7 @@ export default function TelaInicial({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
+
           <Text style={styles.secaoT1}>
             {pt ? "Personagens" : "Characters"}
           </Text>
@@ -458,6 +451,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
+
   saibaMais1: {
     marginTop: 5,
     marginBottom: 25,
@@ -546,6 +540,15 @@ const styles = StyleSheet.create({
 
   iconeCitacao: {
     marginBottom: 9,
+  },
+
+  contoTag: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "rgba(255,255,255,0.7)",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginBottom: 12,
   },
 
   frase: {
