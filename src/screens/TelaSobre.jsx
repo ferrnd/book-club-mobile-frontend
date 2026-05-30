@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,11 +12,15 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API = "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
 export default function TelaSobre() {
+  const { lang } = useContext(LanguageContext);
+  const pt = lang === "pt-br";
+
   const [carregando, setCarregando] = useState(true);
   const [projeto, setProjeto] = useState(null);
   const [membros, setMembros] = useState([]);
@@ -48,10 +52,10 @@ export default function TelaSobre() {
         setProjeto(dataProjeto);
       }
 
-      const listaMembros = Array.isArray(dataMembros) 
-        ? dataMembros 
+      const listaMembros = Array.isArray(dataMembros)
+        ? dataMembros
         : (dataMembros && Array.isArray(dataMembros.dados) ? dataMembros.dados : []);
-      
+
       setMembros(listaMembros);
 
     } catch (error) {
@@ -79,26 +83,28 @@ export default function TelaSobre() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
 
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.secaoMembros}>
-          <Text style={styles.tituloSecao}>Sobre a Equipe</Text>
-          
+          <Text style={styles.tituloSecao}>
+            {pt ? "Sobre a Equipe" : "About the Team"}
+          </Text>
+
           {membros.map((membro, index) => (
             <View key={membro.id || index} style={styles.cardMembro}>
               <Image
-                source={{ 
-                  uri: membro.fotoUrl 
-                }}
+                source={{ uri: membro.fotoUrl }}
                 style={styles.fotoMembro}
               />
 
               <View style={styles.infoMembro}>
                 <Text style={styles.nomeMembro}>{membro.nome}</Text>
-                <Text style={styles.cursoMembro}>{membro.curso_pt}</Text>
-                
+                <Text style={styles.cursoMembro}>
+                  {pt ? membro.curso_pt : membro.curso_en}
+                </Text>
+
                 <View style={styles.containerSociais}>
                   {membro.github ? (
                     <TouchableOpacity onPress={() => abrirLink(membro.github)} style={styles.botaoSocial}>
