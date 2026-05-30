@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -9,6 +9,7 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 const CHAVE_RATS = 'Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO';
 const CHAVE_MORENINHA = 'entreLinhas123';
@@ -16,6 +17,9 @@ const CHAVE_MURILO = 'livr0';
 const CHAVE_PEDRO = 'chaveSecreta';
 
 export default function TelaBiblioteca() {
+    const { lang } = useContext(LanguageContext);
+    const pt = lang === "pt-br";
+
     const [carregando, setCarregando] = useState(true);
     const [rats, setRats] = useState(null);
     const [moreninha, setMoreninha] = useState(null);
@@ -33,51 +37,40 @@ export default function TelaBiblioteca() {
             });
             const dataRats = await respRats.json();
             setRats(dataRats);
-const respMoreninha = await fetch(
-            'https://clubelivro-backend.onrender.com/api/livros',
-            {
-                headers: { 'x-api-key': CHAVE_MORENINHA },
-            }
-        );
-        const dataMoreninha = await respMoreninha.json();
+            const respMoreninha = await fetch(
+                'https://clubelivro-backend.onrender.com/api/livros',
+                { headers: { 'x-api-key': CHAVE_MORENINHA } }
+            );
+            const dataMoreninha = await respMoreninha.json();
+            setMoreninha(Array.isArray(dataMoreninha) ? dataMoreninha[0] : dataMoreninha);
+        } catch (error) {
+            console.error('Erro ao buscar dados da Moreninha: ', error);
+        }
 
-        setMoreninha(Array.isArray(dataMoreninha) ? dataMoreninha[0] : dataMoreninha);
-    } catch (error) {
-        console.error('Erro ao buscar dados da Moreninha: ', error);
+        try {
+            const respMurilo = await fetch(
+                'https://clubelivro-backend-zui4.onrender.com/api/livro',
+                { headers: { 'x-api-key': CHAVE_MURILO } }
+            );
+            const dataMurilo = await respMurilo.json();
+            setMurilo(Array.isArray(dataMurilo) ? dataMurilo[0] : dataMurilo);
+        } catch (error) {
+            console.error('Erro ao buscar dados do Murilo: ', error);
+        }
+
+        try {
+            const respPedro = await fetch(
+                'https://atividade-portugues-backend.onrender.com/api/livro',
+                { headers: { 'x-api-key': CHAVE_PEDRO } },
+            );
+            const dataPedro = await respPedro.json();
+            setPedro(Array.isArray(dataPedro) ? dataPedro[0] : dataPedro);
+        } catch (error) {
+            console.error('Erro ao buscar dados da API do Pedro: ', error);
+        } finally {
+            setCarregando(false);
+        }
     }
-
-    try {
-
-        const respMurilo = await fetch(
-            'https://clubelivro-backend-zui4.onrender.com/api/livro',
-            {
-                headers: { 'x-api-key': CHAVE_MURILO },
-            }
-        );
-        const dataMurilo = await respMurilo.json();
-
-        setMurilo(Array.isArray(dataMurilo) ? dataMurilo[0] : dataMurilo);
-    } catch (error) {
-        console.error('Erro ao buscar dados do Murilo: ', error);
-    }
-
-
-    try {
-        const respPedro = await fetch(
-            'https://atividade-portugues-backend.onrender.com/api/livro',
-            {
-                headers: { 'x-api-key': CHAVE_PEDRO },
-            },
-        );
-        const dataPedro = await respPedro.json();
-
-        setPedro(Array.isArray(dataPedro) ? dataPedro[0] : dataPedro);
-    } catch (error) {
-        console.error('Erro ao buscar dados da API do Pedro: ', error);
-    } finally {
-        setCarregando(false);
-    }
-}
 
     if (carregando) {
         return (
@@ -99,7 +92,9 @@ const respMoreninha = await fetch(
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}>
                 <View style={styles.secao}>
-                    <Text style={styles.secaoT}>Biblioteca</Text>
+                    <Text style={styles.secaoT}>
+                        {pt ? "Biblioteca" : "Library"}
+                    </Text>
 
                     <View style={styles.gridLivros}>
                         {listaRats.map((livro, index) => (
