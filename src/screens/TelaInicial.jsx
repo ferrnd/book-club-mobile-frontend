@@ -12,6 +12,8 @@ import {
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
+import Fontisto from "@expo/vector-icons/Fontisto";
+
 import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
@@ -214,6 +216,9 @@ export default function TelaInicial({ navigation }) {
         <Text style={styles.secaoT1}>{pt ? "Autora" : "Author"}</Text>
         <View style={styles.secao}>
           <View style={styles.card1}>
+            <Fontisto name="female" size={24} color='#ffffff' 
+              style={styles.iconeCitacao}
+            />
             <Image source={{ uri: autor.fotoUrl }} style={styles.autorF} />
             <Text style={styles.autorN}>{autor.nome}</Text>
             <Text style={styles.autorSbt}>{t(autor, "nacionalidade")}</Text>
@@ -499,6 +504,8 @@ const styles = StyleSheet.create({
   },
 
   card1: {
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 10,
     backgroundColor: "#DC7D05",
     borderRadius: 9,
