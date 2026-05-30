@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -9,8 +9,12 @@ import {
 } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 export default function TelaVideoAula() {
+    const { lang } = useContext(LanguageContext);
+    const pt = lang === "pt-br";
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView
@@ -18,35 +22,32 @@ export default function TelaVideoAula() {
                 showsVerticalScrollIndicator={false}>
                 <View style={styles.Card}>
                     <Text style={styles.title}>
-                        Video Aula
+                        {pt ? "Video Aula" : "Video Lesson"}
                     </Text>
                     <View style={styles.placeholder}>
                         <Text style={styles.placeholderText}>
-                            Vídeo em breve
+                            {pt ? "Vídeo em breve" : "Video coming soon"}
                         </Text>
                     </View>
                     
                     <View style={StyleSheet.Card}>
-
                         <Text style={styles.title}>
-                            Video Aula
+                            {pt ? "Video Aula" : "Video Lesson"}
                         </Text>
                         <View style={styles.placeholder}>
                             <Text style={styles.placeholderText}>
-                                Vídeo em breve
+                                {pt ? "Vídeo em breve" : "Video coming soon"}
                             </Text>
                         </View>
-
                     </View>
 
                     <View style={StyleSheet.Card}>
-
                         <Text style={styles.title}>
-                            Video Aula
+                            {pt ? "Video Aula" : "Video Lesson"}
                         </Text>
                         <View style={styles.placeholder}>
                             <Text style={styles.placeholderText}>
-                                Vídeo em breve
+                                {pt ? "Vídeo em breve" : "Video coming soon"}
                             </Text>
                         </View>
                     </View>
