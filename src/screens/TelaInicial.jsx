@@ -155,6 +155,22 @@ export default function TelaInicial({ navigation }) {
                 <Text style={styles.anoPublicacao}>{livro.anoPublicacao}</Text>
               </View>
               <Text style={styles.livroGenero}>{t(livro, "genero")}</Text>
+              <TouchableOpacity
+              style={styles.saibaMais2}
+              onPress={() => navigation.navigate("TelaLivro")}
+            >
+              <Text style={styles.botaoT}>
+                {pt
+                  ? "Saiba Mais Sobre O livro"
+                  : "Learn More About The Book"}
+              </Text>
+              <FontAwesome
+                name="arrow-right"
+                size={10}
+                color="#ffffff"
+                style={{ marginLeft: 5 }}
+              />
+            </TouchableOpacity>
             </View>
           </View>
 
@@ -468,6 +484,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+  },
+
+  saibaMais2: {
+    marginTop: 10,
+    backgroundColor: "#5eafffff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 7,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-start",
   },
 
   botaoT: {
