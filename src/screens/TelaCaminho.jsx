@@ -104,26 +104,9 @@ setCaminho(data5[0]);
               {pt ? caminho.enredo : caminho.enredo_en}
             </Text>
           </View>
-        </View>
+              </View>
 
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
-            <View style={styles.tagsContainer}>
-              {caminho.personagens.map((personagem, index) => (
-                <View key={index} style={styles.chip}>
-                  <FontAwesome
-                    name="user"
-                    size={12}
-                    color="#000000ff"
-                    style={{ marginRight: 7 }}
-                  />
-                  <Text style={styles.chipT}>{personagem}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
+              <Text>Aqui</Text>
 
         <View style={styles.secao}>
           <View style={styles.card}>
@@ -155,172 +138,172 @@ setCaminho(data5[0]);
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f4faffff",
-  },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#f4faffff',
+    },
 
-  container: {
-    padding: 25,
-    paddingTop: 13,
-    paddingBottom: 45,
-  },
+    container: {
+        padding: 25,
+        paddingTop: 13,
+        paddingBottom: 45,
+    },
 
-  carregando: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fffbfb",
-  },
+    carregando: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fffbfb',
+    },
 
-  secao: {
-    marginBottom: 25,
-  },
+    secao: {
+        marginBottom: 25,
+    },
 
-  secaoT: {
-    marginTop: 5,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 15,
-  },
+    secaoT: {
+        marginTop: 5,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+        marginBottom: 15,
+    },
 
-  card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 9,
-    padding: 21,
-  },
+    card: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 9,
+        padding: 21,
+    },
 
-  subt: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#000000ff",
-    textTransform: "uppercase",
-    letterSpacing: 1,
-    marginTop: 7,
-  },
-  subt1: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#000000ff",
-    textTransform: "uppercase",
-    letterSpacing: 1,
-    marginTop: 7,
-    marginBottom: 12,
-  },
+    subt: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#cd0000ff',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        marginTop: 7,
+    },
+    subt1: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#cd0000ff',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        marginTop: 7,
+        marginBottom: 12,
+    },
 
-  explicacaoP: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#000000",
-    textAlign: "justify",
-  },
+    explicacaoP: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: '#000000',
+        textAlign: 'justify',
+    },
 
-  livroCard: {
-    flexDirection: "row",
-    padding: 20,
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
+    livroCard: {
+        flexDirection: 'row',
+        padding: 20,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
 
-  livroCapa: {
-    width: 150,
-    height: 200,
-    borderRadius: 5,
-  },
+    livroCapa: {
+        width: 150,
+        height: 200,
+        borderRadius: 5,
+    },
 
-  info: {
-    flex: 1,
-    marginLeft: 15,
-    justifyContent: "center",
-  },
+    info: {
+        flex: 1,
+        marginLeft: 15,
+        justifyContent: 'center',
+    },
 
-  livroT: {
-    fontSize: 19,
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    color: "#000000",
-    marginBottom: 5,
-  },
+    livroT: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        textTransform: 'capitalize',
+        color: '#000000',
+        marginBottom: 5,
+    },
 
-  livroAutor: {
-    padding: 1,
-    fontSize: 15.5,
-    textTransform: "capitalize",
-    color: "#6b6b6b",
-    marginBottom: 12,
-  },
+    livroAutor: {
+        padding: 1,
+        fontSize: 15.5,
+        textTransform: 'capitalize',
+        color: '#6b6b6b',
+        marginBottom: 12,
+    },
 
-  livroGenero: {
-    marginTop: 12,
-    padding: 1,
-    fontSize: 10,
-    textTransform: "uppercase",
-    color: "#6b6b6b",
-    flexShrink: 1,
-  },
+    livroGenero: {
+        marginTop: 12,
+        padding: 1,
+        fontSize: 10,
+        textTransform: 'uppercase',
+        color: '#6b6b6b',
+        flexShrink: 1,
+    },
 
-  contorno: {
-    alignSelf: "flex-start",
-    backgroundColor: "#000000ff",
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    borderRadius: 5,
-  },
+    contorno: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#cd0000ff',
+        paddingVertical: 7,
+        paddingHorizontal: 14,
+        borderRadius: 5,
+    },
 
-  anoPublicacao: {
-    color: "#ffffff",
-    fontSize: 12,
-    fontWeight: "bold",
-  },
+    anoPublicacao: {
+        color: '#ffffff',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 
-  tagsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    rowGap: 10,
-    marginBottom: 20,
-  },
+    tagsContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        rowGap: 10,
+        marginBottom: 20,
+    },
 
-  chip: {
-    width: "48%",
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f4faffff",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-  },
+    chip: {
+        width: '48%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f4faffff',
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+    },
 
-  chipT: {
-    fontSize: 14,
-    color: "#000000",
-    fontWeight: "500",
-  },
+    chipT: {
+        fontSize: 14,
+        color: '#cd0000ff',
+        fontWeight: '500',
+    },
 
-  saibaMais1: {
-    marginTop: 5,
-    marginBottom: 20,
-    backgroundColor: "rgba(0, 140, 255, 0.64)",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+    saibaMais1: {
+        marginTop: 5,
+        marginBottom: 20,
+        backgroundColor: 'rgba(0, 140, 255, 0.64)',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 
-  botaoT: {
-    color: "#ffffff",
-    fontSize: 9,
-    fontWeight: "bold",
-    textTransform: "uppercase",
-  },
+    botaoT: {
+        color: '#ffffff',
+        fontSize: 9,
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+    },
 
     divisor: {
-      width: 355,
-      height: 2,
-      backgroundColor: "#000000ff",
-      marginVertical: 15,
-  },
+        width: 355,
+        height: 2,
+        backgroundColor: '#cd0000ff',
+        marginVertical: 15,
+    },
 });
