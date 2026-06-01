@@ -16,8 +16,6 @@ import { LanguageContext } from "../contexts/LanguageContext";
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
-const CHAVE_RATS =
-  "Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLiZTPO";
 
 export default function TelaInicial({ navigation }) {
   const { lang } = useContext(LanguageContext);
@@ -27,36 +25,18 @@ export default function TelaInicial({ navigation }) {
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
   const [livro, setLivro] = useState(null);
-  const [rats, setRats] = useState(null);
 
   useEffect(() => {
     buscarDados();
   }, []);
 
   async function buscarDados() {
-    const resp = await fetch(URL_BASE + "/projeto", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data = await resp.json();
-    setProjeto(data[0]);
-
-    const resp2 = await fetch(URL_BASE + "/citacao", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data2 = await resp2.json();
-    setCitacao(data2[7]);
 
     const resp3 = await fetch(URL_BASE + "/livro", {
       headers: { "x-api-key": CHAVE_API },
     });
     const data3 = await resp3.json();
     setLivro(data3[0]);
-
-    const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
-      headers: { "x-api-key": CHAVE_RATS },
-    });
-    const data4 = await resp4.json();
-    setRats(data4[0]);
 
     setCarregando(false);
   }
@@ -357,7 +337,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "uppercase",
   },
-  
+
     divisor: {
       width: 355,
       height: 2,
