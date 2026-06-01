@@ -47,6 +47,7 @@ import telaQuiz from "./src/screens/telaQuiz.jsx";
 import TelaPersonagem from "./src/screens/TelaPersonagens.jsx";
 import TelaConfiguracoes from './src/screens/TelaConfiguracoes.jsx';
 import TelaContos from "./src/screens/TelaConto.jsx";
+import TelaRats from "./src/screens/TelaRats.jsx"
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -134,182 +135,170 @@ function AppNavigator() {
   const pt = lang === "pt-br";
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        screenOptions={({ navigation }) => ({
-          headerShown: true,
-          title: "Clube do Livro",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.openDrawer()}
-              style={{ marginLeft: 16 }}
-            >
-              <Image
-                source={{
-                  uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-frontend/refs/heads/main/assets/agua-icone.png",
-                }}
-                style={{ width: 50, height: 50, resizeMode: "contain" }}
-              />
-            </TouchableOpacity>
-          ),
-          drawerStyle: {
-            backgroundColor: "#4AA1F3",
-            width: "80%",
-          },
-          drawerActiveTintColor: "#ffffff",
-          drawerInactiveTintColor: "#ccc",
-          drawerLabelStyle: { color: "#ffffff" },
-          drawerContentStyle: {
-            backgroundColor: "#94a5b6",
-          },
-        })}
-      >
-        <Drawer.Screen
-          name="Home"
-          options={{
-            drawerLabel: pt ? "Início" : "Home",
-            drawerIcon: ({ color }) => (
-              <Ionicons name="home" size={24} color={color} />
-            ),
-          }}
-        >
-          {() => <TabNavigator pt={pt} />}
-        </Drawer.Screen>
-
-        <Drawer.Screen
-          name="Livro"
-          component={TelaLivro}
-          options={{
-            drawerLabel: pt ? "Livro" : "Book",
-            drawerIcon: ({ color }) => (
-              <Entypo name="book" size={24} color={color} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Autor"
-          component={TelaAutor}
-          options={{
-            drawerLabel: pt ? "Autor" : "Author",
-            drawerIcon: ({ color }) => (
-              <Fontisto name="female" size={24} color={color} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Biblioteca"
-          component={TelaBiblioteca}
-          options={{
-            drawerLabel: pt ? "Biblioteca" : "Library",
-            drawerIcon: ({ color }) => (
-              <Ionicons name="book" size={24} color={color} />
-            ),
-          }}
-        />
-            <Drawer.Screen
-              name="TelaContos"
-              component={TelaContos}
-              options={{
-                drawerLabel: pt ? "Contos" : "Short Stories",
-                drawerIcon: ({ color }) => (
-                  <MaterialIcons name="book" size={24} color={color} />
-                ),
-              }}
-            />
-              <Drawer.Screen
-                name="Citações"
-                component={TelaCitacoes}
-                options={{
-                  drawerLabel: pt ? "Citações" : "Quotes",
-                  drawerIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="comment-quote"
-                      size={24}
-                      color={color}
-                    />
+      <NavigationContainer>
+          <Drawer.Navigator
+              screenOptions={({ navigation }) => ({
+                  headerShown: true,
+                  title: 'Clube do Livro',
+                  headerLeft: () => (
+                      <TouchableOpacity
+                          onPress={() => navigation.openDrawer()}
+                          style={{ marginLeft: 16 }}>
+                          <Image
+                              source={{
+                                  uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-frontend/refs/heads/main/assets/agua-icone.png',
+                              }}
+                              style={{ width: 50, height: 50, resizeMode: 'contain' }}
+                          />
+                      </TouchableOpacity>
                   ),
-                }}
+                  drawerStyle: {
+                      backgroundColor: '#4AA1F3',
+                      width: '80%',
+                  },
+                  drawerActiveTintColor: '#ffffff',
+                  drawerInactiveTintColor: '#ccc',
+                  drawerLabelStyle: { color: '#ffffff' },
+                  drawerContentStyle: {
+                      backgroundColor: '#94a5b6',
+                  },
+              })}>
+              <Drawer.Screen
+                  name="Home"
+                  options={{
+                      drawerLabel: pt ? 'Início' : 'Home',
+                      drawerIcon: ({ color }) => <Ionicons name="home" size={24} color={color} />,
+                  }}>
+                  {() => <TabNavigator pt={pt} />}
+              </Drawer.Screen>
+
+              <Drawer.Screen
+                  name="Livro"
+                  component={TelaLivro}
+                  options={{
+                      drawerLabel: pt ? 'Livro' : 'Book',
+                      drawerIcon: ({ color }) => <Entypo name="book" size={24} color={color} />,
+                  }}
               />
-          <Drawer.Screen
-            name="TelaPersonagens"
-            component={TelaPersonagem}
-            options={{
-              drawerLabel: pt ? "Personagens" : "Characters",
-              drawerIcon: ({ color }) => (
-                <FontAwesome6 name="person" size={24} color={color} />
-              ),
-            }}
-          />
-            <Drawer.Screen
-              name="Telaquiz"
-              component={telaQuiz}
-              options={{
-                drawerLabel: pt ? "Quiz" : "Quiz",
-                drawerIcon: ({ color }) => (
-                  <MaterialIcons name="question-answer" size={24} color={color} />
-                ),
-              }}
-            />
-          <Drawer.Screen
-            name="Video Aulas"
-            component={TelaVideoaula}
-            options={{
-              drawerLabel: pt ? "Vídeo Aulas" : "Video Lessons",
-              drawerIcon: ({ color }) => (
-                <FontAwesome name="video-camera" size={24} color={color} />
-              ),
-            }}
-          />
-        <Drawer.Screen
-          name="Dicas"
-          component={TelaDicas}
-          options={{
-            drawerLabel: pt ? "Dicas" : "Tips",
-            drawerIcon: ({ color }) => (
-              <Ionicons name="information-circle" size={24} color={color} />
-            ),
-          }}
-        />
-          <Drawer.Screen
-            name="Curiosidades"
-            component={TelaCuriosidades}
-            options={{
-              drawerLabel: pt ? "Curiosidades" : "Fun Facts",
-              drawerIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="comment-question"
-                  size={24}
-                  color={color}
-                />
-              ),
-            }}
-          />
+              <Drawer.Screen
+                  name="Autor"
+                  component={TelaAutor}
+                  options={{
+                      drawerLabel: pt ? 'Autor' : 'Author',
+                      drawerIcon: ({ color }) => <Fontisto name="female" size={24} color={color} />,
+                  }}
+              />
+              <Drawer.Screen
+                  name="Biblioteca"
+                  component={TelaBiblioteca}
+                  options={{
+                      drawerLabel: pt ? 'Biblioteca' : 'Library',
+                      drawerIcon: ({ color }) => <Ionicons name="book" size={24} color={color} />,
+                  }}
+              />
+              <Drawer.Screen
+                  name="TelaContos"
+                  component={TelaContos}
+                  options={{
+                      drawerLabel: pt ? 'Contos' : 'Short Stories',
+                      drawerIcon: ({ color }) => (
+                          <MaterialIcons name="book" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="Citações"
+                  component={TelaCitacoes}
+                  options={{
+                      drawerLabel: pt ? 'Citações' : 'Quotes',
+                      drawerIcon: ({ color }) => (
+                          <MaterialCommunityIcons name="comment-quote" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="TelaPersonagens"
+                  component={TelaPersonagem}
+                  options={{
+                      drawerLabel: pt ? 'Personagens' : 'Characters',
+                      drawerIcon: ({ color }) => (
+                          <FontAwesome6 name="person" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="Telaquiz"
+                  component={telaQuiz}
+                  options={{
+                      drawerLabel: pt ? 'Quiz' : 'Quiz',
+                      drawerIcon: ({ color }) => (
+                          <MaterialIcons name="question-answer" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="Video Aulas"
+                  component={TelaVideoaula}
+                  options={{
+                      drawerLabel: pt ? 'Vídeo Aulas' : 'Video Lessons',
+                      drawerIcon: ({ color }) => (
+                          <FontAwesome name="video-camera" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="Dicas"
+                  component={TelaDicas}
+                  options={{
+                      drawerLabel: pt ? 'Dicas' : 'Tips',
+                      drawerIcon: ({ color }) => (
+                          <Ionicons name="information-circle" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="Curiosidades"
+                  component={TelaCuriosidades}
+                  options={{
+                      drawerLabel: pt ? 'Curiosidades' : 'Fun Facts',
+                      drawerIcon: ({ color }) => (
+                          <MaterialCommunityIcons name="comment-question" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="TelaRats"
+                  component={TelaRats}
+                  options={{
+                      drawerLabel: pt ? 'Os Ratos' : 'Os Ratos',
+                      drawerIcon: ({ color }) => (
+                          <FontAwesome6 name="book-bookmark" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="Equipe"
+                  component={TelaSobre}
+                  options={{
+                      drawerLabel: pt ? 'Sobre' : 'About',
+                      drawerIcon: ({ color }) => (
+                          <FontAwesome5 name="users" size={24} color={color} />
+                      ),
+                  }}
+              />
 
-
-
-        <Drawer.Screen
-          name="Equipe"
-          component={TelaSobre}
-          options={{
-            drawerLabel: pt ? "Sobre" : "About",
-            drawerIcon: ({ color }) => (
-              <FontAwesome5 name="users" size={24} color={color} />
-            ),
-          }}
-        />
-
-        <Drawer.Screen
-          name="Configurações"
-          component={TelaConfiguracoes}
-          options={{
-            drawerLabel: pt ? "Configurações" : "Settings",
-            drawerIcon: ({ color }) => (
-              <Ionicons name="settings" size={24} color={color} />
-            ),
-          }}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+              <Drawer.Screen
+                  name="Configurações"
+                  component={TelaConfiguracoes}
+                  options={{
+                      drawerLabel: pt ? 'Configurações' : 'Settings',
+                      drawerIcon: ({ color }) => (
+                          <Ionicons name="settings" size={24} color={color} />
+                      ),
+                  }}
+              />
+          </Drawer.Navigator>
+      </NavigationContainer>
   );
 }
 
