@@ -49,6 +49,7 @@ import TelaConfiguracoes from './src/screens/TelaConfiguracoes.jsx';
 import TelaContos from "./src/screens/TelaConto.jsx";
 import TelaRats from "./src/screens/TelaRats.jsx"
 import TelaMoreninha from "./src/screens/TelaMoreninha.jsx"
+import TelaNinar from "./src/screens/TelaNinar.jsx"
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -282,6 +283,18 @@ function AppNavigator() {
                   component={TelaMoreninha}
                   options={{
                       drawerLabel: pt ? 'A Moreninha' : 'A Moreninha',
+                      drawerIcon: ({ color }) => (
+                          <FontAwesome6 name="book-bookmark" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="TelaNinar"
+                  component={TelaNinar}
+                  options={{
+                      drawerLabel: pt
+                          ? 'Canção Para Ninar Menino Grande'
+                          : 'Canção Para Ninar Menino Grande',
                       drawerIcon: ({ color }) => (
                           <FontAwesome6 name="book-bookmark" size={24} color={color} />
                       ),
