@@ -176,20 +176,24 @@ function AppNavigator() {
 
               <Drawer.Screen
                   name="Livro"
-                  component={TelaLivro}
+                  initialParams={{ TelaLivro }}
                   options={{
                       drawerLabel: pt ? 'Livro' : 'Book',
                       drawerIcon: ({ color }) => <Entypo name="book" size={24} color={color} />,
-                  }}
-              />
+                  }}>
+                  {() => <TabNavigator pt={pt} />}
+              </Drawer.Screen>
+
               <Drawer.Screen
                   name="Autor"
-                  component={TelaAutor}
+                  initialParams={{TelaAutor}}
                   options={{
                       drawerLabel: pt ? 'Autor' : 'Author',
                       drawerIcon: ({ color }) => <Fontisto name="female" size={24} color={color} />,
-                  }}
-              />
+                  }}>
+                  {() => <TabNavigator pt={pt} />}
+              </Drawer.Screen>
+
               <Drawer.Screen
                   name="Biblioteca"
                   component={TelaBiblioteca}
