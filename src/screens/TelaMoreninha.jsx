@@ -51,12 +51,6 @@ export default function TelaInicial({ navigation }) {
     const data3 = await resp3.json();
     setLivro(data3[0]);
 
-    const resp4 = await fetch("https://ratsjs.onrender.com/api/livros", {
-      headers: { "x-api-key": CHAVE_RATS },
-    });
-    const data4 = await resp4.json();
-      setRats(data4[0]);
-
           const resp6 = await fetch('https://clubelivro-backend.onrender.com/api/livros', {
               headers: { 'x-api-key': CHAVE_MORENINHA },
           });
