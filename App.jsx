@@ -40,6 +40,7 @@ import TelaContos from './src/screens/TelaConto.jsx';
 import TelaRats from './src/screens/TelaRats.jsx';
 import TelaMoreninha from './src/screens/TelaMoreninha.jsx';
 import TelaNinar from './src/screens/TelaNinar.jsx';
+import TelaCaminho from './src/screens/TelaCaminho.jsx';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -290,6 +291,18 @@ function AppNavigator() {
                         drawerLabel: pt
                             ? 'Canção Para Ninar Menino Grande'
                             : 'Canção Para Ninar Menino Grande',
+                        drawerIcon: ({ color }) => (
+                            <FontAwesome6 name="book-bookmark" size={24} color={color} />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="TelaCaminho"
+                    component={TelaCaminho}
+                    options={{
+                        drawerLabel: pt
+                            ? 'O Caminho Das Pedras'
+                            : 'O Caminho Das Pedras',
                         drawerIcon: ({ color }) => (
                             <FontAwesome6 name="book-bookmark" size={24} color={color} />
                         ),
