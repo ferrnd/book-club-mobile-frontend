@@ -127,26 +127,9 @@ export default function TelaInicial({ navigation }) {
               {pt ? moreninha.enredo : moreninha.enredo_en}
             </Text>
           </View>
-        </View>
+              </View>
 
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
-            <View style={styles.tagsContainer}>
-              {moreninha.personagens.map((personagem, index) => (
-                <View key={index} style={styles.chip}>
-                  <FontAwesome
-                    name="user"
-                    size={12}
-                    color="#000000ff"
-                    style={{ marginRight: 7 }}
-                  />
-                  <Text style={styles.chipT}>{personagem}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
+              <Text>Aqui</Text>
 
         <View style={styles.secao}>
           <View style={styles.card}>
