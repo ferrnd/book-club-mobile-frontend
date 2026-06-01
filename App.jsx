@@ -125,7 +125,7 @@ function TabNavigator({ pt }) {
         ),
     }}
 />
-    </Tab.Navigator>
+     </Tab.Navigator>
   );
 }
 
@@ -176,138 +176,183 @@ function AppNavigator() {
           {() => <TabNavigator pt={pt} />}
         </Drawer.Screen>
 
+
         <Drawer.Screen
           name="Livro"
-          component={TelaLivro}
+          initialParams={{screen : 'TelaLivro'}}
           options={{
             drawerLabel: pt ? "Livro" : "Book",
             drawerIcon: ({ color }) => (
-              <Entypo name="book" size={24} color={color} />
+                <Entypo name="book" size={24} color={color} />
             ),
           }}
-        />
-        <Drawer.Screen
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+              <Drawer.Screen
           name="Autor"
-          component={TelaAutor}
+          initialParams={{screen : 'TelaAutor'}}
           options={{
             drawerLabel: pt ? "Autor" : "Author",
             drawerIcon: ({ color }) => (
               <Fontisto name="female" size={24} color={color} />
             ),
           }}
-        />
-        <Drawer.Screen
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+              <Drawer.Screen
           name="Biblioteca"
-          component={TelaBiblioteca}
+          initialParams={{screen : 'TelaBiblioteca'}}
           options={{
-            drawerLabel: pt ? "Biblioteca" : "Library",
+            drawerLabel: pt ? "Bibioteca" : "Library",
             drawerIcon: ({ color }) => (
               <Ionicons name="book" size={24} color={color} />
             ),
           }}
-        />
-            <Drawer.Screen
-              name="TelaContos"
-              component={TelaContos}
-              options={{
-                drawerLabel: pt ? "Contos" : "Short Stories",
-                drawerIcon: ({ color }) => (
-                  <MaterialIcons name="book" size={24} color={color} />
-                ),
-              }}
-            />
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+
+
               <Drawer.Screen
-                name="Citações"
-                component={TelaCitacoes}
-                options={{
-                  drawerLabel: pt ? "Citações" : "Quotes",
-                  drawerIcon: ({ color }) => (
-                    <MaterialCommunityIcons
+          name="Contos"
+          initialParams={{screen : 'TelaContos'}}
+          options={{
+            drawerLabel: pt ? "Contos" : "Short Stories",
+            drawerIcon: ({ color }) => (
+              <MaterialIcons name="book" size={24} color={color} />
+            ),
+          }}
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+
+              <Drawer.Screen
+          name="Citações"
+          initialParams={{screen : 'TelaCitacoes'}}
+          options={{
+            drawerLabel: pt ? "Citacoes" : "Quotes",
+            drawerIcon: ({ color }) => (
+               <MaterialCommunityIcons
                       name="comment-quote"
                       size={24}
-                      color={color}
-                    />
-                  ),
-                }}
-              />
-          <Drawer.Screen
-            name="TelaPersonagens"
-            component={TelaPersonagem}
-            options={{
-              drawerLabel: pt ? "Personagens" : "Characters",
-              drawerIcon: ({ color }) => (
-                <FontAwesome6 name="person" size={24} color={color} />
-              ),
-            }}
-          />
-            <Drawer.Screen
-              name="Telaquiz"
-              component={telaQuiz}
-              options={{
-                drawerLabel: pt ? "Quiz" : "Quiz",
-                drawerIcon: ({ color }) => (
-                  <MaterialIcons name="question-answer" size={24} color={color} />
-                ),
-              }}
-            />
-          <Drawer.Screen
-            name="Video Aulas"
-            component={TelaVideoaula}
-            options={{
-              drawerLabel: pt ? "Vídeo Aulas" : "Video Lessons",
-              drawerIcon: ({ color }) => (
-                <FontAwesome name="video-camera" size={24} color={color} />
-              ),
-            }}
-          />
-        <Drawer.Screen
+                      color={color} />
+            ),
+          }}
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+
+              <Drawer.Screen
+          name="Personagens"
+          initialParams={{screen : 'TelaPersonagens'}}
+          options={{
+            drawerLabel: pt ? "Personagens" : "Characters",
+            drawerIcon: ({ color }) => (
+               <FontAwesome6 name="person" size={24} color={color}/>
+            ),
+          }}
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+
+
+
+              <Drawer.Screen
+          name="Quiz"
+          initialParams={{screen : 'TelaQuiz'}}
+          options={{
+            drawerLabel: pt ? "Quiz" : "Quiz",
+            drawerIcon: ({ color }) => (
+              <MaterialIcons name="question-answer" size={24} color={color}  />
+            ),
+          }}
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+
+
+              <Drawer.Screen
+          name="Vídeo Aulas"
+          initialParams={{screen : 'TelaVideoaula'}}
+          options={{
+            drawerLabel: pt ? "Vídeo Aulas" : "Video Lessons",
+            drawerIcon: ({ color }) => (
+              <FontAwesome name="video-camera" size={24} color={color} />
+            ),
+          }}
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+
+
+              <Drawer.Screen
           name="Dicas"
-          component={TelaDicas}
+          initialParams={{screen : 'TelaDicas'}}
           options={{
             drawerLabel: pt ? "Dicas" : "Tips",
             drawerIcon: ({ color }) => (
               <Ionicons name="information-circle" size={24} color={color} />
             ),
           }}
-        />
-          <Drawer.Screen
-            name="Curiosidades"
-            component={TelaCuriosidades}
-            options={{
-              drawerLabel: pt ? "Curiosidades" : "Fun Facts",
-              drawerIcon: ({ color }) => (
-                <MaterialCommunityIcons
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
+ 
+              <Drawer.Screen
+          name="Curiosidades"
+          initialParams={{screen : 'TelaCuriosidades'}}
+          options={{
+            drawerLabel: pt ? "Curiosidades" : "Fun Facts",
+            drawerIcon: ({ color }) => (
+              <MaterialCommunityIcons
                   name="comment-question"
                   size={24}
-                  color={color}
-                />
-              ),
-            }}
-          />
+                  color={color} />
+            ),
+          }}
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
 
-
-
-        <Drawer.Screen
+             <Drawer.Screen
           name="Equipe"
-          component={TelaSobre}
+          initialParams={{screen : 'TelaSobre'}}
           options={{
             drawerLabel: pt ? "Sobre" : "About",
             drawerIcon: ({ color }) => (
-              <FontAwesome5 name="users" size={24} color={color} />
+               <FontAwesome5 name="users" size={24} color={color} />
             ),
           }}
-        />
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
 
-        <Drawer.Screen
+
+
+             <Drawer.Screen
           name="Configurações"
-          component={TelaConfiguracoes}
+          initialParams={{screen : 'TelaConfiguracoes'}}
           options={{
             drawerLabel: pt ? "Configurações" : "Settings",
             drawerIcon: ({ color }) => (
               <Ionicons name="settings" size={24} color={color} />
             ),
           }}
-        />
+        >
+          {() => <TabNavigator pt={pt} />}
+        </Drawer.Screen>
+
       </Drawer.Navigator>
     </NavigationContainer>
   );
