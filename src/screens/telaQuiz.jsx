@@ -6,6 +6,7 @@ import {
     ScrollView,
     ActivityIndicator,
     SafeAreaView,
+    TouchableOpacity,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { LanguageContext } from '../contexts/LanguageContext';
@@ -20,6 +21,7 @@ export default function TelaQuiz() {
     const pt = lang === "pt-br";
 
     const [listaPerguntas, setListaPerguntas] = useState([]);
+    const [Respostas, setRespostas] = useState({})
     const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
@@ -45,6 +47,20 @@ export default function TelaQuiz() {
         }
     }
 
+    if (!respostaSelecionada) {
+        return styles.opcaoBloco;
+    }
+    if (letraOpcao === respostaCorreta) {
+        return [styles.opcaoBloco, styles.opcaoCorreta];
+    }
+    if (respostaSelecionada === letraOpcao && respostaSelecionada !== respostaCorreta) {
+        return [styles.opcaoBloco, styles.opcaoCorreta];
+    }
+
+    setRespostas({
+        ...Respostas,
+        [indexPergunta]: letraClicada
+    })
     // tela de carregamento que o du ensinou na sexta passada
     if (carregando) {
         return (
