@@ -287,7 +287,7 @@ export default function TelaInicial({ navigation }) {
                           <Text style={styles.livroGenero}>{t(murilo, 'genero')}</Text>
                           <TouchableOpacity
                               style={styles.saibaMais6}
-                              onPress={() => navigation.navigate('')}>
+                              onPress={() => navigation.navigate('TelaCaminho')}>
                               <Text style={styles.botaoT}>
                                   {pt ? 'Saiba Mais Sobre O livro' : 'Learn More About The Book'}
                               </Text>
