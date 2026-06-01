@@ -276,13 +276,13 @@ export default function TelaInicial({ navigation }) {
 
                   <View style={[styles.card, styles.livroCard]}>
                       <View>
-                          <Image source={{ uri: murilo.capa }} style={styles.livroCapa} />
+                          <Image source={{ uri: murilo?.capa }} style={styles.livroCapa} />
                       </View>
                       <View style={styles.info}>
-                          <Text style={styles.livroT}>{murilo.titulo}</Text>
-                          <Text style={styles.livroAutor}>{murilo.autor}</Text>
+                          <Text style={styles.livroT}>{murilo?.titulo}</Text>
+                          <Text style={styles.livroAutor}>{murilo?.autor}</Text>
                           <View style={styles.contornoIntegracao}>
-                              <Text style={styles.anoPublicacao}>{murilo.anoPublicacao}</Text>
+                              <Text style={styles?.anoPublicacao}>{murilo.anoPublicacao}</Text>
                           </View>
                           <Text style={styles.livroGenero}>{t(murilo, 'genero')}</Text>
                           <TouchableOpacity
@@ -559,7 +559,7 @@ const styles = StyleSheet.create({
     },
     saibaMais6: {
         marginTop: 10,
-        backgroundColor: '#a40000ff',
+        backgroundColor: '#cd0000ff',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 7,
