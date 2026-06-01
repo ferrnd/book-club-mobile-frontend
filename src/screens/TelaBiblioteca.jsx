@@ -15,16 +15,25 @@ const CHAVE_RATS = 'Fq0CotClRneRPJAeCakJsrSwGyVCJU58tQrPWYgLCK3ei9HT-Ygajl2KXCLi
 const CHAVE_MORENINHA = 'entreLinhas123';
 const CHAVE_MURILO = 'livr0';
 const CHAVE_PEDRO = 'chaveSecreta';
+const CHAVE_CAPITAES = 'projetoamods';
+const CHAVE_GUARANI = 'bookpedia-backend-2026';
+const CHAVE_DESPEJO = 'amods';
+const CHAVE_BRASCUBAS = 'Clubyx_dev';
+const CHAVE_VIDAS = 'amods';
 
 export default function TelaBiblioteca() {
     const { lang } = useContext(LanguageContext);
-    const pt = lang === "pt-br";
+    const pt = lang === 'pt-br';
 
     const [carregando, setCarregando] = useState(true);
     const [rats, setRats] = useState(null);
     const [moreninha, setMoreninha] = useState(null);
-    const [murilo, setMurilo] = useState(null);
     const [pedro, setPedro] = useState(null);
+    const [capitaes, setCapitaes] = useState(null);
+    const [guarani, setGuarani] = useState(null);
+    const [despejo, setDespejo] = useState(null);
+    const [brasCubas, setBrasCubas] = useState(null);
+    const [vidas, setVidas] = useState(null);
 
     useEffect(() => {
         buscarDados();
@@ -39,23 +48,12 @@ export default function TelaBiblioteca() {
             setRats(dataRats);
             const respMoreninha = await fetch(
                 'https://clubelivro-backend.onrender.com/api/livros',
-                { headers: { 'x-api-key': CHAVE_MORENINHA } }
+                { headers: { 'x-api-key': CHAVE_MORENINHA } },
             );
             const dataMoreninha = await respMoreninha.json();
             setMoreninha(Array.isArray(dataMoreninha) ? dataMoreninha[0] : dataMoreninha);
         } catch (error) {
             console.error('Erro ao buscar dados da Moreninha: ', error);
-        }
-
-        try {
-            const respMurilo = await fetch(
-                'https://clubelivro-backend-zui4.onrender.com/api/livro',
-                { headers: { 'x-api-key': CHAVE_MURILO } }
-            );
-            const dataMurilo = await respMurilo.json();
-            setMurilo(Array.isArray(dataMurilo) ? dataMurilo[0] : dataMurilo);
-        } catch (error) {
-            console.error('Erro ao buscar dados do Murilo: ', error);
         }
 
         try {
@@ -67,6 +65,53 @@ export default function TelaBiblioteca() {
             setPedro(Array.isArray(dataPedro) ? dataPedro[0] : dataPedro);
         } catch (error) {
             console.error('Erro ao buscar dados da API do Pedro: ', error);
+        }
+        try {
+            const respCapitaes = await fetch('https://readflow-m8o6.onrender.com/api/livros', {
+                headers: { 'x-api-key': CHAVE_CAPITAES },
+            });
+            const dataCapitaes = await respCapitaes.json();
+            setCapitaes(Array.isArray(dataCapitaes) ? dataCapitaes[0] : dataCapitaes);
+        } catch (error) {
+            console.error('Erro ao buscar dados do livro Capitães da Areia: ', error);
+        }
+
+        try {
+            const respGuarani = await fetch('https://bookpedia-backend-4ab3.onrender.com/livros', {
+                headers: { 'x-api-key': CHAVE_GUARANI },
+            });
+            const dataGuarani = await respGuarani.json();
+            setGuarani(Array.isArray(dataGuarani) ? dataGuarani[0] : dataGuarani);
+        } catch (error) {
+            console.error('Erro ao buscar dados do livro Guarani: ', error);
+        }
+        try {
+            const respDespejo = await fetch(
+                'https://backend-projeto-integrador-rana.onrender.com/api/livro',
+                { headers: { 'x-api-key': CHAVE_DESPEJO } },
+            );
+            const dataDespejo = await respDespejo.json();
+            setDespejo(Array.isArray(dataDespejo) ? dataDespejo[0] : dataDespejo);
+        } catch (error) {
+            console.error('Erro ao buscar dados do livro Quarto de Despejo: ', error);
+        }
+        try {
+            const respBrasCubas = await fetch('https://projeto-clubyx.onrender.com/livros', {
+                headers: { 'x-api-key': CHAVE_BRASCUBAS },
+            });
+            const dataBrasCubas = await respBrasCubas.json();
+            setBrasCubas(Array.isArray(dataBrasCubas) ? dataBrasCubas[0] : dataBrasCubas);
+        } catch (error) {
+            console.error('Erro ao buscar dados do livro Memorias Póstumas de Brás Cubas: ', error);
+        }
+        try {
+            const respVidas = await fetch('https://bookverse-back-pob5.onrender.com/livros', {
+                headers: { 'x-api-key': CHAVE_VIDAS },
+            });
+            const dataVidas = await respVidas.json();
+            setVidas(Array.isArray(dataVidas) ? dataVidas[0] : dataVidas);
+        } catch (error) {
+            console.error('Erro ao buscar dados do livro Vidas Secas: ', error);
         } finally {
             setCarregando(false);
         }
@@ -75,16 +120,19 @@ export default function TelaBiblioteca() {
     if (carregando) {
         return (
             <View style={styles.carregando}>
-                <ActivityIndicator size='large' color='#05407A' />
+                <ActivityIndicator size="large" color="#05407A" />
             </View>
         );
     }
 
     const listaRats = Array.isArray(rats) ? rats : rats ? [rats] : [];
     const listaMoreninha = Array.isArray(moreninha) ? moreninha : moreninha ? [moreninha] : [];
-    const listaMurilo = Array.isArray(murilo) ? murilo : murilo ? [murilo] : [];
     const listaPedro = Array.isArray(pedro) ? pedro : pedro ? [pedro] : [];
-
+    const listaCapitaes = Array.isArray(capitaes) ? capitaes : capitaes ? [capitaes] : [];
+    const listaGuarani = Array.isArray(guarani) ? guarani : guarani ? [guarani] : [];
+    const listaDespejo = Array.isArray(despejo) ? despejo : despejo ? [despejo] : [];
+    const listaBrasCubas = Array.isArray(brasCubas) ? brasCubas : brasCubas ? [brasCubas] : [];
+    const listaVidas = Array.isArray(vidas) ? vidas : vidas ? [vidas] : [];
     return (
         <SafeAreaView style={styles.safeArea}>
             <StatusBar style="dark" />
@@ -92,9 +140,7 @@ export default function TelaBiblioteca() {
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}>
                 <View style={styles.secao}>
-                    <Text style={styles.secaoT}>
-                        {pt ? "Biblioteca" : "Library"}
-                    </Text>
+                    <Text style={styles.secaoT}>{pt ? 'Biblioteca' : 'Library'}</Text>
 
                     <View style={styles.gridLivros}>
                         {listaRats.map((livro, index) => (
@@ -129,6 +175,31 @@ export default function TelaBiblioteca() {
                                     <Text style={styles.livroT} numberOfLines={2}>
                                         {livro?.titulo}
                                     </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={2}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
+                        {listaPedro.map((livro, index) => (
+                            <View key={'pedro-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={3}>
+                                        {livro?.titulo}
+                                    </Text>
                                     <Text style={styles.livroAutor} numberOfLines={1}>
                                         {livro?.autor}
                                     </Text>
@@ -149,8 +220,34 @@ export default function TelaBiblioteca() {
                             </View>
                         ))}
 
-                        {listaMurilo.map((livro, index) => (
-                            <View key={'murilo-' + index} style={styles.card}>
+                        {listaCapitaes.map((livro, index) => (
+                            <View key={'capitaes-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={2}>
+                                        {livro?.titulo}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={1}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa_url }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
+
+                        {listaGuarani.map((livro, index) => (
+                            <View key={'guarani-' + index} style={styles.card}>
                                 <View style={styles.infoTextos}>
                                     <Text style={styles.livroT} numberOfLines={2}>
                                         {livro?.titulo}
@@ -175,8 +272,59 @@ export default function TelaBiblioteca() {
                             </View>
                         ))}
 
-                        {listaPedro.map((livro, index) => (
-                            <View key={'pedro-' + index} style={styles.card}>
+                        {listaDespejo.map((livro, index) => (
+                            <View key={'despejo-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={2}>
+                                        {livro?.titulo}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={2}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.anoPublicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.anoPublicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capa }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
+
+                        {listaBrasCubas.map((livro, index) => (
+                            <View key={'brasCubas-' + index} style={styles.card}>
+                                <View style={styles.infoTextos}>
+                                    <Text style={styles.livroT} numberOfLines={3}>
+                                        {livro?.nome}
+                                    </Text>
+                                    <Text style={styles.livroAutor} numberOfLines={1}>
+                                        {livro?.autor}
+                                    </Text>
+                                    {livro?.publicacao && (
+                                        <View style={styles.contorno}>
+                                            <Text style={styles.anoPublicacao}>
+                                                {livro.publicacao}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.containerCapaMini}>
+                                    <Image
+                                        source={{ uri: livro?.capaUrl }}
+                                        style={styles.livroCapaMini}
+                                    />
+                                </View>
+                            </View>
+                        ))}
+                        {listaVidas.map((livro, index) => (
+                            <View key={'vidas-' + index} style={styles.card}>
                                 <View style={styles.infoTextos}>
                                     <Text style={styles.livroT} numberOfLines={2}>
                                         {livro?.titulo}
