@@ -48,6 +48,7 @@ import TelaPersonagem from "./src/screens/TelaPersonagens.jsx";
 import TelaConfiguracoes from './src/screens/TelaConfiguracoes.jsx';
 import TelaContos from "./src/screens/TelaConto.jsx";
 import TelaRats from "./src/screens/TelaRats.jsx"
+import TelaMoreninha from "./src/screens/TelaMoreninha.jsx"
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -271,6 +272,16 @@ function AppNavigator() {
                   component={TelaRats}
                   options={{
                       drawerLabel: pt ? 'Os Ratos' : 'Os Ratos',
+                      drawerIcon: ({ color }) => (
+                          <FontAwesome6 name="book-bookmark" size={24} color={color} />
+                      ),
+                  }}
+              />
+              <Drawer.Screen
+                  name="TelaMoreninha"
+                  component={TelaMoreninha}
+                  options={{
+                      drawerLabel: pt ? 'A Moreninha' : 'A Moreninha',
                       drawerIcon: ({ color }) => (
                           <FontAwesome6 name="book-bookmark" size={24} color={color} />
                       ),
