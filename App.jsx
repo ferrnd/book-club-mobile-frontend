@@ -78,7 +78,7 @@ function TabNavigator({ pt }) {
         }}
       />
       <Tab.Screen
-        name="Book"
+        name="TelaLivro"
         component={TelaLivro}
         options={{
           tabBarLabel: pt ? "Livro" : "Book",
