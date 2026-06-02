@@ -15,7 +15,7 @@ import { LanguageContext } from "../contexts/LanguageContext";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
-    "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
+  "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 const CHAVE_MORENINHA = 'entreLinhas123';
 
 export default function TelaInicial({ navigation }) {
@@ -27,37 +27,51 @@ export default function TelaInicial({ navigation }) {
   const [citacao, setCitacao] = useState(null);
   const [livro, setLivro] = useState(null);
   const [moreninha, setMoreninha] = useState(null);
+  const [personagens, setPersonagens] = useState([]);
 
   useEffect(() => {
     buscarDados();
   }, []);
 
   async function buscarDados() {
-    const resp = await fetch(URL_BASE + "/projeto", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data = await resp.json();
-    setProjeto(data[0]);
+    try {
+      const resp = await fetch(URL_BASE + "/projeto", {
+        headers: { "x-api-key": CHAVE_API },
+      });
+      const data = await resp.json();
+      setProjeto(data[0]);
 
-    const resp2 = await fetch(URL_BASE + "/citacao", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data2 = await resp2.json();
-    setCitacao(data2[7]);
+      const resp2 = await fetch(URL_BASE + "/citacao", {
+        headers: { "x-api-key": CHAVE_API },
+      });
+      const data2 = await resp2.json();
+      setCitacao(data2[7]);
 
-    const resp3 = await fetch(URL_BASE + "/livro", {
-      headers: { "x-api-key": CHAVE_API },
-    });
-    const data3 = await resp3.json();
-    setLivro(data3[0]);
+      const resp3 = await fetch(URL_BASE + "/livro", {
+        headers: { "x-api-key": CHAVE_API },
+      });
+      const data3 = await resp3.json();
+      setLivro(data3[0]);
 
-          const resp6 = await fetch('https://clubelivro-backend.onrender.com/api/livros', {
-              headers: { 'x-api-key': CHAVE_MORENINHA },
-          });
-          const data6 = await resp6.json();
-          setMoreninha(data6[0]);
+      const resp6 = await fetch('https://clubelivro-backend.onrender.com/api/livros', {
+        headers: { 'x-api-key': CHAVE_MORENINHA },
+      });
+      const data6 = await resp6.json();
+      setMoreninha(data6[0]);
 
-    setCarregando(false);
+      const respPersonagens = await fetch('https://clubelivro-backend.onrender.com/api/personagens', {
+        headers: { 'x-api-key': CHAVE_MORENINHA },
+      });
+      const dataPersonagens = await respPersonagens.json();
+
+      if (dataPersonagens) {
+        setPersonagens(dataPersonagens);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar dados da API:", error);
+    } finally {
+      setCarregando(false);
+    }
   }
 
   if (carregando) {
@@ -81,17 +95,17 @@ export default function TelaInicial({ navigation }) {
           </Text>
           <View style={[styles.card, styles.livroCard]}>
             <View>
-              <Image source={{ uri: moreninha.capa }} style={styles.livroCapa} />
+              <Image source={{ uri: moreninha?.capa }} style={styles.livroCapa} />
             </View>
 
             <View style={styles.info}>
-              <Text style={styles.livroT}>{moreninha.titulo}</Text>
-              <Text style={styles.livroAutor}>{moreninha.autor}</Text>
+              <Text style={styles.livroT}>{moreninha?.titulo}</Text>
+              <Text style={styles.livroAutor}>{moreninha?.autor}</Text>
               <View style={styles.contorno}>
-                <Text style={styles.anoPublicacao}>{moreninha.anoPublicacao}</Text>
+                <Text style={styles.anoPublicacao}>{moreninha?.anoPublicacao}</Text>
               </View>
               <Text style={styles.livroGenero}>
-                {pt ? moreninha.genero : moreninha.genero_en}
+                {pt ? moreninha?.genero : moreninha?.genero_en}
               </Text>
             </View>
           </View>
@@ -102,7 +116,7 @@ export default function TelaInicial({ navigation }) {
             <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
-              {pt ? moreninha.resumo : moreninha.resumo_en}
+              {pt ? moreninha?.resumo : moreninha?.resumo_en}
             </Text>
           </View>
         </View>
@@ -114,7 +128,7 @@ export default function TelaInicial({ navigation }) {
             </Text>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
-              {pt ? moreninha.contexto : moreninha.contexto_en}
+              {pt ? moreninha?.contexto : moreninha?.contexto_en}
             </Text>
           </View>
         </View>
@@ -124,12 +138,29 @@ export default function TelaInicial({ navigation }) {
             <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
-              {pt ? moreninha.enredo : moreninha.enredo_en}
+              {pt ? moreninha?.enredo : moreninha?.enredo_en}
             </Text>
           </View>
-              </View>
+        </View>
 
-              <Text>Aqui</Text>
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
+            <View style={styles.tagsContainer}>
+              {personagens?.map((personagem, index) => (
+                <View key={index} style={styles.chip}>
+                  <FontAwesome
+                    name="user"
+                    size={12}
+                    color="#85007eff"
+                    style={{ marginRight: 7 }}
+                  />
+                  <Text style={styles.chipT}>{personagem.nome}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
 
         <View style={styles.secao}>
           <View style={styles.card}>
@@ -139,8 +170,8 @@ export default function TelaInicial({ navigation }) {
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt
-                ? moreninha.caracteristicasLiterarias
-                : moreninha.caracteristicasLiterarias_en}
+                ? moreninha?.caracteristicasLiterarias
+                : moreninha?.caracteristicasLiterarias_en}
             </Text>
           </View>
         </View>
@@ -151,7 +182,7 @@ export default function TelaInicial({ navigation }) {
             </Text>
               <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
-              {pt ? moreninha.conclusao : moreninha.conclusao_en}
+              {pt ? moreninha?.conclusao : moreninha?.conclusao_en}
             </Text>
           </View>
         </View>
@@ -218,7 +249,7 @@ const styles = StyleSheet.create({
     explicacaoP: {
         fontSize: 16,
         lineHeight: 24,
-        color: '##85007eff',
+        color: '#85007eff',
         textAlign: 'justify',
     },
 
@@ -292,7 +323,7 @@ const styles = StyleSheet.create({
         width: '48%',
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#f4faffff',
+        backgroundColor: 'rgba(133, 0, 126, 0.12)',
         paddingVertical: 10,
         paddingHorizontal: 10,
         borderRadius: 10,
