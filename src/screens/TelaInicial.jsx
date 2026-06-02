@@ -35,6 +35,7 @@ export default function TelaInicial({ navigation }) {
   const [projeto, setProjeto] = useState(null);
   const [citacao, setCitacao] = useState(null);
   const [livro, setLivro] = useState(null);
+  const [conto, setConto] = useState(null);
   const [rats, setRats] = useState(null);
   const [murilo, setMurilo] = useState(null);
   const [moreninha, setMoreninha] = useState(null);
@@ -114,6 +115,12 @@ export default function TelaInicial({ navigation }) {
     });
     const dataAutor = await respAutor.json();
     setAutor(dataAutor[0]);
+
+    const respContos = await fetch(URL_BASE + "/contos", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const dataContos = await respContos.json();
+    setConto(dataContos[2]);
 
     setCarregando(false);
   }
@@ -243,6 +250,37 @@ export default function TelaInicial({ navigation }) {
                   </View>
               </View>
 
+              <View style={styles.secao}>
+                <Text style={styles.secaoT}>{pt ? 'Contos' : 'Short Story'}</Text>
+                  <View style={styles.citacaoCaixa}>
+                      <FontAwesome
+                          name="book"
+                          size={24}
+                          color="#ffffff"
+                          style={styles.iconeCitacao}
+                      />
+                      <Text style={styles.contoTag}>
+                          {pt ? 'Conto: ' : 'Short story: '}
+                          {pt ? conto?.titulo_pt : conto?.titulo_en}
+                      </Text>
+                      <Text style={styles.frase}>
+                          {pt ? conto?.resumo_pt : conto?.resumo_en}
+                      </Text>
+                      <TouchableOpacity
+                          style={styles.saibaMais}
+                          onPress={() => navigation.navigate('TelaContos')}>
+                          <Text style={styles.botaoT}>
+                              {pt ? 'Saiba Mais Sobre Os Contos' : 'Learn More About The Stories'}
+                          </Text>
+                          <FontAwesome
+                              name="arrow-right"
+                              size={10}
+                              color="#ffffff"
+                              style={{ marginLeft: 5 }}
+                          />
+                      </TouchableOpacity>
+                  </View>
+              </View>
               <View style={styles.secao}>
                   <Text style={styles.secaoT1}>
                       {pt ? 'Outras Obras Literárias' : 'Other Literary Works'}
