@@ -47,20 +47,6 @@ export default function TelaQuiz() {
         }
     }
 
-    if (!respostaSelecionada) {
-        return styles.opcaoBloco;
-    }
-    if (letraOpcao === respostaCorreta) {
-        return [styles.opcaoBloco, styles.opcaoCorreta];
-    }
-    if (respostaSelecionada === letraOpcao && respostaSelecionada !== respostaCorreta) {
-        return [styles.opcaoBloco, styles.opcaoCorreta];
-    }
-
-    setRespostas({
-        ...Respostas,
-        [indexPergunta]: letraClicada
-    })
     // tela de carregamento que o du ensinou na sexta passada
     if (carregando) {
         return (
