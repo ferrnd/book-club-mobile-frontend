@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     explicacaoP: {
         fontSize: 16,
         lineHeight: 24,
-        color: '#85007eff',
+        color: 'rgb(0, 0, 0)',
         textAlign: 'justify',
     },
 
