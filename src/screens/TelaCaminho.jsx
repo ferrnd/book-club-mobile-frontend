@@ -21,20 +21,32 @@ export default function TelaInicial({ navigation }) {
 
   const [carregando, setCarregando] = useState(true);
   const [caminho, setCaminho] = useState(null);
+  const [personagens, setPersonagens] = useState([]);
 
   useEffect(() => {
     buscarDados();
   }, []);
 
   async function buscarDados() {
+    try {
 
-const resp5 = await fetch('https://devstones-backend.onrender.com/api/livro', {
-    headers: { 'x-api-key': CHAVE_MURILO },
-});
-const data5 = await resp5.json();
-setCaminho(data5[0]);
+      const resp5 = await fetch('https://devstones-backend.onrender.com/api/livro', {
+        headers: { 'x-api-key': CHAVE_MURILO },
+      });
+      const data5 = await resp5.json();
+      setCaminho(data5[0]);
 
-    setCarregando(false);
+      const respPersonagens = await fetch('https://devstones-backend.onrender.com/api/personagem', {
+        headers: { 'x-api-key': CHAVE_MURILO },
+      });
+      const dataPersonagens = await respPersonagens.json();
+      setPersonagens(dataPersonagens);
+      
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    } finally {
+      setCarregando(false);
+    }
   }
 
   if (carregando) {
@@ -104,9 +116,26 @@ setCaminho(data5[0]);
               {pt ? caminho.enredo : caminho.enredo_en}
             </Text>
           </View>
-              </View>
+        </View>
 
-              <Text>Aqui</Text>
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
+            <View style={styles.tagsContainer}>
+              {personagens.map((personagem, index) => (
+                <View key={index} style={styles.chip}>
+                  <FontAwesome
+                    name="user"
+                    size={12}
+                    color="#cd0000ff"
+                    style={{ marginRight: 7 }}
+                  />
+                  <Text style={styles.chipT}>{personagem.nome}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
 
         <View style={styles.secao}>
           <View style={styles.card}>
