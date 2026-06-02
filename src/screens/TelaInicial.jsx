@@ -432,6 +432,33 @@ export default function TelaInicial({ navigation }) {
                       </TouchableOpacity>
                   </View>
               </View>
+
+              <View style={styles.secao}>
+                  <Text style={styles.secaoT1}>{pt ? 'Quiz' : 'Quiz'}</Text>
+                  <View style={styles.quizC}>
+                      <FontAwesome
+                          name="check-circle"
+                          size={32}
+                          color="#ffffff"
+                          style={styles.iconeCitacao}
+                      />
+                      <Text style={styles.autorN}>{pt ? 'Se sinta preparado!' : 'Feel prepared!'}</Text>
+                      <Text style={styles.autorSbt1}>{pt ? 'Faça um Quiz' : 'Take a Quiz'}</Text>
+                      <TouchableOpacity
+                          style={styles.saibaMais}
+                          onPress={() => navigation.navigate('Telaquiz')}>
+                          <Text style={styles.botaoT}>
+                              {pt ? 'Começar' : 'Start'}
+                          </Text>
+                          <FontAwesome
+                              name="arrow-right"
+                              size={10}
+                              color="#ffffff"
+                              style={{ marginLeft: 5 }}
+                          />
+                      </TouchableOpacity>
+                  </View>
+              </View>
           </ScrollView>
       </SafeAreaView>
   );
@@ -769,6 +796,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    autorSbt1: {
+        fontSize: 17,
+        color: '#e4e4e4',
+        textAlign: 'center',
+        marginTop: 2,
+        marginBottom: 7,
+        letterSpacing: 1,
+        padding: 1
+    },
+
     iconepersonagem: {
         marginBottom: 9,
     },
@@ -865,5 +902,14 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 14,
         alignSelf: 'center',
+    },
+
+    quizC: {
+        marginBottom: 10,
+        backgroundColor: '#808080ff',
+        borderRadius: 9,
+        padding: 21,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
