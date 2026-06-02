@@ -354,6 +354,21 @@ export default function TelaInicial({ navigation }) {
                           </TouchableOpacity>
                       </View>
                   </View>
+                  <TouchableOpacity
+                      style={styles.saibaMais10}
+                      onPress={() => navigation.navigate('TelaBiblioteca')}>
+                      <Text 
+                          style={styles.botaoT1}
+                          numberOfLines={1}>
+                          {pt ? 'Todas as Obras Literárias' : 'All Literary Works'}
+                      </Text>
+                      <FontAwesome
+                          name="arrow-right"
+                          size={10}
+                          color="#ffffff"
+                          style={{ marginLeft: 5 }}
+                      />
+                  </TouchableOpacity>
 
                   <View style={styles.secao}>
                       <Text style={styles.secaoT1}>{pt ? 'Temas de Redação' : 'Essay Topics'}</Text>
@@ -550,6 +565,19 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
 
+    saibaMais10: {
+        marginBottom: 10,
+        backgroundColor: '#5eafffff',
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        width: 400,
+        borderRadius: 7,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+
     saibaMais3: {
         marginTop: 10,
         backgroundColor: '#000000ff',
@@ -599,6 +627,13 @@ const styles = StyleSheet.create({
     botaoT: {
         color: '#ffffff',
         fontSize: 9,
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+    },
+
+    botaoT1: {
+        color: '#ffffff',
+        fontSize: 13,
         fontWeight: 'bold',
         textTransform: 'uppercase',
     },
