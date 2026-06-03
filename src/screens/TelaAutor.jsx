@@ -11,6 +11,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { LanguageContext } from "../contexts/LanguageContext";
+import MapView, { Marker } from "react-native-maps";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
@@ -77,7 +78,6 @@ export default function TelaInicial() {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={styles.secao}>
           <Text style={styles.secaoT}>
             {pt ? "Sobre a Autora" : "About the Author"}
@@ -102,9 +102,12 @@ export default function TelaInicial() {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Biografia da Autora" : "Author Biography"}
-            </Text>
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt ? "Biografia da Autora" : "Author Biography"}
+              </Text>
+              <FontAwesome name="book" size={15} style={styles.icone} />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? autor.biografia_pt : autor.biografia_en}
@@ -112,11 +115,18 @@ export default function TelaInicial() {
           </View>
         </View>
 
-                <View style={styles.secao}>
+        <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Estilo de Escrita da Autora" : "Author's Writing Style"}
-            </Text>
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt ? "Estilo de Escrita da Autora" : "Author's Writing Style"}
+              </Text>
+              <FontAwesome
+                name="paint-brush"
+                size={15}
+                style={styles.icone}
+              />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? autor.estilo_escrita_pt : autor.estilo_escrita_en}
@@ -125,56 +135,8 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Conquistas e Prêmios" : "Achievements and Awards"}
-            </Text>
-            <View style={styles.divisor} />
-            <Text style={styles.explicacaoP}>
-              {pt ? autor.conquistas_pt : autor.conquistas_en}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Formação e Bagagem de Vida" : "Education and Life Experience"}
-            </Text>
-            <View style={styles.divisor} />
-            <Text style={styles.explicacaoP}>
-              {pt ? autor.formacao_pt : autor.formacao_en}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Marcos da Carreira Literária" : "Literary Career Milestones"}
-            </Text>
-            <View style={styles.divisor} />
-            <Text style={styles.explicacaoP}>
-              {pt ? autor.marcos_pt : autor.marcos_en}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Principais Inspirações" : "Main Inspirations"}
-            </Text>
-            <View style={styles.divisor} />
-            <Text style={styles.explicacaoP}>
-              {pt ? autor.inspiracao_pt : autor.inspiracao_en}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
           <View style={styles.card1}>
-              <FontAwesome name="pencil" size={23} color="#FFFFFF" />
+            <FontAwesome name="pencil" size={23} color="#FFFFFF" />
             <Text style={styles.subt1}>
               {pt ? "Por que Escrever?" : "Why Write?"}
             </Text>
@@ -186,13 +148,114 @@ export default function TelaInicial() {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "A Casa Escrevivência" : "The Writing House"}
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt ? "Conquistas e Prêmios" : "Achievements and Awards"}
+              </Text>
+              <FontAwesome name="trophy" size={15} style={styles.icone} />
+            </View>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.conquistas_pt : autor.conquistas_en}
             </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt
+                  ? "Formação e Bagagem de Vida"
+                  : "Education and Life Experience"}
+              </Text>
+              <FontAwesome
+                name="graduation-cap"
+                size={15}
+                style={styles.icone}
+              />
+            </View>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.formacao_pt : autor.formacao_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt
+                  ? "Marcos da Carreira Literária"
+                  : "Literary Career Milestones"}
+              </Text>
+              <FontAwesome name="star" size={15} style={styles.icone} />
+            </View>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.marcos_pt : autor.marcos_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt ? "Principais Inspirações" : "Main Inspirations"}
+              </Text>
+              <FontAwesome name="heart" size={15} style={styles.icone} />
+            </View>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.inspiracao_pt : autor.inspiracao_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <View style={styles.titulo}>
+              <Text style={styles.subt}>
+                {pt ? "A Casa Escrevivência" : "The Writing House"}
+              </Text>
+              <FontAwesome name="home" size={16} style={styles.icone} />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? autor.curioso_pt : autor.curioso_en}
             </Text>
+        <View style={styles.secao}>
+          <Text style={styles.tituloM}>
+            {pt ? "Como Chegar" : "How to Get There"}
+          </Text>
+          <View style={styles.divisor} />
+          <View>
+            <MapView
+              style={styles.mapa}
+              initialRegion={{
+                latitude: -22.898046,
+                longitude: -43.184372,
+                latitudeDelta: 0.004,
+                longitudeDelta: 0.004,
+              }}
+              zoomEnabled={true}
+              scrollEnabled={true}
+            >
+              <Marker
+                coordinate={{ latitude: -22.898046, longitude: -43.184372 }}
+                title={pt ? "Casa da Escrevivência" : "The Writing House"}
+                description={
+                  pt
+                    ? "Espaço Cultural Conceição Evaristo"
+                    : "Conceição Evaristo Cultural Space"
+                }
+                pinColor="#DC7D05"
+              />
+            </MapView>
+          </View>
+        </View>
           </View>
         </View>
 
@@ -248,6 +311,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  titulo: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  icone: {
+    color: "#8a4c00",
+    marginLeft: 10,
+  },
+
   subt: {
     fontSize: 14,
     fontWeight: "bold",
@@ -266,7 +340,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginTop: 7,
     marginBottom: 7,
-    flexDirection: "row",
   },
 
   explicacaoP: {
@@ -351,9 +424,24 @@ const styles = StyleSheet.create({
   },
 
   divisor: {
+    alignSelf: "center",
     width: 355,
     height: 2,
     backgroundColor: "#8a4c00",
     marginVertical: 13,
+  },
+
+  tituloM: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#8a4c00",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    textAlign: "center",
+  },
+
+  mapa: {
+    width: 360,
+    height: 200,
   },
 });
