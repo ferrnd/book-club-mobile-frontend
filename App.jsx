@@ -25,6 +25,7 @@ import { LanguageProvider } from './src/contexts/LanguageProvider';
 import { LanguageContext } from './src/contexts/LanguageContext';
 
 import TelaInicial from './src/screens/TelaInicial.jsx';
+import TelaBoasVindas from './src/screens/TelaBoasVindas.jsx';
 import TelaBiblioteca from './src/screens/TelaBiblioteca.jsx';
 import TelaDicas from './src/screens/TelaDicas.jsx';
 import TelaSobre from './src/screens/TelaSobre.jsx';
@@ -155,6 +156,16 @@ function AppNavigator() {
                         backgroundColor: '#94a5b6',
                     },
                 })}>
+                <Drawer.Screen
+                    name="BoasVindas"
+                    component={TelaBoasVindas}
+                    options={{
+                        headerShown: false,
+                        swipeEnabled: false,
+                        drawerItemStyle: { display: 'none' },
+                    }}
+                />
+
                 <Drawer.Screen
                     name="Home"
                     options={{
