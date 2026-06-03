@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   cardMembro: {
     backgroundColor: "#ffffff",
-    borderRadius: 12,
+    borderRadius: 7,
     padding: 20,
     width: "100%",
     flexDirection: "row",
@@ -178,9 +178,9 @@ const styles = StyleSheet.create({
   fotoMembro: {
     width: 110,
     height: 110,
-    borderRadius: 8,
+    borderRadius: 55,
     backgroundColor: "#f4faffff",
-    marginRight: 16,
+    marginRight: 20,
   },
   infoMembro: {
     flex: 1,
