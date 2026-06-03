@@ -161,6 +161,18 @@ export default function TelaInicial({ navigation }) {
         </View>
 
         <View style={styles.secao}>
+                  <View style={styles.card}>
+                    <Text style={styles.subt}>
+                      {pt ? "Verossimilhança" : "Verisimilitude"}
+                    </Text>
+                      <View style={styles.divisor} />
+                    <Text style={styles.explicacaoP}>
+                      {pt ? livro.verossimilhanca : livro.verossimilhanca_en}
+                    </Text>
+                  </View>
+                </View>
+
+        <View style={styles.secao}>
           <View style={styles.card}>
             <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}
             </Text>
