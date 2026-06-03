@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -16,21 +15,21 @@ export default function TelaBoasVindas({ navigation }) {
   const pt = lang === "pt-br";
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
-      <View style={styles.container}>
-        <Image
-          source={{
-            uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-frontend/refs/heads/main/assets/agua-icone.png",
-          }}
-          style={styles.logo}
-        />
+      <Image
+        source={{
+          uri: "https://raw.githubusercontent.com/ferrnd/book-club-mobile-backend/refs/heads/main/images/bookCover/boas-vindas-sub.png",
+        }}
+        style={styles.background}
+      />
 
-        <Text style={styles.boasVindasT}>
+      <View style={styles.card}>
+        <Text style={styles.bemVindo}>
           {pt ? "Seja Bem-vindo!" : "Welcome!"}
         </Text>
 
-        <Text style={styles.boasVindasSbt}>
+        <Text style={styles.sbt}>
           {pt
             ? "Explore o universo literário de Olhos D'Água e outros contos incríveis."
             : "Explore the literary universe of Olhos D'Água and other amazing short stories."}
@@ -51,55 +50,66 @@ export default function TelaBoasVindas({ navigation }) {
           />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f4faffff",
-  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 25,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "flex-end",
   },
-  logo: {
-    width: 200,
-    height: 200,
+
+  background: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
     resizeMode: "contain",
-    marginBottom: 35,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  boasVindasT: {
-    fontSize: 26,
+
+  card: {
+    backgroundColor: "#ffffff",
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    paddingHorizontal: 30,
+    paddingVertical: 55,
+    alignItems: "center",
+    shadowColor: "#000000ff",
+    shadowOffset: { width: 0, height: -3 },
+    shadowOpacity: 0.06,
+    shadowRadius: 15,
+    elevation: 25,
+  },
+
+  bemVindo: {
+    fontSize: 27,
     fontWeight: "bold",
     color: "#000000",
     textAlign: "center",
-    marginBottom: 12,
+    marginBottom: 15,
   },
-  boasVindasSbt: {
-    fontSize: 16,
+
+  sbt: {
+    fontSize: 17,
     color: "#6b6b6b",
     textAlign: "center",
-    marginBottom: 40,
-    lineHeight: 22,
+    marginBottom: 30,
   },
+
   botao: {
     backgroundColor: "#5eafffff",
-    paddingVertical: 12,
-    paddingHorizontal: 35,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
     borderRadius: 25,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
   },
+  
   botaoT: {
     color: "#ffffff",
     fontSize: 13,
