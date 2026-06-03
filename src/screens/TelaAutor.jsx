@@ -114,18 +114,6 @@ export default function TelaInicial() {
         <View style={styles.secao}>
           <View style={styles.card}>
             <Text style={styles.subt}>
-              {pt ? "Contexto da Obra" : "Work Context"}
-            </Text>
-              <View style={styles.divisor} />
-            <Text style={styles.explicacaoP}>
-              {pt ? livro.verossimilhanca : livro.verossimilhanca_en}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.secao}>
-          <View style={styles.card}>
-            <Text style={styles.subt}>
               {pt ? "Estilo Escrita" : "Writing Style"}
             </Text>
             <View style={styles.divisor} />
