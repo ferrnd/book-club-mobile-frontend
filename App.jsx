@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -132,18 +132,18 @@ function AppNavigator() {
             <Drawer.Navigator
                 screenOptions={({ navigation }) => ({
                     headerShown: true,
-                    title: 'Clube do Livro',
+                    headerTitle: '',
                     headerLeft: () => (
                         <TouchableOpacity
                             onPress={() => navigation.openDrawer()}
-                            style={{ marginLeft: 16 }}>
-                            <Image
-                                source={{
-                                    uri: 'https://raw.githubusercontent.com/ferrnd/book-club-mobile-frontend/refs/heads/main/assets/agua-icone.png',
-                                }}
-                                style={{ width: 50, height: 50, resizeMode: 'contain' }}
-                            />
+                            style={{ marginLeft: 25 }}>
+                           <FontAwesome6 name="bars" size={24} color="black" />
                         </TouchableOpacity>
+                    ),
+                    headerRight: () => (
+                        <Text style={{ marginRight: 25, fontSize: 20, fontWeight: 'bold', color: '#000000' }}>
+                            Clube do Livro
+                        </Text>
                     ),
                     drawerStyle: {
                         backgroundColor: '#4AA1F3',
