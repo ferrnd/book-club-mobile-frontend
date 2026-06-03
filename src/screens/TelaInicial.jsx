@@ -785,7 +785,7 @@ const styles = StyleSheet.create({
 
     livroCapa: {
         width: 150,
-        height: 200,
+        height: 225,
         borderRadius: 5,
     },
 
