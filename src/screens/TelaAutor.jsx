@@ -77,6 +77,7 @@ export default function TelaInicial() {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
+
         <View style={styles.secao}>
           <Text style={styles.secaoT}>
             {pt ? "Sobre a Autora" : "About the Author"}
@@ -111,17 +112,90 @@ export default function TelaInicial() {
           </View>
         </View>
 
-        <View style={styles.secao}>
+                <View style={styles.secao}>
           <View style={styles.card}>
             <Text style={styles.subt}>
-              {pt ? "Estilo Escrita" : "Writing Style"}
+              {pt ? "Estilo de Escrita da Autora" : "Author's Writing Style"}
             </Text>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
-              {pt ? livro.estiloEscrita : livro.estiloEscrita_en}
+              {pt ? autor.estilo_escrita_pt : autor.estilo_escrita_en}
             </Text>
           </View>
         </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>
+              {pt ? "Conquistas e Prêmios" : "Achievements and Awards"}
+            </Text>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.conquistas_pt : autor.conquistas_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>
+              {pt ? "Formação e Bagagem de Vida" : "Education and Life Experience"}
+            </Text>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.formacao_pt : autor.formacao_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>
+              {pt ? "Marcos da Carreira Literária" : "Literary Career Milestones"}
+            </Text>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.marcos_pt : autor.marcos_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>
+              {pt ? "Principais Inspirações" : "Main Inspirations"}
+            </Text>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.inspiracao_pt : autor.inspiracao_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card1}>
+              <FontAwesome name="pencil" size={23} color="#FFFFFF" />
+            <Text style={styles.subt1}>
+              {pt ? "Por que Escrever?" : "Why Write?"}
+            </Text>
+            <Text style={styles.explicacaoP1}>
+              {pt ? autor.porqueEscrever_pt : autor.porqueEscrever_en}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
+          <View style={styles.card}>
+            <Text style={styles.subt}>
+              {pt ? "A Casa Escrevivência" : "The Writing House"}
+            </Text>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? autor.curioso_pt : autor.curioso_en}
+            </Text>
+          </View>
+        </View>
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -166,6 +240,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  card1: {
+    backgroundColor: "#DC7D05",
+    borderRadius: 9,
+    padding: 21,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   subt: {
     fontSize: 14,
     fontWeight: "bold",
@@ -176,11 +258,33 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
 
+  subt1: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#ffffffff",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginTop: 7,
+    marginBottom: 7,
+    flexDirection: "row",
+  },
+
   explicacaoP: {
     fontSize: 16,
     lineHeight: 24,
     color: "#000000",
     textAlign: "justify",
+  },
+
+  explicacaoP1: {
+    marginTop: 7,
+    marginBottom: 7,
+    fontSize: 17,
+    lineHeight: 24,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    color: "#ffffffff",
+    textAlign: "center",
   },
 
   autorCard: {
@@ -246,10 +350,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-    divisor: {
-      width: 355,
-      height: 2,
-      backgroundColor: "#8a4c00",
-      marginVertical: 13,
+  divisor: {
+    width: 355,
+    height: 2,
+    backgroundColor: "#8a4c00",
+    marginVertical: 13,
   },
 });
