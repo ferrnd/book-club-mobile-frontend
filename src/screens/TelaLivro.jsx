@@ -17,13 +17,11 @@ const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
-export default function TelaInicial({ navigation }) {
+export default function TelaLivro({ navigation }) {
   const { lang } = useContext(LanguageContext);
   const pt = lang === "pt-br";
 
   const [carregando, setCarregando] = useState(true);
-  const [projeto, setProjeto] = useState(null);
-  const [citacao, setCitacao] = useState(null);
   const [livro, setLivro] = useState(null);
 
   useEffect(() => {
@@ -31,7 +29,6 @@ export default function TelaInicial({ navigation }) {
   }, []);
 
   async function buscarDados() {
-
     const resp3 = await fetch(URL_BASE + "/livro", {
       headers: { "x-api-key": CHAVE_API },
     });
@@ -80,7 +77,10 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
+              <FontAwesome name="book" size={13} color="#5eafffff" style={styles.icone} />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.resumo : livro.resumo_en}
@@ -90,9 +90,12 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Contexto da Obra" : "Work Context"}
-            </Text>
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt}>
+                {pt ? "Contexto da Obra" : "Work Context"}
+              </Text>
+              <FontAwesome name="clock-o" size={13} color="#5eafffff" style={styles.icone} />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.contexto : livro.contexto_en}
@@ -102,7 +105,10 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
+              <FontAwesome name="list" size={13} color="#5eafffff" style={styles.icone} />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.enredo : livro.enredo_en}
@@ -112,7 +118,9 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
+            </View>
             <View style={styles.tagsContainer}>
               {livro.personagens.map((personagem, index) => (
                 <View key={index} style={styles.chip}>
@@ -148,9 +156,12 @@ export default function TelaInicial({ navigation }) {
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>
-              {pt ? "Características Literárias" : "Literary Characteristics"}
-            </Text>
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt}>
+                {pt ? "Características Literárias" : "Literary Characteristics"}
+              </Text>
+              <FontAwesome name="pencil" size={13} color="#5eafffff" style={styles.icone} />
+            </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt
@@ -161,22 +172,27 @@ export default function TelaInicial({ navigation }) {
         </View>
 
         <View style={styles.secao}>
-                  <View style={styles.card}>
-                    <Text style={styles.subt}>
-                      {pt ? "Verossimilhança" : "Verisimilitude"}
-                    </Text>
-                      <View style={styles.divisor} />
-                    <Text style={styles.explicacaoP}>
-                      {pt ? livro.verossimilhanca : livro.verossimilhanca_en}
-                    </Text>
-                  </View>
-                </View>
+          <View style={styles.card}>
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt}>
+                {pt ? "Verossimilhança" : "Verisimilitude"}
+              </Text>
+              <FontAwesome name="eye" size={13} color="#5eafffff" style={styles.icone} />
+            </View>
+            <View style={styles.divisor} />
+            <Text style={styles.explicacaoP}>
+              {pt ? livro.verossimilhanca : livro.verossimilhanca_en}
+            </Text>
+          </View>
+        </View>
 
         <View style={styles.secao}>
           <View style={styles.card}>
-            <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}
-            </Text>
-              <View style={styles.divisor} />
+            <View style={styles.subtContainer}>
+              <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}</Text>
+              <FontAwesome name="check-circle" size={13} color="#5eafffff" style={styles.icone} />
+            </View>
+            <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
               {pt ? livro.conclusao : livro.conclusao_en}
             </Text>
@@ -224,22 +240,31 @@ const styles = StyleSheet.create({
     padding: 21,
   },
 
+  subtContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 7,
+  },
+
   subt: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#5eafffff",
     textTransform: "uppercase",
     letterSpacing: 1,
-    marginTop: 7,
   },
+
   subt1: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#5eafffff",
     textTransform: "uppercase",
     letterSpacing: 1,
-    marginTop: 7,
     marginBottom: 12,
+  },
+
+  icone: {
+    marginLeft: 8,
   },
 
   explicacaoP: {
@@ -258,7 +283,7 @@ const styles = StyleSheet.create({
 
   livroCapa: {
     width: 150,
-    height: 200,
+    height: 225,
     borderRadius: 5,
   },
 
@@ -350,10 +375,10 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 
-    divisor: {
-      width: 355,
-      height: 2,
-      backgroundColor: "#5eafffff",
-      marginVertical: 15,
+  divisor: {
+    width: 355,
+    height: 2,
+    backgroundColor: "#5eafffff",
+    marginVertical: 15,
   },
 });
