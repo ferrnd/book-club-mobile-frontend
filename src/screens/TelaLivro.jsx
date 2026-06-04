@@ -12,6 +12,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { LanguageContext } from "../contexts/LanguageContext";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
@@ -23,6 +24,7 @@ export default function TelaLivro({ navigation }) {
 
   const [carregando, setCarregando] = useState(true);
   const [livro, setLivro] = useState(null);
+  const [video, setVideo] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -34,6 +36,12 @@ export default function TelaLivro({ navigation }) {
     });
     const data3 = await resp3.json();
     setLivro(data3[0]);
+
+    const resp4 = await fetch(URL_BASE + "/videoaula", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data4 = await resp4.json();
+    setVideo(data4[2]);
 
     setCarregando(false);
   }
@@ -76,10 +84,46 @@ export default function TelaLivro({ navigation }) {
         </View>
 
         <View style={styles.secao}>
+          <View style={styles.cardV}>
+            <Text style={styles.tituloV}>
+              {pt ? video.titulo_pt : video.titulo_en}
+            </Text>
+
+            <View style={styles.video}>
+              <YoutubePlayer height={200} videoId={video.url} />
+            </View>
+
+            <Text style={styles.descricao}>
+              {pt ? video.descricao_pt : video.descricao_en}
+            </Text>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.saibaMais10}
+          onPress={() => navigation.navigate("VideoAulas")}
+        >
+          <Text style={styles.botaoT1} numberOfLines={1}>
+            {pt ? "Todos os Vídeos sobre a Obra" : "All Videos about the Book"}
+          </Text>
+          <FontAwesome
+            name="arrow-right"
+            size={10}
+            color="#ffffff"
+            style={{ marginLeft: 5 }}
+          />
+        </TouchableOpacity>
+
+        <View style={styles.secao}>
           <View style={styles.card}>
             <View style={styles.subtContainer}>
               <Text style={styles.subt}>{pt ? "Resumo" : "Summary"}</Text>
-              <FontAwesome name="book" size={13} color="#5eafffff" style={styles.icone} />
+              <FontAwesome
+                name="book"
+                size={13}
+                color="#5eafffff"
+                style={styles.icone}
+              />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -94,7 +138,12 @@ export default function TelaLivro({ navigation }) {
               <Text style={styles.subt}>
                 {pt ? "Contexto da Obra" : "Work Context"}
               </Text>
-              <FontAwesome name="clock-o" size={13} color="#5eafffff" style={styles.icone} />
+              <FontAwesome
+                name="clock-o"
+                size={13}
+                color="#5eafffff"
+                style={styles.icone}
+              />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -107,7 +156,12 @@ export default function TelaLivro({ navigation }) {
           <View style={styles.card}>
             <View style={styles.subtContainer}>
               <Text style={styles.subt}>{pt ? "Enredo" : "Plot"}</Text>
-              <FontAwesome name="list" size={13} color="#5eafffff" style={styles.icone} />
+              <FontAwesome
+                name="list"
+                size={13}
+                color="#5eafffff"
+                style={styles.icone}
+              />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -119,7 +173,9 @@ export default function TelaLivro({ navigation }) {
         <View style={styles.secao}>
           <View style={styles.card}>
             <View style={styles.subtContainer}>
-              <Text style={styles.subt1}>{pt ? "Personagens" : "Characters"}</Text>
+              <Text style={styles.subt1}>
+                {pt ? "Personagens" : "Characters"}
+              </Text>
             </View>
             <View style={styles.tagsContainer}>
               {livro.personagens.map((personagem, index) => (
@@ -160,7 +216,12 @@ export default function TelaLivro({ navigation }) {
               <Text style={styles.subt}>
                 {pt ? "Características Literárias" : "Literary Characteristics"}
               </Text>
-              <FontAwesome name="pencil" size={13} color="#5eafffff" style={styles.icone} />
+              <FontAwesome
+                name="pencil"
+                size={13}
+                color="#5eafffff"
+                style={styles.icone}
+              />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -177,7 +238,12 @@ export default function TelaLivro({ navigation }) {
               <Text style={styles.subt}>
                 {pt ? "Verossimilhança" : "Verisimilitude"}
               </Text>
-              <FontAwesome name="eye" size={13} color="#5eafffff" style={styles.icone} />
+              <FontAwesome
+                name="eye"
+                size={13}
+                color="#5eafffff"
+                style={styles.icone}
+              />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -190,7 +256,12 @@ export default function TelaLivro({ navigation }) {
           <View style={styles.card}>
             <View style={styles.subtContainer}>
               <Text style={styles.subt}>{pt ? "Conclusão" : "Conclusion"}</Text>
-              <FontAwesome name="check-circle" size={13} color="#5eafffff" style={styles.icone} />
+              <FontAwesome
+                name="check-circle"
+                size={13}
+                color="#5eafffff"
+                style={styles.icone}
+              />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -380,5 +451,53 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: "#5eafffff",
     marginVertical: 15,
+  },
+
+  cardV: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 9,
+    padding: 21,
+  },
+
+  tituloV: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 12,
+    color: "#000000ff",
+  },
+
+  video: {
+    borderRadius: 9,
+    overflow: "hidden",
+    marginTop: 10,
+    marginBottom: 15,
+  },
+
+  descricao: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#000000",
+    textAlign: "justify",
+  },
+
+  saibaMais10: {
+    marginBottom: 25,
+    backgroundColor: "#5eafffff",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    width: 400,
+    borderRadius: 7,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+
+  botaoT1: {
+    color: "#ffffff",
+    fontSize: 13,
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
