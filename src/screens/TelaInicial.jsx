@@ -550,7 +550,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fffbfb',
+        backgroundColor: '#f4faffff',
     },
 
     header: {
