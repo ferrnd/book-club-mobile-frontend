@@ -101,6 +101,15 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
+          <View style={styles.card1}>
+            <FontAwesome name="pencil" size={23} color="#FFFFFF" />
+            <Text style={styles.explicacaoP1}>
+              {pt ? '"O que a história não nos oferece, a literatura pode oferecer. Esse vazio histórico é preenchido pela ficção."' : '"What history doesn\'t offer us, literature can offer. This historical void is filled by fiction."'}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.secao}>
           <View style={styles.card}>
             <View style={styles.titulo}>
               <Text style={styles.subt}>
