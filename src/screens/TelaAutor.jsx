@@ -228,7 +228,7 @@ export default function TelaInicial() {
             </Text>
         <View style={styles.secao}>
           <Text style={styles.tituloM}>
-            {pt ? "Como Chegar" : "How to Get There"}
+            {pt ? "Localização" : "Location"}
           </Text>
           <View style={styles.divisor} />
           <View>
@@ -432,6 +432,7 @@ const styles = StyleSheet.create({
   },
 
   tituloM: {
+    marginTop: 20,
     fontSize: 14,
     fontWeight: "bold",
     color: "#8a4c00",
