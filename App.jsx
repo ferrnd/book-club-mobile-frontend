@@ -242,7 +242,7 @@ function AppNavigator() {
                     }}
                 />
                 <Drawer.Screen
-                    name="Video Aulas"
+                    name="VideoAulas"
                     component={TelaVideoaula}
                     options={{
                         drawerLabel: pt ? 'Vídeo Aulas' : 'Video Lessons',
