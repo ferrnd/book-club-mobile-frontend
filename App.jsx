@@ -149,7 +149,7 @@ function AppNavigator() {
                         backgroundColor: '#4AA1F3',
                         width: '80%',
                     },
-                    drawerActiveTintColor: '#235c91ff',
+                    drawerActiveTintColor: '#8fc9ffff',
                     drawerInactiveTintColor: '#ffffffff',
                     drawerLabelStyle: { color: '#ffffff' },
                     drawerContentStyle: {
