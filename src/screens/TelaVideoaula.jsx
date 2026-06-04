@@ -1,57 +1,75 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    Image,
     ScrollView,
+    ActivityIndicator,
     SafeAreaView
 } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
 import { LanguageContext } from '../contexts/LanguageContext';
+import YoutubePlayer from 'react-native-youtube-iframe';
+
+const URL_BASE = "https://olhosdagua.onrender.com/api";
+const CHAVE_API = "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
 export default function TelaVideoAula() {
     const { lang } = useContext(LanguageContext);
     const pt = lang === "pt-br";
 
+    const [carregando, setCarregando] = useState(true);
+    const [videos, setVideos] = useState([]);
+
+    useEffect(() => {
+        buscarDados();
+    }, []);
+
+    async function buscarDados() {
+        const resp = await fetch(URL_BASE + "/videoaula", {
+            headers: { "x-api-key": CHAVE_API },
+        });
+        const data = await resp.json();
+        setVideos(data);
+        setCarregando(false);
+    }
+
+    if (carregando) {
+        return (
+            <View style={styles.carregando}>
+                <ActivityIndicator size="large" color="#000000" />
+            </View>
+        );
+    }
+
     return (
         <SafeAreaView style={styles.safeArea}>
+            <StatusBar style="dark" />
             <ScrollView
                 contentContainerStyle={styles.container}
-                showsVerticalScrollIndicator={false}>
-                <View style={styles.Card}>
-                    <Text style={styles.title}>
-                        {pt ? "Video Aula" : "Video Lesson"}
-                    </Text>
-                    <View style={styles.placeholder}>
-                        <Text style={styles.placeholderText}>
-                            {pt ? "Vídeo em breve" : "Video coming soon"}
-                        </Text>
-                    </View>
-                    
-                    <View style={StyleSheet.Card}>
-                        <Text style={styles.title}>
-                            {pt ? "Video Aula" : "Video Lesson"}
-                        </Text>
-                        <View style={styles.placeholder}>
-                            <Text style={styles.placeholderText}>
-                                {pt ? "Vídeo em breve" : "Video coming soon"}
+                showsVerticalScrollIndicator={false}
+            >
+                {videos.map((video, index) => (
+                    <View key={index} style={styles.secao}>
+                        <View style={styles.card}>
+                            <Text style={styles.titulo}>
+                                {pt ? video.titulo_pt : video.titulo_en}
                             </Text>
-                        </View>
-                    </View>
+                            
+                            <View style={styles.video}>
+                                <YoutubePlayer
+                                    height={200}
+                                    videoId={video.url}
+                                />
+                            </View>
 
-                    <View style={StyleSheet.Card}>
-                        <Text style={styles.title}>
-                            {pt ? "Video Aula" : "Video Lesson"}
-                        </Text>
-                        <View style={styles.placeholder}>
-                            <Text style={styles.placeholderText}>
-                                {pt ? "Vídeo em breve" : "Video coming soon"}
+                            <Text style={styles.descricao}>
+                                {pt ? video.descricao_pt : video.descricao_en}
                             </Text>
                         </View>
                     </View>
-                </View>
+                ))}
             </ScrollView>
         </SafeAreaView>
     );
@@ -62,43 +80,51 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f4faff',
     },
+    
     container: {
         padding: 25,
-        paddingTop: 45,
+        paddingTop: 25,
         paddingBottom: 45,
     },
-    Card: {
+
+    carregando: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fffbfb",
+    },
+
+    secao: {
+        marginBottom: 25,
+    },
+
+    card: {
         backgroundColor: '#FFFFFF',
         borderRadius: 9,
         padding: 21,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 2,
+        justifyContent: 'center',
     },
 
-    title: {
-        fontSize: 20,
+    titulo: {
+        fontSize: 18,
+        alignItems: 'center',
         fontWeight: 'bold',
         marginBottom: 12,
-        color: '#000000',
-        marginTop: 12,
+        color: '#8a4c00',
+        textAlign: 'center',
     },
 
-    placeholder: {
-        marginTop: 20,
+    video: {
         borderRadius: 9,
-        backgroundColor: '#e7f2ff',
-        height: 180,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#d0e6fb',
+        overflow: 'hidden',
+        marginTop: 10,
+        marginBottom: 15,
     },
-    placeholderText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#4aa1f3',
-    },
+
+    descricao: {
+        fontSize: 15,
+        lineHeight: 22,
+        color: '#333333',
+        textAlign: 'justify',
+    }
 });
