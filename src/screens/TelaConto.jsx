@@ -60,9 +60,7 @@ export default function TelaContos({ navigation }) {
   }
 
   function contoAnterior() {
-    setIndiceConto(
-      (prev) => (prev - 1 + contos.length) % contos.length,
-    );
+    setIndiceConto((prev) => (prev - 1 + contos.length) % contos.length);
   }
 
   if (carregando) {
@@ -90,32 +88,28 @@ export default function TelaContos({ navigation }) {
           </Text>
         </View>
 
-        {video && (
-          <View style={styles.secaoVideo}>
-            <View style={styles.cardV}>
-              <Text style={styles.tituloV}>
-                {pt ? video.titulo_pt : video.titulo_en}
-              </Text>
+        <View style={styles.secaoVideo}>
+          <View style={styles.cardV}>
+            <Text style={styles.tituloV_Azul}>
+              {pt ? video.titulo_pt : video.titulo_en}
+            </Text>
 
-              <View style={styles.video}>
-                <YoutubePlayer height={200} videoId={video.url} />
-              </View>
-
-              <Text style={styles.descricao}>
-                {pt ? video.descricao_pt : video.descricao_en}
-              </Text>
+            <View style={styles.video}>
+              <YoutubePlayer height={200} videoId={video.url} />
             </View>
-          </View>
-        )}
 
-<TouchableOpacity
+            <Text style={styles.descricao}>
+              {pt ? video.descricao_pt : video.descricao_en}
+            </Text>
+          </View>
+        </View>
+
+        <TouchableOpacity
           style={styles.saibaMais10}
           onPress={() => navigation.navigate("VideoAulas")}
         >
           <Text style={styles.botaoT1} numberOfLines={1}>
-            {pt
-              ? "Todas os Vídeos sobre a Obra"
-              : "All Videos about the Book"}
+            {pt ? "Todos os Vídeos sobre a Obra" : "All Videos about the Book"}
           </Text>
           <FontAwesome
             name="arrow-right"
@@ -225,7 +219,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 16,
   },
-  
+
   nome: {
     paddingHorizontal: 20,
     paddingVertical: 20,
@@ -387,7 +381,7 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
 
-    saibaMais10: {
+  saibaMais10: {
     marginBottom: 25,
     backgroundColor: "#A48B73",
     paddingVertical: 20,
