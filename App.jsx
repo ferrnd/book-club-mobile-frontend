@@ -52,7 +52,7 @@ function TabNavigator({ pt }) {
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: '#4AA1F3',
-                tabBarInactiveTintColor: '#999999',
+                tabBarInactiveTintColor: '#000000ff',
                 tabBarStyle: {
                     backgroundColor: '#FFFFFF',
                     borderTopColor: '#E8F3FF',
@@ -149,11 +149,11 @@ function AppNavigator() {
                         backgroundColor: '#4AA1F3',
                         width: '80%',
                     },
-                    drawerActiveTintColor: '#ffffff',
-                    drawerInactiveTintColor: '#ccc',
+                    drawerActiveTintColor: '#235c91ff',
+                    drawerInactiveTintColor: '#ffffffff',
                     drawerLabelStyle: { color: '#ffffff' },
                     drawerContentStyle: {
-                        backgroundColor: '#94a5b6',
+                        backgroundColor: '#67a2d8ff',
                     },
                 })}>
                 <Drawer.Screen
