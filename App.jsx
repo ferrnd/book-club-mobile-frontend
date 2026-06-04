@@ -48,6 +48,10 @@ import telaQuiz from "./src/screens/telaQuiz.jsx";
 import TelaPersonagem from "./src/screens/TelaPersonagens.jsx";
 import TelaConfiguracoes from "./src/screens/TelaConfiguracoes.jsx";
 import TelaContos from "./src/screens/TelaConto.jsx";
+import TelaRats from "./src/screens/TelaRats.jsx";
+import TelaCaminho from "./src/screens/TelaCaminho.jsx";
+import TelaMoreninha from "./src/screens/TelaMoreninha.jsx";
+import TelaNinar from "./src/screens/TelaNinar.jsx";
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -130,6 +134,38 @@ function TabNavigator({ pt }) {
       <Tab.Screen
         name="TelaContos"
         component={TelaContos}
+        options={{
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="TelaCaminho"
+        component={TelaCaminho}
+        options={{
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="TelaRats"
+        component={TelaRats}
+        options={{
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="TelaNinar"
+        component={TelaNinar}
+        options={{
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="TelaMoreninha"
+        component={TelaMoreninha}
         options={{
           tabBarButton: () => null,
           tabBarItemStyle: { display: "none" },
