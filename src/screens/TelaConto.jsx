@@ -13,6 +13,7 @@ import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
 import { LanguageContext } from "../contexts/LanguageContext";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
@@ -26,6 +27,7 @@ export default function TelaContos({ navigation }) {
   const [contos, setContos] = useState([]);
   const [indiceConto, setIndiceConto] = useState(0);
   const [livro, setLivro] = useState(null);
+  const [video, setVideo] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -43,6 +45,12 @@ export default function TelaContos({ navigation }) {
     });
     const data3 = await resp3.json();
     setLivro(data3[0]);
+
+    const resp4 = await fetch(URL_BASE + "/videoaula", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data4 = await resp4.json();
+    setVideo(data4[1]);
 
     setCarregando(false);
   }
@@ -81,6 +89,41 @@ export default function TelaContos({ navigation }) {
             {pt ? "Contos e Análises" : "Short Stories and Analyses"}
           </Text>
         </View>
+
+        {video && (
+          <View style={styles.secaoVideo}>
+            <View style={styles.cardV}>
+              <Text style={styles.tituloV}>
+                {pt ? video.titulo_pt : video.titulo_en}
+              </Text>
+
+              <View style={styles.video}>
+                <YoutubePlayer height={200} videoId={video.url} />
+              </View>
+
+              <Text style={styles.descricao}>
+                {pt ? video.descricao_pt : video.descricao_en}
+              </Text>
+            </View>
+          </View>
+        )}
+
+<TouchableOpacity
+          style={styles.saibaMais10}
+          onPress={() => navigation.navigate("VideoAulas")}
+        >
+          <Text style={styles.botaoT1} numberOfLines={1}>
+            {pt
+              ? "Todas os Vídeos sobre a Obra"
+              : "All Videos about the Book"}
+          </Text>
+          <FontAwesome
+            name="arrow-right"
+            size={10}
+            color="#ffffff"
+            style={{ marginLeft: 5 }}
+          />
+        </TouchableOpacity>
 
         <View style={styles.contoCard}>
           <Text style={styles.nome}>
@@ -156,6 +199,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fffbfb",
+  },
+
+  secaoVideo: {
+    marginBottom: 25,
   },
 
   contoCaixa: {
@@ -310,5 +357,53 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     marginTop: 7,
     marginBottom: 5,
+  },
+
+  cardV: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 9,
+    padding: 21,
+  },
+
+  tituloV: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 12,
+    color: "#8a4c00",
+  },
+
+  video: {
+    borderRadius: 9,
+    overflow: "hidden",
+    marginTop: 10,
+    marginBottom: 15,
+  },
+
+  descricao: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#000000",
+    textAlign: "justify",
+  },
+
+    saibaMais10: {
+    marginBottom: 25,
+    backgroundColor: "#A48B73",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    width: 400,
+    borderRadius: 7,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+
+  botaoT1: {
+    color: "#ffffff",
+    fontSize: 13,
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
