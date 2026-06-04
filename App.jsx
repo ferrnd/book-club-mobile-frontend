@@ -276,48 +276,6 @@ function AppNavigator() {
                     }}
                 />
                 <Drawer.Screen
-                    name="TelaRats"
-                    component={TelaRats}
-                    options={{
-                        drawerLabel: pt ? 'Os Ratos' : 'The Rats',
-                        drawerIcon: ({ color }) => (
-                            <FontAwesome6 name="book-bookmark" size={24} color={color} />
-                        ),
-                    }}
-                />
-                <Drawer.Screen
-                    name="TelaMoreninha"
-                    component={TelaMoreninha}
-                    options={{
-                        drawerLabel: pt ? 'A Moreninha' : 'The Little Brown Girl',
-                        drawerIcon: ({ color }) => (
-                            <FontAwesome6 name="book-bookmark" size={24} color={color} />
-                        ),
-                    }}
-                />
-                <Drawer.Screen
-                    name="TelaNinar"
-                    component={TelaNinar}
-                    options={{
-                        drawerLabel: pt
-                            ? 'Canção Para Ninar Menino Grande'
-                            : 'Lullaby for a Big Boy',
-                        drawerIcon: ({ color }) => (
-                            <FontAwesome6 name="book-bookmark" size={24} color={color} />
-                        ),
-                    }}
-                />
-                <Drawer.Screen
-                    name="TelaCaminho"
-                    component={TelaCaminho}
-                    options={{
-                        drawerLabel: pt ? 'O Caminho Das Pedras' : 'The Path of Stones',
-                        drawerIcon: ({ color }) => (
-                            <FontAwesome6 name="book-bookmark" size={24} color={color} />
-                        ),
-                    }}
-                />
-                <Drawer.Screen
                     name="Equipe"
                     component={TelaSobre}
                     options={{
