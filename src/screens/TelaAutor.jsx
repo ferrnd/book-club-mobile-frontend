@@ -6,23 +6,26 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { LanguageContext } from "../contexts/LanguageContext";
 import MapView, { Marker } from "react-native-maps";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const URL_BASE = "https://olhosdagua.onrender.com/api";
 const CHAVE_API =
   "6uztY7YTa2Dcgnf2ovDC2Kqmwvq2PdTMOlkx1bLwmhO2HQpQoXHMhk1cBcIjzHj9lztTbW7I83UZ91C8uSos-n8kOx3UuqU8n0BIDVm1venccSH0QVyNYKkLTZboaUpd";
 
-export default function TelaInicial() {
+export default function TelaAutor({ navigation }) {
   const { lang } = useContext(LanguageContext);
   const pt = lang === "pt-br";
 
   const [carregando, setCarregando] = useState(true);
   const [autor, setAutor] = useState(null);
+  const [video, setVideo] = useState(null);
 
   useEffect(() => {
     buscarDados();
@@ -34,6 +37,12 @@ export default function TelaInicial() {
     });
     const data3 = await resp.json();
     setAutor(data3[0]);
+
+    const resp4 = await fetch(URL_BASE + "/videoaula", {
+      headers: { "x-api-key": CHAVE_API },
+    });
+    const data4 = await resp4.json();
+    setVideo(data4[0]);
 
     setCarregando(false);
   }
@@ -76,10 +85,44 @@ export default function TelaInicial() {
         </View>
 
         <View style={styles.secao}>
+          <View style={styles.cardV}>
+            <Text style={styles.tituloV}>
+              {pt ? video.titulo_pt : video.titulo_en}
+            </Text>
+
+            <View style={styles.video}>
+              <YoutubePlayer height={200} videoId={video.url} />
+            </View>
+
+            <Text style={styles.descricao}>
+              {pt ? video.descricao_pt : video.descricao_en}
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          style={styles.saibaMais10}
+          onPress={() => navigation.navigate("VideoAulas")}
+        >
+          <Text style={styles.botaoT1} numberOfLines={1}>
+            {pt
+              ? "Todas os Vídeos sobre Ela e a Obra"
+              : "All Videos about Her and the Book"}
+          </Text>
+          <FontAwesome
+            name="arrow-right"
+            size={10}
+            color="#ffffff"
+            style={{ marginLeft: 5 }}
+          />
+        </TouchableOpacity>
+
+        <View style={styles.secao}>
           <View style={styles.card1}>
             <FontAwesome name="pencil" size={23} color="#FFFFFF" />
             <Text style={styles.explicacaoP1}>
-              {pt ? '"O que a história não nos oferece, a literatura pode oferecer. Esse vazio histórico é preenchido pela ficção."' : '"What history doesn\'t offer us, literature can offer. This historical void is filled by fiction."'}
+              {pt
+                ? '"O que a história não nos oferece, a literatura pode oferecer. Esse vazio histórico é preenchido pela ficção."'
+                : '"What history doesn\'t offer us, literature can offer. This historical void is filled by fiction."'}
             </Text>
           </View>
         </View>
@@ -105,11 +148,7 @@ export default function TelaInicial() {
               <Text style={styles.subt}>
                 {pt ? "Estilo de Escrita da Autora" : "Author's Writing Style"}
               </Text>
-              <FontAwesome
-                name="paint-brush"
-                size={15}
-                style={styles.icone}
-              />
+              <FontAwesome name="paint-brush" size={15} style={styles.icone} />
             </View>
             <View style={styles.divisor} />
             <Text style={styles.explicacaoP}>
@@ -210,39 +249,38 @@ export default function TelaInicial() {
             <Text style={styles.explicacaoP}>
               {pt ? autor.curioso_pt : autor.curioso_en}
             </Text>
-        <View style={styles.secao}>
-          <Text style={styles.tituloM}>
-            {pt ? "Localização" : "Location"}
-          </Text>
-          <View style={styles.divisor} />
-          <View>
-            <MapView
-              style={styles.mapa}
-              initialRegion={{
-                latitude: -22.898046,
-                longitude: -43.184372,
-                latitudeDelta: 0.004,
-                longitudeDelta: 0.004,
-              }}
-              zoomEnabled={true}
-              scrollEnabled={true}
-            >
-              <Marker
-                coordinate={{ latitude: -22.898046, longitude: -43.184372 }}
-                title={pt ? "Casa da Escrevivência" : "The Writing House"}
-                description={
-                  pt
-                    ? "Espaço Cultural Conceição Evaristo"
-                    : "Conceição Evaristo Cultural Space"
-                }
-                pinColor="#DC7D05"
-              />
-            </MapView>
+            <View style={styles.secao}>
+              <Text style={styles.tituloM}>
+                {pt ? "Localização" : "Location"}
+              </Text>
+              <View style={styles.divisor} />
+              <View>
+                <MapView
+                  style={styles.mapa}
+                  initialRegion={{
+                    latitude: -22.898046,
+                    longitude: -43.184372,
+                    latitudeDelta: 0.004,
+                    longitudeDelta: 0.004,
+                  }}
+                  zoomEnabled={true}
+                  scrollEnabled={true}
+                >
+                  <Marker
+                    coordinate={{ latitude: -22.898046, longitude: -43.184372 }}
+                    title={pt ? "Casa da Escrevivência" : "The Writing House"}
+                    description={
+                      pt
+                        ? "Espaço Cultural Conceição Evaristo"
+                        : "Conceição Evaristo Cultural Space"
+                    }
+                    pinColor="#DC7D05"
+                  />
+                </MapView>
+              </View>
+            </View>
           </View>
         </View>
-          </View>
-        </View>
-
       </ScrollView>
     </SafeAreaView>
   );
@@ -428,5 +466,53 @@ const styles = StyleSheet.create({
   mapa: {
     width: 360,
     height: 200,
+  },
+
+  cardV: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 9,
+    padding: 21,
+  },
+
+  tituloV: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 12,
+    color: "#8a4c00",
+  },
+
+  video: {
+    borderRadius: 9,
+    overflow: "hidden",
+    marginTop: 10,
+    marginBottom: 15,
+  },
+
+  descricao: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#000000",
+    textAlign: "justify",
+  },
+
+  saibaMais10: {
+    marginBottom: 25,
+    backgroundColor: "#8a4c00",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    width: 400,
+    borderRadius: 7,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+
+  botaoT1: {
+    color: "#ffffff",
+    fontSize: 13,
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
