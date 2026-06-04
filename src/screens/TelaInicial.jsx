@@ -178,7 +178,24 @@ export default function TelaInicial({ navigation }) {
                       <Text style={styles.objt}>{pt ? 'Sinopse' : 'Synopsis'}</Text>
                       <Text style={styles.explicacaoP}>{t(livro, 'resumo')}</Text>
                   </View>
+
               </View>
+
+              <TouchableOpacity
+                      style={styles.saibaMais10}
+                      onPress={() => navigation.navigate('VideoAulas')}>
+                      <Text 
+                          style={styles.botaoT1}
+                          numberOfLines={1}>
+                          {pt ? 'Vídeos Aulas' : 'Video Lessons'}
+                      </Text>
+                      <FontAwesome
+                          name="arrow-right"
+                          size={10}
+                          color="#ffffff"
+                          style={{ marginLeft: 5 }}
+                      />
+                  </TouchableOpacity>
 
               <View style={styles.secao}>
                   <Text style={styles.secaoT}>{pt ? 'Sobre o Projeto' : 'About the Project'}</Text>
