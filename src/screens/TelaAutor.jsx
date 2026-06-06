@@ -55,6 +55,13 @@ export default function TelaAutor({ navigation }) {
     );
   }
 
+  if (!autor || !video) {
+  return (
+    <View style={styles.carregando}>
+    </View>
+  );
+}
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
@@ -249,36 +256,6 @@ export default function TelaAutor({ navigation }) {
             <Text style={styles.explicacaoP}>
               {pt ? autor.curioso_pt : autor.curioso_en}
             </Text>
-            <View style={styles.secao}>
-              <Text style={styles.tituloM}>
-                {pt ? "Localização" : "Location"}
-              </Text>
-              <View style={styles.divisor} />
-              <View>
-                <MapView
-                  style={styles.mapa}
-                  initialRegion={{
-                    latitude: -22.898046,
-                    longitude: -43.184372,
-                    latitudeDelta: 0.004,
-                    longitudeDelta: 0.004,
-                  }}
-                  zoomEnabled={true}
-                  scrollEnabled={true}
-                >
-                  <Marker
-                    coordinate={{ latitude: -22.898046, longitude: -43.184372 }}
-                    title={pt ? "Casa da Escrevivência" : "The Writing House"}
-                    description={
-                      pt
-                        ? "Espaço Cultural Conceição Evaristo"
-                        : "Conceição Evaristo Cultural Space"
-                    }
-                    pinColor="#DC7D05"
-                  />
-                </MapView>
-              </View>
-            </View>
           </View>
         </View>
       </ScrollView>
@@ -302,7 +279,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fffbfb",
+    backgroundColor: "#f4faffff",
   },
 
   secao: {
