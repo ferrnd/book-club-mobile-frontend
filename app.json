@@ -20,13 +20,19 @@
         "foregroundImage": "./assets/agua-icone.png",
         "backgroundColor": "#0B6CAA"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.ferrnd.bookclubmobilefrontend"
     },
     "web": {
       "favicon": "./assets/agua-icone.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ee476347-3798-4191-b0ac-800a69ca93f3"
+      }
+    }
   }
 }
