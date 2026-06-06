@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Watery Eyes",
+    "name": "Olhos D'Água",
     "slug": "book-club-mobile-frontend",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/agua-icone.png",
+    "icon": "./assets/eyes-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/agua-icone.png",
+      "image": "./assets/eyes-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#0B6CAA"
     },
@@ -17,14 +17,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/agua-icone.png",
+        "foregroundImage": "./assets/eyes-icon.png",
         "backgroundColor": "#0B6CAA"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.ferrnd.bookclubmobilefrontend"
     },
     "web": {
-      "favicon": "./assets/agua-icone.png"
+      "favicon": "./assets/eyes-icon.png"
     },
     "plugins": [
       "expo-font"
